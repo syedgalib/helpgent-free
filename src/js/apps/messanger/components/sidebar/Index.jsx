@@ -324,6 +324,16 @@ const Sidebar = ({ sessionState, setSessionState }) => {
             sessionFilterDropdown: false,
             hasMore: true,
         });
+
+        let args = {
+			limit: '15',
+			page: 1,
+		};
+
+		args.status = 'active';
+		setIsShowingArchive( false );
+
+		updateConversations( args );
     };
 
 	const handleToggleArchivedConversation = ( e ) =>  {

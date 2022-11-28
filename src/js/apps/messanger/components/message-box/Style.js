@@ -49,10 +49,11 @@ const ChatBoxWrap = Styled.div`
         ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 200px;
         width: 100%;
         height: auto;
-        max-width: 484px;
+        max-width: 525px;
         border-radius: 30px;
         z-index: 10;
         box-shadow: 0 20px 50px rgba(0,0,0,.10);
+        box-sizing: border-box;
         background-color: var(--color-white);
         @media only screen and (max-width: 1399px){
             max-width: 434px;
@@ -148,6 +149,7 @@ const ChatBoxWrap = Styled.div`
                         }
                     }
                     .wpwax-vm-video-home__action--icon{
+                        line-height: 1;
                         ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 15px;
                         svg{
                             width: 26px;
@@ -481,6 +483,7 @@ const MessageBoxWrap = Styled.div`
                 font-weight: 600;
                 display: inline-flex;
                 align-items: center;
+                text-decoration: none;
                 &.wpwax-vm-btn-lg{
                     @media only screen and (max-width: 1399px){
                         padding: 0 25px;
@@ -591,6 +594,7 @@ const MessageBoxWrap = Styled.div`
                 .wpwax-vm-timer{
                     font-size: 14px;
                     font-weight: 500;
+                    white-space: nowrap;
                     color:  var(--color-dark);
                 }
             }

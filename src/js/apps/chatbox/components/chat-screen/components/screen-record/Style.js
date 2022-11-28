@@ -22,6 +22,7 @@ const ScreenRecordWrap = Styled.div`
         justify-content: center;
 		height: min(80vh,620px);
         .wpwax-vm-timer{
+            font-family: var(--font-family);
             span{
                 font-size: 50px;
                 font-weight: 500;

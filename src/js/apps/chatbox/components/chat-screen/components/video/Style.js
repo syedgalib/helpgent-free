@@ -194,6 +194,7 @@ const VideoRecordWrap = Styled.div`
                 color: var(--color-white);
                 .wpwax-vm-timer{
                     display: block;
+                    font-family: var(--font-family);
                     margin: 6px 0 0;
                 }
             }

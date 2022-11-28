@@ -19,11 +19,24 @@ final class HelpGent {
 
         // Load Textdomain
         add_action( 'plugins_loaded', [$this, 'load_textdomain'] );
+        add_filter( 'body_class', [$this, 'body_class'], 99 );
 
         // Register Controllers
         $controllers = $this->get_controllers();
         Helper\Serve::register_services( $controllers );
 
+    }
+
+     /**
+     * Add new class to body
+     *
+     * @param array $classes
+     * @return array $classes
+     */
+
+    public function body_class( $classes ) {
+        $classes[] = 'wpwax-helpgent-body';
+		return $classes;
     }
 
     /**

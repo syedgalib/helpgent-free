@@ -140,6 +140,8 @@ const ChatboxForm = Styled.div`
                 flex-basis: 90px;
                 flex-grow: 1;
                 margin: 5px;
+                word-break: normal;
+                white-space: nowrap;
                 transform: scale(1);
                 transition transform .2s ease-in;
                 &:hover{
@@ -269,6 +271,7 @@ const ChatboxForm = Styled.div`
                         font-weight: 600;
                         &.wpwax-vm-timer{
                             display: block;
+                            font-family: var(--font-family);
                             ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 20px;
                             color: var(--color-white);
                         }

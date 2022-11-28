@@ -33,6 +33,7 @@ const RecorderWrap = Styled.div`
             }
         }
         .wpwax-vm-timer{
+            font-family: var(--font-family);
             span{
                 font-size: 50px;
                 font-weight: 500;

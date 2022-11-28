@@ -35,7 +35,7 @@ final class HelpGent {
      */
 
     public function body_class( $classes ) {
-        $classes[] = 'helpgent_body';
+        $classes[] = 'wpwax-helpgent-body';
 		return $classes;
     }
 

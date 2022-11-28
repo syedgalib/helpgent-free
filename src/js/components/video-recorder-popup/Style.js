@@ -218,10 +218,10 @@ const VideoPopupWrap = Styled.div`
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                margin: 0 40px 45px;
+                margin: 0 40px 20px;
                 padding: 20px;
                 border-radius: 14px;
-                min-height: 260px;
+                min-height: 220px;
                 border: 1px dashed #C4C4C4;
                 background-color: #EAEAEA;
                 @media only screen and (max-width: 767px){
@@ -267,6 +267,7 @@ const VideoPopupWrap = Styled.div`
                 min-height: 38px;
                 border-radius: 8px;
                 text-decoration: none;
+                cursor: pointer;
                 color: var(--color-white);
                 background-color: var(--color-dark);
             }
@@ -387,7 +388,7 @@ const VideoPopupWrap = Styled.div`
                 }
             }
             .wpwax-vm-media{
-                padding: 40px 50px 45px;
+                padding: 30px 50px 35px;;
                 @media only screen and (max-width: 767px){
                     padding: 40px 30px 45px;
                 }
@@ -445,6 +446,7 @@ const VideoPopupWrap = Styled.div`
                 justify-content: center;
                 align-items: center;
                 flex: 1;
+                font-size: 15px;
                 min-height: 80px;
                 text-align: center;
                 text-decoration: none;

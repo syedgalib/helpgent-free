@@ -123,6 +123,13 @@ const PreviewWrap = Styled.div`
         position: relative;
         max-height: 160px;
         padding: 25px 25px 0;
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        &::-webkit-scrollbar {
+            display: none;
+        }
         .wpwax-vm-chatbox-header__top{
             display: flex;
             align-items: center;

@@ -83,10 +83,18 @@ const ScreenWrapper = Styled.div`
                 font-family: var(--font-family);
                 align-items: stretch;
                 flex: 1;
+                height: 100%;
                 padding: 0 5px;
             }
             .wpwax-vm-btn-block{
                 width: 100%;
+                font-family: var(--font-family);
+                text-transform: capitalize;
+                &:focus,
+                &:hover{
+                    outline: none;
+                    text-decoration: none;
+                }
             }
         }
     }
@@ -138,7 +146,7 @@ const ScreenWrapper = Styled.div`
                 background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));
             }
             &:after{
-                top: -2px;
+                border-radius: 20px;
             }
             &:before{
                 top: auto;
@@ -215,7 +223,7 @@ const ScreenWrapper = Styled.div`
         font-family: var(--font-family);
         font-size: var(--font-size);
         .wpwax-vm-record-send-success__content-inner{
-            max-height: 180px;
+            max-height: 205px;
             @media only screen and (max-width: 1299px) {
                 max-height: 220px;
             }
@@ -232,6 +240,7 @@ const ScreenWrapper = Styled.div`
     }
 
     .wpwax-vm-record-send-success__bottom{
+        padding-top: 0;
         a{
             font-family: var(--font-family);
         }

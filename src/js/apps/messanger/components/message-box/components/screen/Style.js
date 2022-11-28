@@ -181,10 +181,10 @@ const VideoReplyWrap = Styled.div`
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                margin: 0 40px 45px;
+                margin: 0 40px 20px;
                 padding: 20px;
                 border-radius: 14px;
-                min-height: 260px;
+                min-height: 220px;
                 border: 1px dashed #C4C4C4;
                 background-color: #EAEAEA;
                 @media only screen and (max-width: 1399px){
@@ -228,6 +228,7 @@ const VideoReplyWrap = Styled.div`
                 min-height: 38px;
                 border-radius: 8px;
                 text-decoration: none;
+                cursor: pointer;
                 color: var(--color-white);
                 background-color: var(--color-dark);
             }
@@ -281,6 +282,7 @@ const VideoReplyWrap = Styled.div`
             }
             video{
                 border-radius: 30px 0 0 30px;
+                height: 100% !important;
             }
             .wpwax-vm-reply-ready__video--top{
                 display: flex;
@@ -348,7 +350,7 @@ const VideoReplyWrap = Styled.div`
                 }
             }
             .wpwax-vm-media{
-                padding: 40px 50px 45px;
+                padding: 30px 50px 35px;
                 @media only screen and (max-width: 1399px){
                     padding: 20px 30px 25px;
                 }
@@ -410,6 +412,7 @@ const VideoReplyWrap = Styled.div`
                 width: 100%;
                 border: 0 none;
                 min-height: 200px;
+                font-family: var(--font-family);
                 background-color: transparent;
                 &:focus{
                     outline: none;
@@ -434,6 +437,7 @@ const VideoReplyWrap = Styled.div`
                 justify-content: center;
                 align-items: center;
                 flex: 1;
+                font-size: 15px;
                 min-height: 80px;
                 text-align: center;
                 text-decoration: none;

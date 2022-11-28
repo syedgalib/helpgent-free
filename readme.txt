@@ -1,6 +1,6 @@
 ﻿=== HelpGent -  Your Ultimate Help Agent for Video, Voice, and Text Messaging with Screen Record Facility ===
 Contributors: wpwax
-Tags: chat, support,voice,video,audio,screen record, asynchronous, message
+Tags: video messaging, voice messaging, screen recording, text messaging, audio messaging, video support, video support, support, customer support, video recording, screen sharing, audio recording
 Requires at least: 5.0
 Tested up to: 6.1.1
 Requires PHP: 7.0
@@ -16,15 +16,15 @@ An asynchronous communication tool that allows visitors to engage using text, vo
 
 In WordPress, there isn't any way to connect with your customer, audience, or prospect using video messaging. You don't even have screen recording facility either in while taking customer support. This is a big let down for many who are looking for a good video solution for their business. That's where HelpGent comes - an asynchronous comunicaiton plugin that allows you to quickly and easily record your screen, voice, and share those recordings through messaging with anyone in just a few clicks.
 
-[youtube https://www.youtube.com/watch?v=G83LEzSKoHM]
+[youtube https://www.youtube.com/watch?v=ishfZGrseNM&t=54s]
 
 HelpGent is a free yet reliable, asynchronous communicaiton tool that offers jaw-dropping qualities like video messaging, voice messaging, text messaging, and screen recording.  With this awesome plugin, you can connect with your audience on a more personal level. This is the WordPress plugin where you can take your room to fatten your email list, generate more & more leads, and concrete the level of trust with your customers.
 
-[youtube https://www.youtube.com/watch?v=ishfZGrseNM&t=54s]
+[youtube https://www.youtube.com/watch?v=G83LEzSKoHM]
 
 The plugin can boast of the features like an Attractive Builder with Customization, Two Theme Form Support Home Screen, Color Font Size customization ability, Search & Sorting by Text, Videos & Voice, Nice Filtering System By Tag, Search Conversation by name & email, and Quick Name edit.
 
-👉 Join Our FB Community: [HelpGent Community](https://www.facebook.com/HelpGent/)
+👉 Join Our FB Community: [HelpGent Community](https://www.facebook.com/groups/helpgent/)
 ​​👉 Official Facebook Page: [Like and Follow on Facebook](https://www.facebook.com/HelpGent/)
 👉 Official Twitter Handle: [Follow on Twitter](https://twitter.com/helpgent)
 👉 Official YouTube Channel: [Follow on YouTube](https://www.youtube.com/c/wpWax)
@@ -103,8 +103,11 @@ Kickstart your business with the splash of this plugin nothing like before.
 
 == Frequently Asked Questions ==
 
-= Is HelpGent Free or Paid? =
-HelpGent is a freemium plugin. It has a free version with limited features and a premium version with more features.
+= Can I replace my contact form with HelpGent? =
+Yes, just replace it with the HelpGent form’s shortcode.
+
+= Do the recipients get notified in real-time? =
+Yes, the recipients as well as the admin get real-time notifications through email upon receiving replies.  
 
 = Is registration mandatory for visitors to send a message? =
 Absolutely not! Any visitors/guest can send video, voice, text, and screen recordings without registration.  
@@ -115,38 +118,11 @@ After sending a message, a guest token is sent to the guest user’s email to ac
 = Is the conversation data encrypted/secured? =
 Yes, all the information is stored in your database, not any 3rd party servers like in live chats. 
 
-= Can I replace my contact form with HelpGent? =
-Yes, just replace it with the HelpGent form’s shortcode.
-
-= Do the recipients get notified in real-time? =
-Yes, the recipients as well as the admin get real-time notifications through email upon receiving replies.  
-
 = Can I add a custom call to action on Thank You page? =
 Yes, you have the option to add a custom call to action button. 
 
 = Can I use HelpGent with any theme? =
 Yes, HelpGent should work wonders with all the major themes.
-
-= Do you have a refund policy? =
-Yes, we have a 30-day money-back guarantee. If you think the product is not a perfect fit for your needs we will refund you within the first 30 days of your purchase.
-
-= What happens if I do not renew my license? =
-If you do not wish to renew, the extension/theme will function properly but you won't receive support and updates.
-
-= Can I cancel at any time? =
-Yes, you can cancel anytime. You’ll still be able to use the plugin without updates and support, which is not recommended.
-
-= What payment methods are accepted? =
-We accept PayPal payments as well as all major credit cards including Visa, Mastercard, and American Express.
-
-= I need help with other inquiries, can you assist me? =
-Surely! You can ask us any questions. We are always happy to assist. Contact us here
-
-= Can I upgrade my license? =
-Yes, you can upgrade your license to any yearly or lifetime plan anytime within the subscription period. Just log in to your directorist account and navigate to Dashboard → Subscription → Upgrade.
-
-= Do I need to pay the full price during the upgrade? =
-No, you need to pay the difference only and the difference will be calculated based on the days remaining.
 
 == Installation ==
 

@@ -9698,6 +9698,39 @@ var Record = function Record() {
     setupStream();
     setCurrentStage(stages.RECORD);
   }
+  function handleRequestPermission(_x2) {
+    return _handleRequestPermission.apply(this, arguments);
+  }
+  function _handleRequestPermission() {
+    _handleRequestPermission = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(e) {
+      var granted;
+      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              e.preventDefault();
+              _context3.next = 3;
+              return requestPermission();
+            case 3:
+              granted = _context3.sent;
+              if (granted) {
+                _context3.next = 6;
+                break;
+              }
+              return _context3.abrupt("return");
+            case 6:
+              addAction('beforeCloseChatbox', stopRecording);
+              setupStream();
+              setCurrentStage(stages.RECORD);
+            case 9:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+    return _handleRequestPermission.apply(this, arguments);
+  }
   function tryUploadAgain(e) {
     e.preventDefault();
     setCurrentStage(stages.BEFORE_SEND);
@@ -9714,10 +9747,7 @@ var Record = function Record() {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("a", {
         href: "#",
         className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary",
-        onClick: function onClick(e) {
-          e.preventDefault();
-          requestPermission();
-        },
+        onClick: handleRequestPermission,
         children: "Request Permission"
       }), permissionDenied !== null && permissionDenied && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
         className: "wpwax-vm-mt-10 wpwax-vm-alert wpwax-vm-alert-danger",

@@ -8484,41 +8484,48 @@ function ScreenRecord() {
   };
   var handleSelectScreen = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(event) {
-      var isStarted;
+      var stream, isStarted;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               event.preventDefault();
               if (!(state.recordStage === "startScreen")) {
-                _context.next = 15;
+                _context.next = 18;
                 break;
               }
               _context.next = 4;
               return setupStream();
             case 4:
-              _context.next = 6;
-              return startRecording();
-            case 6:
-              isStarted = _context.sent;
-              if (isStarted) {
-                _context.next = 9;
+              stream = _context.sent;
+              if (stream) {
+                _context.next = 7;
                 break;
               }
               return _context.abrupt("return");
+            case 7:
+              _context.next = 9;
+              return startCountdown();
             case 9:
               _context.next = 11;
-              return startCountdown();
+              return startRecording();
             case 11:
+              isStarted = _context.sent;
+              if (isStarted) {
+                _context.next = 14;
+                break;
+              }
+              return _context.abrupt("return");
+            case 14:
               handleMinizeScreen();
               setState(_objectSpread(_objectSpread({}, state), {}, {
                 recordStage: "stopScreen"
               }));
-              _context.next = 16;
+              _context.next = 19;
               break;
-            case 15:
+            case 18:
               stopRecording();
-            case 16:
+            case 19:
             case "end":
               return _context.stop();
           }

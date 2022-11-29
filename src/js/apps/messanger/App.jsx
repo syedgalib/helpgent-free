@@ -6,11 +6,12 @@ import MessageBox from './components/message-box/Index.jsx';
 import { ThemeProvider } from "styled-components";
 import Sidebar from './components/sidebar/Index.jsx';
 import { handleChangeLayoutDirection } from './store/layoutModes/actionCreator.js';
+import { find } from 'Helper/utils.js';
 
 import ChatDashboardWrap from './Style';
 
 function App() {
-    
+
     /* Dispasth is used for passing the actions to redux store  */
 	const dispatch = useDispatch();
 
@@ -25,6 +26,7 @@ function App() {
     /* Initialize State */
     const [sessionState, setSessionState] = useState({
         sessionList: [],
+        totalUnredConversations: null,
         filteredSessions: [],
         asignedTerms: [],
         serverAssigned: [],
@@ -57,6 +59,15 @@ function App() {
 		}
     }, []);
 
+	const extractTotalUnread = ( response ) => {
+		let totalUnredConversations = find( 'headers.x-wp-total-unread', response, null );
+
+		if ( null === totalUnredConversations ) {
+			return totalUnredConversations;
+		}
+
+		return parseInt( totalUnredConversations );
+	}
 
     return (
         <ThemeProvider theme={theme}>
@@ -65,6 +76,7 @@ function App() {
                     <Sidebar
                         sessionState={sessionState}
                         setSessionState={setSessionState}
+						extractTotalUnread={extractTotalUnread}
                     />
                 </div>
 
@@ -72,6 +84,7 @@ function App() {
                     <MessageBox
                         sessionState={sessionState}
                         setSessionState={setSessionState}
+                        extractTotalUnread={extractTotalUnread}
                     />
                 </div>
 

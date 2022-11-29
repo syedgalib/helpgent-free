@@ -8251,7 +8251,7 @@ var General = function General(props) {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
             className: "wpwax-vm-settings__single--label",
             htmlFor: "guestSubmission",
-            children: "Enable Guest Submission"
+            children: "Enable Guest Conversation"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "wpwax-vm-settings__single--element",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_1__["default"], {

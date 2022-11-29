@@ -67,7 +67,7 @@ const General = (props) => {
                             className='wpwax-vm-settings__single--label'
                             htmlFor='guestSubmission'
                         >
-                            Enable Guest Submission
+                            Enable Guest Conversation
                         </label>
                         <div className='wpwax-vm-settings__single--element'>
                             <Switch

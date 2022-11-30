@@ -132,13 +132,13 @@ Please follow the official installation guide from here to install this plugin: 
 
 1.0.1 - Nov 30, 2022
 
+* Improve - Theme compatibility
+* Improve - Messenger app greetings text 
+* Improve - Settings panel labeling
 * Fix - Screen Recording - Native Stop Button Does Not Work properly
 * Fix - Messenger App - Local Timezone format
 * Fix - Archived conversation refreshing
 * Fix - Video not starting after granting permission
-* Improve - Messenger app greetings text 
-* Improve - Settings panel labeling
-* Improve - Theme compatibility
 
 1.0.0 - Nov 26, 2022
 

@@ -11,7 +11,7 @@
  * Plugin Name:       HelpGent Pro
  * Plugin URI:        https://github.com/sovware/helpgent
  * Description:       HelpGent is a reliable, asynchronous communicaiton tool that offers jaw-dropping qualities like video messaging, voice messaging, text messaging, and screen recording.
- * Version:           0.9
+ * Version:           0.10
  * Requires at least: 5.2
  * Requires PHP:      7.2
  * Author:            wpWax

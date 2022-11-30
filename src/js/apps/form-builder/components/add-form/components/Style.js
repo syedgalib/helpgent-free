@@ -438,7 +438,7 @@ const PreviewWrap = Styled.div`
                 &:before{
                     position: absolute;
                     left: 0;
-                    bottom: -200px;
+                    bottom: -185px;
                     width: 100%;
                     height: 320px;
                     opacity: .9;

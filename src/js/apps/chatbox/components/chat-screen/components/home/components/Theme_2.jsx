@@ -207,8 +207,6 @@ function Theme_2() {
                             templateOptions.show_footer && templateOptions.footer_message && templateOptions.footer_message
                         }
                     </p>
-
-                    <p className="wpwax-vm-chatbox-footer__bottom">Powered by <a href="#">WpWax</a></p>
                 </div>
             </div>
         </ChatboxForm>

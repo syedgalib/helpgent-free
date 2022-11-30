@@ -176,7 +176,6 @@ const PreviewOne = ({ previewStage }) => {
                                     }
                                 </div>
                                 <p className="wpwax-vm-preview-footer__text">{formOption.show_footer ? formOption.footer_message : null}</p>
-                                <p className="wpwax-vm-chatbox-footer__bottom">Powered by <a href="#">WpWax</a></p>
                             </div>
                         </div>
                     </>

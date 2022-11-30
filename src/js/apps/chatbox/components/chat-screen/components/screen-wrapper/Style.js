@@ -142,7 +142,7 @@ const ScreenWrapper = Styled.div`
                 content: '';
                 opacity: .9;
                 z-index: 10;
-                border-radius: 25px;
+                border-radius: 20px;
                 background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));
             }
             &:after{

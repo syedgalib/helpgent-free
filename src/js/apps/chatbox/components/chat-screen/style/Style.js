@@ -185,6 +185,8 @@ const ChatboxForm = Styled.div`
             color: var(--color-footer-text);
         }
         .wpwax-vm-chatbox-footer__bottom{
+            position: relative;
+            bottom: -1px;
             margin: 0;
             font-size: 12px;
             font-weight: 500;
@@ -282,10 +284,11 @@ const ChatboxForm = Styled.div`
                 }
                 video{
                     object-fit: cover;
+                    height: 100%;
                 }
                 .wpwax-vm-chatbox-img{
                     position: relative;
-                    height: 300px;
+                    height: 330px;
                     width: 100%;
                     z-index: 10;
                     @media only screen and (max-width: 1399px){

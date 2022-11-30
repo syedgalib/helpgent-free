@@ -172,6 +172,20 @@ const Record = () => {
         setCurrentStage( stages.RECORD );
     }
 
+	async function handleRequestPermission( e ) {
+		e.preventDefault();
+
+		const granted = await requestPermission();
+
+		if ( ! granted ) {
+			return;
+		}
+
+		addAction( 'beforeCloseChatbox', stopRecording );
+		setupStream();
+		setCurrentStage( stages.RECORD );
+	}
+
     function tryUploadAgain(e) {
         e.preventDefault();
         setCurrentStage(stages.BEFORE_SEND);
@@ -188,7 +202,7 @@ const Record = () => {
                 <a
                     href='#'
                     className='wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary'
-                    onClick={ ( e ) => { e.preventDefault(); requestPermission() } }
+                    onClick={ handleRequestPermission }
                 >
                     Request Permission
                 </a>

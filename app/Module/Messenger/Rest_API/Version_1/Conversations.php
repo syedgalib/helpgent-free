@@ -208,9 +208,8 @@ class Conversations extends Rest_Base {
 	 *
 	 * @param $value
 	 */
-	public function validate_order($value)
-	{
-		return in_array($value, ['latest', 'oldest', 'read', 'unread']);
+	public function validate_order( $value ) {
+		return in_array( $value, [ 'latest', 'oldest', 'read', 'unread' ] );
 	}
 
 	/**
@@ -219,8 +218,7 @@ class Conversations extends Rest_Base {
 	 * @param $request
 	 * @return mixed
 	 */
-	public function get_items( $request, $send_rest_response = true )
-	{
+	public function get_items( $request, $send_rest_response = true ) {
 		$args = $request->get_params();
 
 		$where = [];
@@ -362,7 +360,7 @@ class Conversations extends Rest_Base {
 				'limit'    => 1,
 			]);
 
-			$first_message = ( ! empty( $first_message['results']  ) ) ? $this->prepare_message_item( $first_message['results'][0] ) : null;
+			$first_message = ( ! empty( $first_message['results']  ) ) ? $this->prepare_message_item( $first_message['results'][0], $timezone ) : null;
 			$conversation_data[ $conversation_key ]['first_message'] = $first_message;
 
 			// Get Last Message
@@ -372,7 +370,7 @@ class Conversations extends Rest_Base {
 				'limit'    => 1,
 			]);
 
-			$last_message = ( ! empty( $last_message['results'] ) ) ? $this->prepare_message_item( $last_message['results'][0] ) : null;
+			$last_message = ( ! empty( $last_message['results'] ) ) ? $this->prepare_message_item( $last_message['results'][0], $timezone ) : null;
 			$conversation_data[ $conversation_key ]['last_message']  = $last_message;
 
 			$messages = Message_Model::get_items([
@@ -418,13 +416,17 @@ class Conversations extends Rest_Base {
 		$message['user'] = ( ! empty( $message_user ) ) ? $message_user[0] : null;
 
 		if ( ! empty( $message['created_at'] ) ) {
-			$message['created_at']           = Helper\get_formatted_time( $message['created_at'], $timezone, 'Y-m-d h:m:s' );
-			$message['created_at_formatted'] = Helper\get_formatted_time( $message['created_at'], $timezone );
+			$created_at = $message['created_at'];
+
+			$message['created_at']           = Helper\get_formatted_time( $created_at, $timezone, 'Y-m-d h:m:s' );
+			$message['created_at_formatted'] = Helper\get_formatted_time( $created_at, $timezone );
 		}
 
 		if ( ! empty( $message['updated_at'] ) ) {
-			$message['updated_at']           = Helper\get_formatted_time( $message['updated_at'], $timezone, 'Y-m-d h:m:s' );
-			$message['updated_at_formatted'] = Helper\get_formatted_time( $message['updated_at'], $timezone );
+			$updated_at = $message['updated_at'];
+
+			$message['updated_at']           = Helper\get_formatted_time( $updated_at, $timezone, 'Y-m-d h:m:s' );
+			$message['updated_at_formatted'] = Helper\get_formatted_time( $updated_at, $timezone );
 		}
 
 
@@ -437,15 +439,18 @@ class Conversations extends Rest_Base {
 		$message['user'] = ( ! empty( $message_user ) ) ? $message_user[0] : null;
 
 		if ( ! empty( $message['created_at'] ) ) {
-			$message['created_at']           = Helper\get_formatted_time( $message['created_at'], $timezone, 'Y-m-d h:m:s' );
-			$message['created_at_formatted'] = Helper\get_formatted_time( $message['created_at'], $timezone );
+			$created_at = $message['created_at'];
+
+			$message['created_at']           = Helper\get_formatted_time( $created_at, $timezone, 'Y-m-d h:m:s' );
+			$message['created_at_formatted'] = Helper\get_formatted_time( $created_at, $timezone );
 		}
 
 		if ( ! empty( $message['updated_at'] ) ) {
-			$message['updated_at']           = Helper\get_formatted_time( $message['updated_at'], $timezone, 'Y-m-d h:m:s' );
-			$message['updated_at_formatted'] = Helper\get_formatted_time( $message['updated_at'], $timezone );
-		}
+			$updated_at = $message['updated_at'];
 
+			$message['updated_at']           = Helper\get_formatted_time( $updated_at, $timezone, 'Y-m-d h:m:s' );
+			$message['updated_at_formatted'] = Helper\get_formatted_time( $updated_at, $timezone );
+		}
 
 		return $message;
 	}

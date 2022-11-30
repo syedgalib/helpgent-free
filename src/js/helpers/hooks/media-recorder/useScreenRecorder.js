@@ -109,7 +109,7 @@ export default function useScreenRecorder( config ) {
 
         } catch (error) {
             console.log({ error });
-            setIsRecording( false );
+            setIsRecording(false);
 
 			return false;
         }
@@ -123,7 +123,7 @@ export default function useScreenRecorder( config ) {
 
         await recorderRef.current.startRecording();
 
-		setRecordingIsGoingToStopSoon( false );
+		setRecordingIsGoingToStopSoon(false);
         setRecordedTimeInSecond(0);
         setIsRecording(true);
         startTimer();

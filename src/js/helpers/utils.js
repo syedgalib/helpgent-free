@@ -63,3 +63,18 @@ export function makeid( length ) {
 	}
 	return result;
 }
+
+export function find( keyChain, data, defaultData ) {
+	if ( ! keyChain ) {
+        return defaultData;
+    }
+
+    if ( ! keyChain.includes( '.' ) ) {
+		return data?.[keyChain];
+    }
+
+    return keyChain
+        .split('.')
+        .map((key) => key.trim())
+        .reduce((data, key) => data?.[key], data);
+};

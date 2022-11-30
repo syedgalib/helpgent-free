@@ -605,9 +605,10 @@ function sanitize_list_items( $list = [], $schema = [], $args = [] )
 		else if (in_array($key, $schema['datetime'])) {
 			$formatted_key = $key . '_formatted';
 			$timezone      = ( ! empty( $args['timezone'] ) ) ? $args['timezone'] : null;
+			$date_time     = ! empty( $list[ $key ] ) ? $list[ $key ] : '';
 
-			$list[ $formatted_key ] = ( ! empty( $list[ $key ] ) ) ? get_formatted_time( $list[ $key ], $timezone ) : null;
-			$list[ $key ]           = ( ! empty( $list[ $key ] ) ) ? get_formatted_time( $list[ $key ], $timezone, HELPGENT_DB_DATE_TIME_FORMAT ) : null;
+			$list[ $formatted_key ] = ( ! empty( $date_time ) ) ? get_formatted_time( $date_time, $timezone ) : null;
+			$list[ $key ]           = ( ! empty( $date_time ) ) ? get_formatted_time( $date_time, $timezone, HELPGENT_DB_DATE_TIME_FORMAT ) : null;
 		}
 	}
 

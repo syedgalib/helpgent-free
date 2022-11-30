@@ -59,7 +59,7 @@ const filterDropdown = [
     },
 ];
 
-const Sidebar = ({ sessionState, setSessionState }) => {
+const Sidebar = ({ sessionState, setSessionState, extractTotalUnread }) => {
     const {
 		getItems: getConversations,
 		updateItem: updateFormName,
@@ -126,6 +126,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                     ...sessionState,
                     loader: false,
                     sessionList: searchByNameMailResponse.data,
+					totalUnredConversations: extractTotalUnread( searchByNameMailResponse )
                 });
             })
             .catch((error) => {
@@ -146,9 +147,9 @@ const Sidebar = ({ sessionState, setSessionState }) => {
 					...sessionState,
                     tagFilterDropdownOpen: false
                 });
-        
+
                 const fetchUpdatedSessions =  async () =>{
-        
+
                     const updatedSessionResponse = await getConversations(pageLimit);
                     return updatedSessionResponse;
                 }
@@ -157,7 +158,8 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                         setSessionState({
                             ...sessionState,
                             tagFilterDropdownOpen: false,
-                            sessionList: updatedSessionResponse.data
+                            sessionList: updatedSessionResponse.data,
+							totalUnredConversations: extractTotalUnread( updatedSessionResponse )
                         });
                     });
             }
@@ -193,6 +195,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                     ...sessionState,
                     sessionList: sessionResponse.data,
                     filteredSessions: sessionResponse.data,
+					totalUnredConversations: extractTotalUnread( sessionResponse ),
                     successMessage: "",
                     loader: false,
                 });
@@ -205,7 +208,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
     }, [refresher]);
 
     const handleToggleSearchDropdown = (event) => {
-        
+
         event.preventDefault();
         setSessionState({
             ...sessionState,
@@ -288,6 +291,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                             filteredSessions: sessionList.concat(
                                 nextSessionResponse.data
                             ),
+							totalUnredConversations: extractTotalUnread( nextSessionResponse ),
                             loader: false,
                         });
                     }
@@ -324,6 +328,16 @@ const Sidebar = ({ sessionState, setSessionState }) => {
             sessionFilterDropdown: false,
             hasMore: true,
         });
+
+        let args = {
+			limit: '15',
+			page: 1,
+		};
+
+		args.status = 'active';
+		setIsShowingArchive( false );
+
+		updateConversations( args );
     };
 
 	const handleToggleArchivedConversation = ( e ) =>  {
@@ -374,6 +388,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                     ...sessionState,
                     sessionList: sessionResponse.data,
                     filteredSessions: sessionResponse.data,
+					totalUnredConversations: extractTotalUnread( sessionResponse ),
                     successMessage: "",
                     loader: false,
                 });
@@ -431,12 +446,12 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                     }
                 >
                     <div className='wpwax-vm-sidebar-search' ref={refSidebar}>
-                        
+
                         <div className={tagFilterDropdownOpen ? 'wpwax-vm-form-group wpwax-vm-form-icon-left wpwax-vm-tag-dropdown-open' : 'wpwax-vm-form-group wpwax-vm-form-icon-left'}>
                             <span className='wpwax-vm-input-icon'>
                                 <ReactSVG src={magnifier} />
                             </span>
-                            
+
                             <input
                                 type='text'
 								className='wpwax-vm-form__element'

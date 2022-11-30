@@ -16,7 +16,9 @@ const TaglistWrap = Styled.div`
         }
         input{
             width: 100%;
+            font-size: 14px; 
             border: 0 none;
+            padding: 0 8px;
             background-color: transparent;
             &:focus{
                 outline: none;
@@ -27,16 +29,17 @@ const TaglistWrap = Styled.div`
     .wpawax-vm-taglist-inner{
         position: relative;
         margin-top: 28px;
-        min-height: 120px;
+        /* min-height: 120px; */
         .wpwax-vm-loading-spin{
             top: 30%;
         }
         >ul{
-            height: 215px;
+            height: 160px;
+            margin: 0;
             overflow-y: auto;
             .infinite-scroll-component {
                 ${({ theme }) => (theme.direction === 'ltr' ? 'padding-right' : 'padding-left')}: 10px;
-                min-height: 200px;
+                min-height: 130px;
             }
             &::-webkit-scrollbar {
                 width: 11px;
@@ -60,6 +63,8 @@ const TaglistWrap = Styled.div`
                 .wpwax-vm-taglist-label{
                     font-size: 14px;
                     font-weight: 500;
+                    display: inline-block;
+                    line-height: 1;
                     color: var(--color-dark);
                 }
                 &:nth-last-child(-n+3){
@@ -80,6 +85,12 @@ const TaglistWrap = Styled.div`
             }
         }
         .wpwax-vm-dropdown{
+            .wpwax-vm-dropdown__toggle{
+                line-height: 1;
+                >div{
+                    line-height: 1.15;
+                }
+            }
             .wpwax-vm-dropdown__content{
                 min-width: 160px;
                 ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: auto;
@@ -338,10 +349,11 @@ const TagFilterDropdown = Styled.div`
         }
         input{
             width: 100%;
+            font-size: 14px;
             min-height: 40px;
-            background-color: #DDDDDD !important;
             border: 0 none;
-            padding-left: 12px;
+            padding: 0 0 0 12px;
+            background-color: #DDDDDD !important;
             &:focus{
                 outline: 0;
                 box-shadow: 0 0;
@@ -352,7 +364,9 @@ const TagFilterDropdown = Styled.div`
         min-height: 60px;
         .wpwax-vm-all-tag-title{
             font-size: 14px;
+            font-weight: 600;
             margin: 0 0 18px;
+            font-family: var(--font-family);
             color: var(--color-dark);
         }
     }

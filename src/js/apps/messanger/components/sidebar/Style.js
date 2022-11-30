@@ -124,6 +124,9 @@ const SidebarWrap = Styled.div`
                 }
             }
         }
+        .wpwax-vm-dropdown__toggle{
+            text-decoration: none;
+        }
     }
     .wpwax-vm-sidebar-search{
         position: relative;

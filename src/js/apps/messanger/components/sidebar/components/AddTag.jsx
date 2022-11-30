@@ -260,7 +260,7 @@ const AddTag = (props) => {
                                 ...addFormState,
                                 tagInput: "",
                                 addTagResponseStatus: "success",
-                                addTagResponse: "Successfully Added",
+                                addTagResponse: `'${response.data.name}' successfully added`,
                             });
                         }else{
                             setAddFormState({

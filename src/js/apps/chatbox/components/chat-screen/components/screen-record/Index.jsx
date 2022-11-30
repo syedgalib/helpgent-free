@@ -133,7 +133,15 @@ function ScreenRecord() {
 
 		if( state.recordStage === "startScreen" ){
 
-			await setupStream();
+			// Setup Stream
+			const stream = await setupStream();
+
+			if ( ! stream ) {
+				return;
+			}
+
+			// Start Countdown
+			await startCountdown();
 
 			// Start Recording
 			const isStarted = await startRecording();
@@ -141,9 +149,6 @@ function ScreenRecord() {
 			if ( ! isStarted ) {
 				return;
 			}
-
-			// Start Countdown
-			await startCountdown();
 
 			handleMinizeScreen();
 

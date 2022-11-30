@@ -136,17 +136,15 @@ class Messages extends Rest_Base {
     /**
      * @param $value
      */
-    public function validate_order($value)
-    {
-        return in_array($value, ['latest', 'oldest']);
+    public function validate_order( $value ) {
+        return in_array( $value, ['latest', 'oldest'] );
     }
 
     /**
      * @param $request
      * @return mixed
      */
-    public function get_items($request)
-    {
+    public function get_items( $request )  {
         $args = $request->get_params();
 
         $where = [];
@@ -175,10 +173,11 @@ class Messages extends Rest_Base {
 
         $args = Helper\merge_params( $default, $args );
 
+		$timezone = ! empty( $args['timezone'] ) ? $args['timezone'] : '';
+
 		// Adjust Timezone
-		if ( ! empty( $args['timezone'] ) ) {
+		if ( ! empty( $timezone ) ) {
 			$date_time_fields = [ 'created_at', 'updated_at' ];
-			$timezone         = $args['timezone'];
 
 			foreach ( $date_time_fields as $field_key ) {
 				if ( empty( $where[ $field_key ] ) ) {
@@ -250,6 +249,8 @@ class Messages extends Rest_Base {
         if ( empty( $results ) ) {
             return $this->response( true, [] );
         }
+
+		$args['timezone'] = $timezone;
 
         // Prepare items for response
         foreach ( $results as $key => $value ) {

@@ -233,13 +233,11 @@ function MessageBox({ sessionState, setSessionState }) {
 	}
 
 	function getTotalUnreadCount() {
-		if ( ! sessionState.sessionList.length ) {
+		if ( null === sessionState.totalUnredConversations  ) {
 			return 0;
 		}
 
-		const count = sessionState.sessionList.map( item => ! item.read ).reduce( ( prev, current ) => prev + current );
-
-		return count;
+		return sessionState.totalUnredConversations;
 	}
 
 	function getGreetSubtitle() {
@@ -2018,9 +2016,9 @@ function MessageBox({ sessionState, setSessionState }) {
 						{ getTotalUnreadCount() > 0 && (
 							<h3 className='helpgent-greet-subtitle'>{ getGreetSubtitle() }</h3>
 						) }
-						
+
 					</div>
-                    
+
                 </div>
             )}
 

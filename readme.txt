@@ -1,6 +1,6 @@
 ﻿=== HelpGent -  Your Ultimate Help Agent for Video, Voice, and Text Messaging with Screen Record Facility ===
 Contributors: wpwax
-Tags: video messaging, voice messaging, screen recording, text messaging, audio messaging, video support, video support, support, customer support, video recording, screen sharing, audio recording
+Tags: video messaging, voice messaging, screen recording, text messaging, audio messaging, video support, customer portal, support, customer support, video recording, screen sharing, contact form
 Requires at least: 5.0
 Tested up to: 6.1.1
 Requires PHP: 7.0
@@ -8,17 +8,17 @@ Stable tag: 1.0.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-An asynchronous communication tool that allows visitors to engage using text, voice, video messaging, or screen sharing.
+An asynchronous communication tool or contact system that allows visitors to engage using text, voice messaging, video messaging, or screen sharing
 
 == Description ==
 
 **👁️[Plugin Demo](https://demo.wpwax.com/helpgent/) | 🚀[Pro Version](https://wpwax.com/helpgent/) | 👩🏼‍💻[Support](https://wpwax.com/contact/)**
 
-In WordPress, there isn't any way to connect with your customer, audience, or prospect using video messaging. You don't even have screen recording facility either in while taking customer support. This is a big let down for many who are looking for a good video solution for their business. That's where HelpGent comes - an asynchronous comunicaiton plugin that allows you to quickly and easily record your screen, voice, and share those recordings through messaging with anyone in just a few clicks.
+In WordPress, there isn't any way to connect with your customer, audience, or prospect using video messaging. You don't even have screen recording facility either in while taking customer support. This is a big let down for many who are looking for a good video solution for their business. That's where HelpGent comes - an asynchronous communication plugin that allows you to quickly and easily record your screen, voice, and share those recordings through messaging with anyone in just a few clicks.
 
 [youtube https://www.youtube.com/watch?v=ishfZGrseNM&t=54s]
 
-HelpGent is a free yet reliable, asynchronous communicaiton tool that offers jaw-dropping qualities like video messaging, voice messaging, text messaging, and screen recording.  With this awesome plugin, you can connect with your audience on a more personal level. This is the WordPress plugin where you can take your room to fatten your email list, generate more & more leads, and concrete the level of trust with your customers.
+HelpGent is a free yet reliable, asynchronous communication tool that offers jaw-dropping qualities like video messaging, voice messaging, text messaging, and screen recording.  With this awesome plugin, you can connect with your audience on a more personal level. This is the WordPress plugin where you can take your room to fatten your email list, generate more & more leads, and concrete the level of trust with your customers.
 
 [youtube https://www.youtube.com/watch?v=G83LEzSKoHM]
 
@@ -102,6 +102,9 @@ Kickstart your business with the splash of this plugin nothing like before.
 👉 **Offload media to Google Drive (Upcoming):** When you are going through tons of request files, you can offload those requests to Google Drive. Thus, you can unload your work pressure bringing the things aside.
 
 == Frequently Asked Questions ==
+
+= Where are the videos and audio stored? =
+All the data is stored on your WordPress server, giving you full control over everything. Media offloading in external clouds like Google Drive will also be available soon.
 
 = Can I replace my contact form with HelpGent? =
 Yes, just replace it with the HelpGent form’s shortcode.

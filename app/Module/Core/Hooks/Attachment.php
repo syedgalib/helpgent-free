@@ -24,6 +24,7 @@ class Attachment {
 	 */
 	public function add_atachment_page_rewrite_rule() {
 		add_rewrite_rule( "helpgent-attachment/([0-9]+)/?$", 'index.php', 'top' );
+		Helper\flush_rewrite_rule_once();
 	}
 
 	/**

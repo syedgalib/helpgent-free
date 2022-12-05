@@ -61,12 +61,12 @@ class Licensing extends Rest_Base {
 		$api_params = array(
 			'edd_action' => $action . '_license',
 			'license' => $license,
-			'item_id' => '34827', // The ID of the item in EDD
+			'item_id' => HELPGENT_DOWNLOAD_ID, // The ID of the item in EDD
 			'url' => home_url()
 		);
 
 		// Call the custom API.
-		$response = wp_remote_post( 'https://wpwax.com/', array('timeout' => 15, 'sslverify' => false, 'body' => $api_params));
+		$response = wp_remote_post( HELPGENT_AUTHOR_URL, array('timeout' => 15, 'sslverify' => false, 'body' => $api_params));
 
 		$response_code = wp_remote_retrieve_response_code( $response );
 		// make sure the response came back okay

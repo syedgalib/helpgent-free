@@ -1,6 +1,7 @@
 <?php
 
 namespace HelpGent\Module\Core\Rest_API\Setup;
+use HelpGent\Base\Helper;
 
 /**
  * Allows plugins to use their own update API.
@@ -30,11 +31,11 @@ class EDD_SL_Plugin_Updater {
 	 * @param string  $_plugin_file Path to the plugin file.
 	 * @param array   $_api_data    Optional data to send with API calls.
 	 */
-	public function __construct( $_api_url, $_plugin_file, $_api_data = null ) {
+	public function __construct( $_api_url = '', $_plugin_file = '', $_api_data = null ) {
 
 		global $edd_plugin_data;
 
-		$this->api_url     = $_api_url ? trailingslashit( $_api_url ) : 'https://wpwax.com/';
+		$this->api_url     = $_api_url ? trailingslashit( $_api_url ) : HELPGENT_AUTHOR_URL;
 		$this->api_data    = $_api_data;
 		$this->name        =  $_plugin_file ? plugin_basename( $_plugin_file ) : HELPGENT_FILE;
 		$this->slug        = $_plugin_file ? basename( $_plugin_file, '.php' ) : HELPGENT_BASE;
@@ -569,3 +570,13 @@ class EDD_SL_Plugin_Updater {
 	}
 
 }
+
+$license_key = Helper\get_options( false );
+new EDD_SL_Plugin_Updater( HELPGENT_AUTHOR_URL , HELPGENT_FILE, [
+	'version' => HELPGENT_VERSION, // current version number
+	'license' => ! empty( $license_key['helpgent_license'] ) ? $license_key['helpgent_license'] : '', // license key (used get_option above to retrieve from DB)
+	'item_id' => HELPGENT_DOWNLOAD_ID, // id of this plugin
+	'author'  => 'WpWax', // author of this plugin
+	'url'     => home_url(),
+	'beta'    => false, // set to true if you wish customers to receive update notifications of beta releases
+] );

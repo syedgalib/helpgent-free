@@ -3,7 +3,6 @@
 namespace HelpGent\Module\Core\Setup;
 
 use HelpGent\Helper;
-
 class Init {
 
     /**

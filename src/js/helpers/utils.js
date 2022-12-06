@@ -78,3 +78,8 @@ export function find( keyChain, data, defaultData ) {
         .map((key) => key.trim())
         .reduce((data, key) => data?.[key], data);
 };
+
+export function parseOptionValue( value, options ) {
+	const selectedOptions = options.filter( item => `${value}` === `${item.value}` );
+	return ( selectedOptions.length ) ? selectedOptions[0] : '';
+};

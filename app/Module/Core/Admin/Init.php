@@ -28,7 +28,7 @@ class Init
 	protected function get_controllers()
 	{
 		return [
-			Admin_Menu::class,
+			Admin_Menu\Init::class,
 			Admin_Notices::class,
 		];
 	}

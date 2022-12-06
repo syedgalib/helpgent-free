@@ -12,3 +12,14 @@ export function getLabel( resulation ) {
 	const hd = ( resulation.hdKey ) ? ` (${resulation.hdKey})` : '';
 	return `${resulation.height}p${hd}: ${resulation.width}x${resulation.height}`;
 }
+
+export function parseOption( key ) {
+
+	if ( typeof resolutions[ key ] === 'undefined' ) {
+		return { value: '', label: '' };
+	}
+
+	return { value: parseInt( key ), label: getLabel( resolutions[ key ] ) };
+};
+
+export const options = Object.keys( resolutions ).map( parseOption ).reverse();

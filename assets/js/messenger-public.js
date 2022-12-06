@@ -24737,7 +24737,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "find": function() { return /* binding */ find; },
 /* harmony export */   "generateFileNameFromBlob": function() { return /* binding */ generateFileNameFromBlob; },
 /* harmony export */   "getTimezoneString": function() { return /* binding */ getTimezoneString; },
-/* harmony export */   "makeid": function() { return /* binding */ makeid; }
+/* harmony export */   "makeid": function() { return /* binding */ makeid; },
+/* harmony export */   "parseOptionValue": function() { return /* binding */ parseOptionValue; }
 /* harmony export */ });
 /* harmony import */ var _formatter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./formatter */ "./src/js/helpers/formatter.js");
 
@@ -24814,6 +24815,13 @@ function find(keyChain, data, defaultData) {
   }, data);
 }
 ;
+function parseOptionValue(value, options) {
+  var selectedOptions = options.filter(function (item) {
+    return "".concat(value) === "".concat(item.value);
+  });
+  return selectedOptions.length ? selectedOptions[0] : '';
+}
+;
 
 /***/ }),
 
@@ -24827,6 +24835,8 @@ function find(keyChain, data, defaultData) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getLabel": function() { return /* binding */ getLabel; },
+/* harmony export */   "options": function() { return /* binding */ options; },
+/* harmony export */   "parseOption": function() { return /* binding */ parseOption; },
 /* harmony export */   "resolutions": function() { return /* binding */ resolutions; }
 /* harmony export */ });
 var resolutions = {
@@ -24865,6 +24875,20 @@ function getLabel(resulation) {
   var hd = resulation.hdKey ? " (".concat(resulation.hdKey, ")") : '';
   return "".concat(resulation.height, "p").concat(hd, ": ").concat(resulation.width, "x").concat(resulation.height);
 }
+function parseOption(key) {
+  if (typeof resolutions[key] === 'undefined') {
+    return {
+      value: '',
+      label: ''
+    };
+  }
+  return {
+    value: parseInt(key),
+    label: getLabel(resolutions[key])
+  };
+}
+;
+var options = Object.keys(resolutions).map(parseOption).reverse();
 
 /***/ }),
 

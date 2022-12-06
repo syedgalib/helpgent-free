@@ -6264,7 +6264,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "find": function() { return /* binding */ find; },
 /* harmony export */   "generateFileNameFromBlob": function() { return /* binding */ generateFileNameFromBlob; },
 /* harmony export */   "getTimezoneString": function() { return /* binding */ getTimezoneString; },
-/* harmony export */   "makeid": function() { return /* binding */ makeid; }
+/* harmony export */   "makeid": function() { return /* binding */ makeid; },
+/* harmony export */   "parseOptionValue": function() { return /* binding */ parseOptionValue; }
 /* harmony export */ });
 /* harmony import */ var _formatter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./formatter */ "./src/js/helpers/formatter.js");
 
@@ -6339,6 +6340,13 @@ function find(keyChain, data, defaultData) {
   }).reduce(function (data, key) {
     return data === null || data === void 0 ? void 0 : data[key];
   }, data);
+}
+;
+function parseOptionValue(value, options) {
+  var selectedOptions = options.filter(function (item) {
+    return "".concat(value) === "".concat(item.value);
+  });
+  return selectedOptions.length ? selectedOptions[0] : '';
 }
 ;
 

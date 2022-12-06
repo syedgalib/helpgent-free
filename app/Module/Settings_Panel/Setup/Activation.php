@@ -23,9 +23,7 @@ class Activation {
 	 */
 	public function update_initial_settings_data() {
 
-		$options = Helper\get_options();
-
-		if ( ! empty( $options ) ) {
+		if ( ! empty( Helper\get_options() ) ) {
 			return;
 		}
 

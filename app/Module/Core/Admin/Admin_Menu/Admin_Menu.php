@@ -1,6 +1,6 @@
 <?php
 
-namespace HelpGent\Module\Core\Admin;
+namespace HelpGent\Module\Core\Admin\Admin_Menu;
 
 class Admin_Menu {
 

@@ -1,14 +1,12 @@
 import React from 'react';
 import { default as Select } from 'react-select';
 import Switch from 'react-switch';
+import { parseOptionValue } from 'Helper/utils';
 
-import { resolutions, getLabel } from "Helper/video-resolution";
-
-const parseResolutionOption = function ( key ) {
-	return { value: key, label: getLabel( resolutions[ key ] ) };
-};
-
-const resolutionOptions = Object.keys( resolutions ).map( parseResolutionOption ).reverse();
+import {
+	options as resolutionOptions,
+	parseOption as parseResolutionOption
+} from "Helper/video-resolution";
 
 const chatHeadPositions = [
     { value: 'bottom-right', label: 'Bottom Right' },
@@ -104,14 +102,17 @@ const General = (props) => {
                                 onChange={handleChangeSelectValue}
                                 placeholder='Select a position...'
                                 value={
-                                    chatHeadPositions.filter(function (option) {
-                                        return (
-                                            option.value ===
-                                            contentState.options.chatHeadPosition
-                                        );
-                                    })[0]
+									parseOptionValue(
+										contentState.options.chatHeadPosition,
+										chatHeadPositions
+									)
                                 }
-                                defaultValue={ {value: 'bottom-left', label: 'Bottom Left'} }
+                                defaultValue={
+									parseOptionValue(
+										'bottom-left',
+										chatHeadPositions
+									)
+								}
                             />
                         </div>
                     </div>
@@ -131,21 +132,12 @@ const General = (props) => {
                                 hideSelectedOptions={false}
                                 placeholder='Select a page...'
                                 value={
-                                    dashboardPages.filter(function (option) {
-                                        return (
-                                            option.value ===
-                                            contentState.options.userDashboardPage
-                                        );
-                                    })[0]
-                                }
-                                defaultValue={
-                                    dashboardPages.filter(function (option) {
-                                        return (
-                                            option.value ===
-                                            contentState.options.userDashboardPage
-                                        );
-                                    })[0]
-                                }
+									parseOptionValue(
+										contentState.options.userDashboardPage,
+										dashboardPages
+									)
+								}
+                                defaultValue=''
                                 name='userDashboardPage'
                                 onChange={handleChangeSelectValue}
                                 allowSelectAll={true}
@@ -234,9 +226,9 @@ const General = (props) => {
                                 onChange={handleChangeSelectValue}
                                 placeholder='Select video resulation...'
                                 value={
-                                    resolutionOptions.filter(function (option) {
-                                        return ( option.value === contentState.options.videoResolution );
-                                    })[0]
+									parseResolutionOption(
+										contentState.options.videoResolution
+									)
                                 }
                                 defaultValue={ parseResolutionOption( 720 ) }
                             />

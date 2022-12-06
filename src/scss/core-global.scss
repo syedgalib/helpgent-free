@@ -1783,6 +1783,18 @@
     }
 }
 
+/* Circle Loader */
+.wpwax-vm-circle-loader{
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--color-primary);
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: circleRotation 1s linear infinite;
+}
+
 /* Animation Keyframe */
 
 @keyframes dotPulseBefore {
@@ -1835,6 +1847,17 @@
         transform: rotate(410deg);
     }
 }
+
+/* Wpwax circle animation */
+
+@keyframes circleRotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+} 
 
 @keyframes wpwaxVideoOpen {
     0% {

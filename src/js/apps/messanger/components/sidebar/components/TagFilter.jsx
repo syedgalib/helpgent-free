@@ -20,8 +20,8 @@ const TagFilter = props =>{
         hasMore: false
 	});
     const [tagsPageNumber, setTagsPageNumber] = useState(2);
-    const { outerState, setOuterState, tagState, setTagState } = props;
-    const { sessionFilterDropdown, tagFilterDropdownOpen } = outerState;
+    const { outerState, setOuterState, tagState, setTagState, tagFilterDropdownOpen, setTagFilterDropdownOpen, setPageNumber } = props;
+    const { sessionFilterDropdown } = outerState;
     const { allTags, filteredTagList, tagLoader } = tagState;
     const { checkedForFilter, hasMore } = state;
     const [searchTag, setSearchTag] = useState("");
@@ -63,66 +63,48 @@ const TagFilter = props =>{
         
     },[debouncedSearchTerm]);
 
-    // useEffect(() => {
-    //     const checkIfClickedOutside = e => {
-    //         console.log(tagFilterDropdownOpen);
-    //         if (tagFilterDropdownOpen && ref.current && !ref.current.contains(e.target)) {
-
-    //             setOuterState({
-	// 				...outerState,
-    //                 tagFilterDropdownOpen: false
-    //             });
-    //         }
-    //     }
-    //     document.addEventListener("mousedown", checkIfClickedOutside)
-    //     return () => {
-    //         // Cleanup the event listener
-    //         document.removeEventListener("mousedown", checkIfClickedOutside)
-    //     }
-	// }, [tagFilterDropdownOpen]);
-
     useEffect(() => {
-        // if(tagFilterDropdownOpen){
-            if(allTags.length ===0){
+        
+        if(allTags.length ===0){
+            setTagState({
+                ...tagState,
+                tagLoader: true
+            });
+        }
+        
+        const fetchTags =  async () =>{
+
+            const tagsResponse = await getTerms({limit:5});
+            return tagsResponse;
+        }
+        fetchTags()
+            .then((tagsResponse) => {
+                if(tagsResponse.data.length !==0){
+                    setState({
+                        ...state,
+                        hasMore: true,
+                    });
+                }else{
+                    setState({
+                        ...state,
+                        hasMore: false,
+                    });
+                }
+
                 setTagState({
                     ...tagState,
-                    tagLoader: true
+                    tagLoader: false,
+                    allTags: tagsResponse.data,
                 });
-            }
-            
-            const fetchTags =  async () =>{
-
-                const tagsResponse = await getTerms({limit:5});
-                return tagsResponse;
-            }
-            fetchTags()
-                .then((tagsResponse) => {
-                    if(tagsResponse.data.length !==0){
-                        setState({
-                            ...state,
-                            hasMore: true,
-                        });
-                    }else{
-                        setState({
-                            ...state,
-                            hasMore: false,
-                        });
-                    }
-
-                    setTagState({
-                        ...tagState,
-                        tagLoader: false,
-                        allTags: tagsResponse.data,
-                    });
-                })
-                .catch((error) => {
-                    setTagState({
-                        ...tagState,
-                        tagLoader: false,
-                    });
-                    console.log(error);
+            })
+            .catch((error) => {
+                setTagState({
+                    ...tagState,
+                    tagLoader: false,
                 });
-        // }
+                console.log(error);
+            });
+        
 	}, [tagFilterDropdownOpen]);
 
     const hadnleTagFilterApply = event =>{
@@ -130,7 +112,6 @@ const TagFilter = props =>{
         setOuterState({
             ...outerState,
             loader: true
-            // addTagModalOpen: false
         });
         const termArgs = {
             terms: checkedForFilter.join(',')
@@ -141,16 +122,14 @@ const TagFilter = props =>{
 		}
         fetchSessionByTerm()
 			.then( sessionByTermsResponse => {
-
 				setOuterState({
                     ...outerState,
                     sessionList: sessionByTermsResponse.data,
-                    tagFilterDropdownOpen: false,
                     sessionFilterDropdown: false,
                     hasMore: false,
                     loader: false
-                    // addTagModalOpen: false
                 });
+                setTagFilterDropdownOpen(false);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -177,18 +156,6 @@ const TagFilter = props =>{
             })
         }
     }
-    const handleTagSearch = event => {
-        let keyword = event.target.value.trim().toLowerCase();
-        const filtered = allTags.filter(tag => tag.name.toLowerCase().includes(keyword));
-        setTagState({
-            ...tagState,
-            allTags: filtered,
-        });
-        // setState({
-        //     ...state,
-        //     searchFilterTags: filtered
-        // });
-    }
 
     const handleClearChecked = event =>{
         event.preventDefault();
@@ -214,9 +181,10 @@ const TagFilter = props =>{
             .then(updatedSessionResponse =>{
                 setOuterState({
                     ...outerState,
-                    // tagFilterDropdownOpen: false,
+                    hasMore: true,
                     sessionList: updatedSessionResponse.data
                 });
+                setPageNumber(2);
             })
     }
 

@@ -5643,7 +5643,13 @@ var store = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.configureStore)({
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
 
 
 var Checkbox = function Checkbox(_ref) {
@@ -5653,10 +5659,14 @@ var Checkbox = function Checkbox(_ref) {
     value = _ref.value,
     checked = _ref.checked,
     onChange = _ref.onChange,
-    disabled = _ref.disabled;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+    disabled = _ref.disabled,
+    currentCheckboxId = _ref.currentCheckboxId,
+    loader = _ref.loader;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     className: "wpwax-vm-checkbox",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+    children: [currentCheckboxId === id && loader ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+      className: "wpwax-vm-circle-loader"
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
       id: id,
       name: name,
       type: "checkbox",
@@ -5664,11 +5674,36 @@ var Checkbox = function Checkbox(_ref) {
       checked: checked,
       onChange: onChange,
       disabled: disabled ? "disabled" : ""
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
       htmlFor: id,
       children: label
     })]
   });
+};
+
+// Specifies the default values for props:
+Checkbox.defaultProps = {
+  id: "",
+  name: "",
+  label: "Helpgent Checkbox",
+  value: "",
+  checked: false,
+  disabled: false,
+  currentCheckboxId: "",
+  loader: false
+};
+
+// Specifies the prop Types:
+Checkbox.propTypes = {
+  id: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
+  name: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
+  label: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
+  value: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
+  checked: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool),
+  onChange: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().func),
+  disabled: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool),
+  currentCheckboxId: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
+  loader: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool)
 };
 /* harmony default export */ __webpack_exports__["default"] = (Checkbox);
 
@@ -6407,7 +6442,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/a6a504c9898df32717da7111df5f31ab.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/1434f453bc0608bc3900ff9c0764f85c.svg");
 
 /***/ }),
 
@@ -6419,7 +6454,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/ec3bc9f40988ee6b1c7df1c5f734ead7.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/213fcc8f845dca6d8da710194fab8949.svg");
 
 /***/ }),
 

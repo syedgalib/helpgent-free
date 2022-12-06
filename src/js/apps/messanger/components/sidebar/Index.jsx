@@ -85,6 +85,7 @@ const Sidebar = ({ sessionState, setSessionState, extractTotalUnread }) => {
     const [activeSession, setAtiveSession] = useState('');
     const [refresher, setRefresher] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
+    const [tagFilterDropdownOpen, setTagFilterDropdownOpen] = useState(false);
     const currentUser = useCoreData( 'current_user' );
 	const isCurrentUserAdmin = useCoreData( 'is_user_admin' );
 
@@ -95,7 +96,6 @@ const Sidebar = ({ sessionState, setSessionState, extractTotalUnread }) => {
         successMessage,
         rejectMessage,
         sessionFilterDropdown,
-        tagFilterDropdownOpen,
         hasMore,
         loader,
     } = sessionState;
@@ -115,7 +115,6 @@ const Sidebar = ({ sessionState, setSessionState, extractTotalUnread }) => {
 			timezone: getTimezoneString(),
         };
         const fetchSearchNameMail = async () => {
-
             const searchByNameMailResponse = await getConversations(searchArg);
             return searchByNameMailResponse;
         };
@@ -138,30 +137,7 @@ const Sidebar = ({ sessionState, setSessionState, extractTotalUnread }) => {
     useEffect(() => {
         const checkIfClickedOutside = e => {
             if (tagFilterDropdownOpen && refSidebar.current && !refSidebar.current.contains(e.target)) {
-                const pageLimit = {
-                    limit: '15',
-                    page: 1,
-                    timezone: getTimezoneString(),
-                };
-                setSessionState({
-					...sessionState,
-                    tagFilterDropdownOpen: false
-                });
-
-                const fetchUpdatedSessions =  async () =>{
-
-                    const updatedSessionResponse = await getConversations(pageLimit);
-                    return updatedSessionResponse;
-                }
-                fetchUpdatedSessions()
-                    .then(updatedSessionResponse =>{
-                        setSessionState({
-                            ...sessionState,
-                            tagFilterDropdownOpen: false,
-                            sessionList: updatedSessionResponse.data,
-							totalUnredConversations: extractTotalUnread( updatedSessionResponse )
-                        });
-                    });
+                setTagFilterDropdownOpen(false);
             }
         }
         document.addEventListener("mousedown", checkIfClickedOutside)
@@ -207,16 +183,6 @@ const Sidebar = ({ sessionState, setSessionState, extractTotalUnread }) => {
 
     }, [refresher]);
 
-    const handleToggleSearchDropdown = (event) => {
-
-        event.preventDefault();
-        setSessionState({
-            ...sessionState,
-            tagFilterDropdownOpen: false,
-            sessionFilterDropdown: !sessionFilterDropdown,
-        });
-    };
-
     const handleTagFilterDropdown = (event) => {
         event.preventDefault();
         if(allTags.length === 0){
@@ -247,10 +213,7 @@ const Sidebar = ({ sessionState, setSessionState, extractTotalUnread }) => {
                 });
         }
 
-        setSessionState({
-            ...sessionState,
-            tagFilterDropdownOpen: !tagFilterDropdownOpen,
-        });
+        setTagFilterDropdownOpen(!tagFilterDropdownOpen);
     };
 
     const handleAllTagActivation = (event) => {
@@ -390,6 +353,7 @@ const Sidebar = ({ sessionState, setSessionState, extractTotalUnread }) => {
                     filteredSessions: sessionResponse.data,
 					totalUnredConversations: extractTotalUnread( sessionResponse ),
                     successMessage: "",
+                    hasMore: true,
                     loader: false,
                 });
                 dispatch(handleReadSessions(sessionResponse.data));
@@ -475,29 +439,10 @@ const Sidebar = ({ sessionState, setSessionState, extractTotalUnread }) => {
                             setOuterState={setSessionState}
                             tagState={tagState}
                             setTagState={setTagState}
+                            setPageNumber={setPageNumber}
+                            tagFilterDropdownOpen={tagFilterDropdownOpen}
+                            setTagFilterDropdownOpen={setTagFilterDropdownOpen}
                         />
-                        <ul className='wpwax-vm-search-dropdown'>
-                            {/* <li ref={ref}>
-                                <a href='' onClick={handleTagFilterDropdown}>
-                                    <span className='wpwax-vm-search-dropdown__text'>
-                                        Search by tags
-                                    </span>
-                                    <span className='dashicons dashicons-arrow-down-alt2'></span>
-                                </a>
-                                <TagFilter
-                                    outerState={sessionState}
-                                    setOuterState={setSessionState}
-                                    tagState={tagState}
-                                    setTagState={setTagState}
-                                />
-                            </li> */}
-                            {/* <li>
-								<a href="">
-									<span className="wpwax-vm-search-dropdown__text">Search by date</span>
-									<span className="dashicons dashicons-arrow-down-alt2"></span>
-								</a>
-							</li> */}
-                        </ul>
                     </div>
                 </SessionFilterWrap>
                 <div className='wpwax-vm-sidebar-filter__quick-actions'>

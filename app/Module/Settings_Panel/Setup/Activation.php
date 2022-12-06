@@ -13,7 +13,7 @@ class Activation {
 	 * @return void
 	 */
 	public function __construct() {
-		add_action( 'helpgent_on_activation', [ $this, 'update_initial_settings_data' ] );
+		add_action( 'helpgent_after_activate', [ $this, 'update_initial_settings_data' ] );
 	}
 
 	/**

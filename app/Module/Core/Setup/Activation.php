@@ -29,14 +29,30 @@ class Activation {
 		// Prepare Database
 		new Prepare_Database();
 
-		do_action( 'helpgent_on_activation' );
-
 		// Prepare Attachment Folder
 		$this->prepare_attachment_folder();
 
 		// Make sure to save installation time at the end.
 		// Otherwise create_form won't work.
 		$this->save_installation_time();
+
+		do_action( 'helpgent_after_activate' );
+
+		// Flush Rewrite Rules
+		$this->flush_rewrite_rule();
+	}
+
+	/**
+	 * Flush Rewrite Rule
+	 *
+	 * @return void
+	 */
+	public function flush_rewrite_rule() {
+		// Add Atachment Page Rewrite Rule
+		( new \HelpGent\Module\Core\Hooks\Attachment() )->add_atachment_page_rewrite_rule();
+
+		// Flush Rewrite Rules
+		flush_rewrite_rules();
 	}
 
 	/**

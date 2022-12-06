@@ -14,7 +14,7 @@ class Activation {
      */
     public function __construct() {
 
-        add_action( 'helpgent_on_activation', [ $this, 'activatation_tasks' ] );
+        add_action( 'helpgent_after_activate', [ $this, 'activatation_tasks' ] );
 
     }
 

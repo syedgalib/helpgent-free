@@ -26,6 +26,7 @@ class Init {
     protected function get_controllers() {
         return [
             Activation::class,
+            Deactivation::class,
             EDD_SL_Plugin_Updater::class,
         ];
     }

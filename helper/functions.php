@@ -1731,30 +1731,3 @@ function current_user_can_access_the_attachment( $attachment_id = 0 ) {
 
     return current_user_can_view_conversation( $attachment_conversation_id );
 }
-
-
-/**
- * Flushes rewrite rule only once
- *
- * @return void
- */
-function flush_rewrite_rule_once() {
-	$flushed = get_transient( 'helpgent_flushed_rewrite_rules' );
-
-	if ( ! empty( $flushed ) ) {
-		return;
-	}
-
-	flush_rewrite_rules();
-
-	set_transient( 'helpgent_flushed_rewrite_rules', true );
-}
-
-/**
- * Reset flush_rewrite_rule_once state
- *
- * @return void
- */
-function reset_flush_rewrite_rule_once() {
-	delete_transient( 'helpgent_flushed_rewrite_rules' );
-}

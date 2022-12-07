@@ -46,7 +46,7 @@ const RecorderWrap = Styled.div`
             }
         }
         .wpwax-vm-record-staging__bottom{
-            padding-top: 180px;
+            padding-top: 200px;
             @media only screen and (max-width: 1399px){
                 padding-top: 120px;
             }
@@ -113,35 +113,56 @@ const RecorderWrap = Styled.div`
                         background-color: #fff;
                     }
                 }
-                .wpwax-vm-record-btn-right{
+                .wpwax-vm-btn-record-right{
                     position: relative;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    width: 70px;
-                    height: 70px;
+                    width: 55px;
+                    height: 55px;
                     position: absolute;
-                    ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 25px;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 40px;
                     top: 50%;
                     transform: translateY(-50%);
                     border-radius: 50%;
                     background-color: #B4B4B4;
+                    border: 2px solid transparent;
                     text-decoration: none;
                     transition: background-color .3s ease-in-out;
                     color: var(--color-white);
-                    @media only screen and (max-width: 767px){
-                        width: 60px;
-                        height: 60px;
+                    &:hover{
+                        background-color: transparent;
+                        border-color: #B4B4B4;
+                        svg{
+                            path{
+                                fill: #B4B4B4;
+                            }
+                        }
                     }
-                    &.wpwax-vm-btn-close{
+                    @media only screen and (max-width: 767px){
+                        width: 50px;
+                        height: 50px;
+                    }
+                    svg{
+                        width: 20px;
+                        height: 20px;
+                        path{
+                            fill: var(--color-white);
+                        }
+                    }
+                    /* &.wpwax-vm-btn-close{
+                        svg{
+                            width: 14px;
+                            height: 14px;
+                        }
                         &:hover{
                             background-color: var(--color-danger);
                         }
-                    }
+                    } */
                     &.wpwax-vm-btn-send{
                         border: 2px solid #FC495D;
                         background-color: #FC495D;
-                        &:after{
+                        /* &:after{
                             position: absolute;
                             left: 50%;
                             top: 50%;
@@ -151,11 +172,17 @@ const RecorderWrap = Styled.div`
                             border-radius: 4px;
                             content: '';
                             background-color: var(--color-white);
+                        } */
+                        svg{
+                            width: 16px;
+                            height: 16px;
                         }
                         &:hover{
                             background-color: var(--color-white);
-                            &:after{
-                                background-color: #FC495D;
+                            svg{
+                                path{
+                                    fill: #FC495D;
+                                }
                             }
                         }
                     }
@@ -188,14 +215,35 @@ const RecorderWrap = Styled.div`
                 font-family: var(--font-family);
             }
         }
+        &.wpwax-vm-record-start{
+            .wpwax-vm-record-staging__bottom{
+                .wpwax-vm-record-staging__bottom--action{
+                    .wpwax-vm-record-btn{
+                        position: relative;
+                        background-color: transparent;
+                        &:after{
+                            position: absolute;
+                            width: 30px;
+                            height: 30px;
+                            left: 50%;
+                            top: 50%;
+                            border-radius: 8px;
+                            content: "";
+                            background-color: #FC495D;
+                            transform: translate(-50%,-50%);
+                        }
+                    }
+                }
+            }
+        }
     }
     &.wpwax-vm-record-before-send{
         padding: 80px 25px;
     }
     &.wpwax-vm-record-ready{
-        padding: 160px 25px 25px;
+        padding: 150px 25px 25px;
         @media only screen and (max-width: 1399px){
-            padding: 140px 25px 25px;
+            padding: 130px 25px 25px;
         }
         @media only screen and (max-width: 1199px){
             padding: 80px 25px 25px;

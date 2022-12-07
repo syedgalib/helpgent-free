@@ -11032,7 +11032,6 @@ var editForm = function editForm(id, args) {
   }();
 };
 var handleDynamicEdit = function handleDynamicEdit(data) {
-  console.log(data);
   return /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(dispatch) {
       return _regeneratorRuntime().wrap(function _callee3$(_context3) {
@@ -11731,10 +11730,14 @@ var Radio = function Radio(_ref) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Style */ "./src/js/components/video-recorder-popup/Style.js");
 /* harmony import */ var Hooks_media_recorder_useVideoRecorder__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Hooks/media-recorder/useVideoRecorder */ "./src/js/helpers/hooks/media-recorder/useVideoRecorder.js");
 /* harmony import */ var Hooks_useCountdown__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Hooks/useCountdown */ "./src/js/helpers/hooks/useCountdown.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var Assets_svg_icons_play_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/icons/play.svg */ "./src/assets/svg/icons/play.svg");
+/* harmony import */ var Assets_svg_icons_pause_solid_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/pause-solid.svg */ "./src/assets/svg/icons/pause-solid.svg");
+/* harmony import */ var Assets_svg_icons_cross_small_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Assets/svg/icons/cross-small.svg */ "./src/assets/svg/icons/cross-small.svg");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -11745,6 +11748,10 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
 
 
 
@@ -11767,7 +11774,9 @@ function App(_ref) {
     CountdownPage = _useCountdown.CountdownPage,
     getReverseCount = _useCountdown.getReverseCount;
   var _useVideoRecorder = (0,Hooks_media_recorder_useVideoRecorder__WEBPACK_IMPORTED_MODULE_2__["default"])(),
-    isRecording = _useVideoRecorder.isRecording,
+    isVideoRecording = _useVideoRecorder.isVideoRecording,
+    isRecordingPaused = _useVideoRecorder.isRecordingPaused,
+    recordedTimeInSecond = _useVideoRecorder.recordedTimeInSecond,
     recordedBlob = _useVideoRecorder.recordedBlob,
     recordedURL = _useVideoRecorder.recordedURL,
     hasPermission = _useVideoRecorder.hasPermission,
@@ -11775,9 +11784,12 @@ function App(_ref) {
     setupStream = _useVideoRecorder.setupStream,
     videoStreemRef = _useVideoRecorder.videoStreemRef,
     startRecording = _useVideoRecorder.startRecording,
+    pauseRecording = _useVideoRecorder.pauseRecording,
+    resumeRecording = _useVideoRecorder.resumeRecording,
     stopRecording = _useVideoRecorder.stopRecording,
     getCountDown = _useVideoRecorder.getCountDown,
     resetRecorder = _useVideoRecorder.reset;
+  var videoToggleRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
 
   // States
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(stages.RECORD),
@@ -11788,10 +11800,14 @@ function App(_ref) {
     _useState4 = _slicedToArray(_useState3, 2),
     hasRecordingPermission = _useState4[0],
     setHasRecordingPermission = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState6 = _slicedToArray(_useState5, 2),
-    isSaving = _useState6[0],
-    setIsSaving = _useState6[1];
+    videoRecorderStatus = _useState6[0],
+    setVideoRecorderStatus = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState8 = _slicedToArray(_useState7, 2),
+    isSaving = _useState8[0],
+    setIsSaving = _useState8[1];
 
   // On Avtivation
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -11799,10 +11815,31 @@ function App(_ref) {
     setupRecordingPermission();
   }, []);
 
+  /* Focus Input field when search inopen */
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var checkIfClickedOutside = function checkIfClickedOutside(e) {
+      if (videoToggleRef.current && !videoToggleRef.current.contains(e.target)) {
+        if (videoRecorderStatus === null) {
+          resetRecorder();
+          console.log(typeof onClose === 'function');
+          if (typeof onClose === 'function') {
+            console.log(videoRecorderStatus);
+            onClose();
+          }
+        }
+      }
+    };
+    document.addEventListener("mousedown", checkIfClickedOutside);
+    return function () {
+      // Cleanup the event listener
+      document.removeEventListener("mousedown", checkIfClickedOutside);
+    };
+  }, [videoRecorderStatus]);
+
   // setupRecordingPermission
   function setupRecordingPermission() {
     return _setupRecordingPermission.apply(this, arguments);
-  } // handleRecordButtonAction
+  } // onSubmit
   function _setupRecordingPermission() {
     _setupRecordingPermission = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
       var grantedPermission;
@@ -11838,71 +11875,37 @@ function App(_ref) {
     }));
     return _setupRecordingPermission.apply(this, arguments);
   }
-  function handleRecordButtonAction(_x) {
-    return _handleRecordButtonAction.apply(this, arguments);
-  }
-  function _handleRecordButtonAction() {
-    _handleRecordButtonAction = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(event) {
+  function onSubmit(_x) {
+    return _onSubmit.apply(this, arguments);
+  } /* Handle Start Recording */
+  function _onSubmit() {
+    _onSubmit = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(event) {
+      var data, saveResponse, message;
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               event.preventDefault();
-              if (!isRecording) {
-                _context2.next = 5;
-                break;
-              }
-              stopRecording();
-              setCurrentStage(stages.SUBMIT);
-              return _context2.abrupt("return");
-            case 5:
-              _context2.next = 7;
-              return startCountdown();
-            case 7:
-              startRecording();
-            case 8:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2);
-    }));
-    return _handleRecordButtonAction.apply(this, arguments);
-  }
-  ;
-
-  // onSubmit
-  function onSubmit(_x2) {
-    return _onSubmit.apply(this, arguments);
-  } // Handle Close
-  function _onSubmit() {
-    _onSubmit = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(event) {
-      var data, saveResponse, message;
-      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              event.preventDefault();
               data = null;
               if (!(typeof onSave === 'function')) {
-                _context3.next = 13;
+                _context2.next = 13;
                 break;
               }
               setIsSaving(true);
-              _context3.next = 6;
+              _context2.next = 6;
               return onSave({
                 file: recordedBlob
               });
             case 6:
-              saveResponse = _context3.sent;
+              saveResponse = _context2.sent;
               setIsSaving(false);
               if (saveResponse.success) {
-                _context3.next = 12;
+                _context2.next = 12;
                 break;
               }
               message = saveResponse.message ? saveResponse.message : 'Something went wrong.';
               alert(message);
-              return _context3.abrupt("return");
+              return _context2.abrupt("return");
             case 12:
               data = saveResponse.data;
             case 13:
@@ -11914,12 +11917,100 @@ function App(_ref) {
               }
             case 15:
             case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+    return _onSubmit.apply(this, arguments);
+  }
+  function handleStartRecording(_x2) {
+    return _handleStartRecording.apply(this, arguments);
+  } /* Handle Pause Recording */
+  function _handleStartRecording() {
+    _handleStartRecording = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(e) {
+      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              e.preventDefault();
+              setVideoRecorderStatus('recording');
+              _context3.next = 4;
+              return startCountdown();
+            case 4:
+              startRecording();
+            case 5:
+            case "end":
               return _context3.stop();
           }
         }
       }, _callee3);
     }));
-    return _onSubmit.apply(this, arguments);
+    return _handleStartRecording.apply(this, arguments);
+  }
+  function handlePauseRecording(_x3) {
+    return _handlePauseRecording.apply(this, arguments);
+  } /* Handle Resume Recording */
+  function _handlePauseRecording() {
+    _handlePauseRecording = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(e) {
+      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              e.preventDefault();
+              if (isVideoRecording) {
+                setVideoRecorderStatus('paused');
+                pauseRecording();
+              }
+            case 2:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+    return _handlePauseRecording.apply(this, arguments);
+  }
+  function handleResumeRecording(_x4) {
+    return _handleResumeRecording.apply(this, arguments);
+  } /* Handle Send Recording */
+  function _handleResumeRecording() {
+    _handleResumeRecording = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(e) {
+      return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              e.preventDefault();
+              resumeRecording();
+            case 2:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    }));
+    return _handleResumeRecording.apply(this, arguments);
+  }
+  function handleSendRecording(_x5) {
+    return _handleSendRecording.apply(this, arguments);
+  } // Handle Close
+  function _handleSendRecording() {
+    _handleSendRecording = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(e) {
+      return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              e.preventDefault();
+              stopRecording();
+              setCurrentStage(stages.SUBMIT);
+            case 3:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6);
+    }));
+    return _handleSendRecording.apply(this, arguments);
   }
   function handleClose(event) {
     event.preventDefault();
@@ -11927,100 +12018,125 @@ function App(_ref) {
     if (typeof onClose === 'function') {
       onClose();
     }
+    setVideoRecorderStatus(null);
   }
+  var getRightBtnContent = function getRightBtnContent() {
+    if (isRecordingPaused || isVideoRecording) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("a", {
+        href: "#",
+        className: isRecordingPaused ? 'wpwax-vm-btn-record-right wpwax-vm-btn-play' : 'wpwax-vm-btn-record-right wpwax-vm-btn-pause',
+        onClick: isRecordingPaused ? function (e) {
+          return handleResumeRecording(e);
+        } : function (e) {
+          return handlePauseRecording(e);
+        },
+        children: [" ", isRecordingPaused ? null : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          src: Assets_svg_icons_pause_solid_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
+        }), " "]
+      });
+    } else if (isVideoRecording && recordedTimeInSecond === 0) {
+      return null;
+    }
+  };
   if (!hasRecordingPermission) {
     return '';
   }
   if (currentStage === stages.RECORD) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       className: "helpgent-modal-wrap",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        className: !isRecording ? 'wpwax-vm-reply-pause' : 'wpwax-vm-reply-start',
-        children: [isActiveCountdown && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        className: isVideoRecording || isRecordingPaused ? 'wpwax-vm-reply-start' : null,
+        ref: videoToggleRef,
+        children: [isActiveCountdown && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: "wpwax-vm-reply-countdown",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(CountdownPage, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(CountdownPage, {
             count: getReverseCount()
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: "wpwax-vm-reply-video-bg",
           style: {
             backgroundColor: '#000000'
           },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("video", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("video", {
             ref: videoStreemRef,
             width: "100%",
             height: "100%",
             muted: true
           })
-        }), !isActiveCountdown && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        }), !isActiveCountdown && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
           className: "wpwax-vm-reply-top",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h4", {
-            children: isRecording ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h4", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
               className: "wpwax-vm-timer",
-              children: [' ', getCountDown()]
-            }) : ''
-          }), isRecording || /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
+              children: getCountDown()
+            })
+          }), isVideoRecording || /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
             href: "",
             className: "wpwax-vm-reply-close",
             onClick: handleClose,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-              className: "dashicons dashicons-no-alt"
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__["default"], {
+              src: Assets_svg_icons_cross_small_svg__WEBPACK_IMPORTED_MODULE_6__["default"]
             })
           })]
-        }), !isActiveCountdown && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        }), !isActiveCountdown && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
           className: "wpwax-vm-reply-bottom",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
-            href: "",
+          children: [isVideoRecording || isRecordingPaused ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+            href: "#",
             className: "wpwax-vm-btn-record",
-            onClick: handleRecordButtonAction
-          })
+            onClick: handleSendRecording
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+            href: "#",
+            className: "wpwax-vm-btn-record",
+            onClick: handleStartRecording
+          }), getRightBtnContent()]
         })]
       })
     });
   } else {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       className: "helpgent-modal-wrap",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_1__["default"], {
         className: "wpwax-vm-reply-ready",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
+        ref: videoToggleRef,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
           href: "",
           className: "wpwax-vm-reply-close",
           onClick: handleClose,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
             className: "dashicons dashicons-no-alt"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
           className: "wpwax-vm-reply-ready__video",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
             className: "wpwax-vm-reply-video-bg",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("video", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("video", {
               controls: true,
               src: recordedURL,
               width: "100%",
               height: "100%"
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
             className: "wpwax-vm-reply-video-footer",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
               className: "wpwax-vm-reply-ready__text-form--action",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("a", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("a", {
                 href: "#",
                 className: "wpwax-vm-reply-ready-btn wpwax-vm-btn-back",
                 onClick: handleClose,
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
                   className: "dashicons dashicons-arrow-left-alt"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
                   className: "wpwax-vm-reply-ready-btn__text",
                   children: "Cancel"
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("a", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("a", {
                 onClick: onSubmit,
                 href: "#",
                 className: "wpwax-vm-reply-ready-btn wpwax-vm-btn-send",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
                   className: "wpwax-vm-reply-ready-btn__text",
                   children: !isSaving ? 'Save' : 'Saving...'
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
                   className: "dashicons dashicons-arrow-right-alt"
                 })]
               })]
@@ -12047,7 +12163,7 @@ __webpack_require__.r(__webpack_exports__);
 var _templateObject;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var VideoPopupWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: fixed;\n    top: 50px;\n    bottom: 50px;\n    left: 30px;\n    right: 30px;\n    display: flex;\n    flex-direction: column;\n    justify-content: space-between;\n    width: 100%;\n    width: calc( 100% - 60px );\n    border-radius: 30px;\n    z-index: 1000001;\n    &:after{\n        position: absolute;\n        ", ": 0;\n        top: 0;\n        width: 100%;\n        height: 150px;\n        opacity: .80;\n        z-index: 10;\n        content: \"\";\n        border-radius: 30px 30px 0 0;\n        background: linear-gradient(to top, rgba(0,0,0,0),rgba(0,0,0,1))\n    }\n    &:before{\n        position: absolute;\n        ", ": 0;\n        bottom: 0;\n        width: 100%;\n        height: 150px;\n        opacity: .60;\n        z-index: 10;\n        content: \"\";\n        border-radius: 0 0 30px 30px;\n        background: linear-gradient(to bottom, rgba(0,0,0,0),rgba(0,0,0,1))\n    }\n\n\t.wpwax-vm-reply-countdown {\n\t\tposition: absolute;\n\t\tcolor: #fff;\n\t\ttop: 0;\n\t\tbottom: 0;\n\t\tleft: 0;\n\t\tright: 0;\n\t\tz-index: 99999;\n\t\tdisplay: flex;\n\t\tjustify-content: center;\n\t\talign-items: center;\n\t\tbackground: #7676769c;\n\n\t\t.wpwax-vm-countdown {\n\t\t\t.wpwax-vm-countdown-heading, .wpwax-vm-countdown-text {\n\t\t\t\tfont-weight: bold;\n\t\t\t\tcolor: #fff;\n\t\t\t}\n\n\t\t\t.wpwax-vm-countdown-heading {\n\t\t\t\tfont-size: 110px;\n\t\t\t}\n\n\t\t\t.wpwax-vm-countdown-text {\n\t\t\t\tfont-size: 30px;\n\t\t\t}\n\t\t}\n\t}\n\n    .wpwax-vm-reply-video-bg{\n        position: absolute;\n        top: 0;\n        ", ": 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 30px;\n        background-size: cover;\n        video{\n            border-radius: 30px;\n        }\n    }\n    .wpwax-vm-reply-top{\n        position: relative;\n        z-index: 100;\n        display: flex;\n        justify-content: space-between;\n        padding: 40px 40px 0;\n        @media only screen and (max-width: 767px){\n            padding: 20px 20px 0;\n        }\n        h4{\n            font-size: 26px;\n            font-weight: 600;\n            margin: 0;\n            color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                font-size: 20px;\n            }\n            .wpwax-vm-timer{\n                display: block;\n                font-size: 16px;\n                margin-top: 14px;\n            }\n        }\n        .wpwax-vm-reply-close{\n            text-decoration: none;\n            .dashicons{\n                font-size: 22px;\n                color: var(--color-white);\n            }\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n    }\n    .wpwax-vm-reply-bottom{\n        display: flex;\n        justify-content: center;\n        position: relative;\n        text-align: center;\n        bottom: 40px;\n        z-index: 100;\n        .wpwax-vm-btn-record{\n            position: relative;\n            display: block;\n            width: 90px;\n            height: 90px;\n            border-radius: 50%;\n            background-color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                width: 70px;\n                height: 70px;\n            }\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n                border: 0 none;\n            }\n            &:after{\n                width: 25px;\n                height: 25px;\n                border-radius: 50%;\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                content: '';\n                background-color: var(--color-danger);\n            }\n        }\n    }\n    &.wpwax-vm-reply-start{\n        .wpwax-vm-reply-bottom{\n            .wpwax-vm-btn-record{\n                background-color: var(--color-danger);\n                &:after{\n                    width: 28px;\n                    height: 28px;\n                    border-radius: 8px;\n                    background-color: var(--color-white);\n                }\n            }\n        }\n    }\n    &.wpwax-vm-reply-pause{\n        .wpwax-vm-reply-close{\n            position: absolute;\n            right: 25px;\n            top: 25px;\n            z-index: 10;\n            .dashicons{\n                font-size: 28px;\n            }\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n    }\n    &.wpwax-vm-reply-ready{\n        position: relative;\n        display: flex;\n        flex-direction: row;\n        border-radius: 30px 30px 0 0;\n        ", ": 0;\n        top: -20px;\n        left: 0;\n        bottom: auto;\n        width: calc( 100% - 160px );\n        height: calc( 100vh - 200px );\n\t\tbackground-color: #000000;\n        @media only screen and (max-width: 767px){\n            width: calc( 100% - 80px );\n            flex-direction: column;\n        }\n        &:after{\n            width: 100% !important;\n            border-radius: 30px 30px 0 0;\n        }\n        .wpwax-vm-reply-close{\n            color: #fff !important;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n        &.wpwax-vm-reply-upload{\n            .wpwax-vm-reply-ready__video{\n                border-radius: 30px 0 0 30px;\n                background-color: var(--color-dark);\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 30px;\n                }\n            }\n            .wpwax-vm-reply-ready__file-input{\n                display: flex;\n                flex-direction: column;\n                justify-content: center;\n                align-items: center;\n                margin: 0 40px 20px;\n                padding: 20px;\n                border-radius: 14px;\n                min-height: 220px;\n                border: 1px dashed #C4C4C4;\n                background-color: #EAEAEA;\n                @media only screen and (max-width: 767px){\n                    margin: 0 30px 40px;\n                }\n                @media only screen and (max-width: 1399px){\n                    min-height: 180px;\n                }\n                input[type=file]{\n                    display: none;\n                }\n                strong{\n                    display: inline-block;\n                    font-size: 14px;\n                    font-weight: 500;\n                    margin: 12px 0;\n                    color: var(--color-dark);\n                }\n                span,\n                p{\n                    font-size: 14px;\n                    font-weight: 500;\n                }\n                p + p{\n                    margin-top: 4px;\n                }\n                .wpwax-vm-dark-alert{\n                    display: inline-block;\n                    margin: 10px 0 14px;\n                    color: var(--color-dark);\n                }\n                p{\n                    margin: 0;\n                    color: var(--color-text);\n                }\n            }\n            .wpawax-vm-reply-btn-upload{\n                font-size: 14px;\n                font-weight: 600;\n                padding: 0 20px;\n                display: inline-flex;\n                align-items: center;\n                min-height: 38px;\n                border-radius: 8px;\n                text-decoration: none;\n                cursor: pointer;\n                color: var(--color-white);\n                background-color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-reply-close{\n            position: absolute;\n            top: 25px;\n            ", ": 25px;\n            text-decoration: none;\n            z-index: 999;\n            color: var(--color-dark);\n            .dashicons{\n                font-size: 28px;\n            }\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n        &:before{\n            display: none;\n        }\n        &:after{\n            width: 50%;\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                border-radius: 30px 30px 0 0;\n            }\n        }\n        .wpwax-vm-reply-ready__video{\n            width: 100%;\n            position: relative;\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                min-height: 240px;\n                height: 100%;\n            }\n            .wpwax-vm-reply-video-bg{\n                border-radius: 0px;\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 0;\n                }\n            }\n            img{\n                width: 100%;\n                height: 100%;\n                border-radius: 30px 0 0 0;\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 0;\n                }\n            }\n            video{\n                border-radius: 30px 30px 0 0;\n            }\n            .wpwax-vm-reply-ready__video--top{\n                display: flex;\n                justify-content: flex-end;\n                position: relative;\n                padding: 40px 40px 0 0;\n                color: var(--color-white);\n                z-index: 100001;\n                .wpwax-vm-video-timer{\n                    font-size: 14px;\n                    ", ": 20px;\n                    display: inline-block;\n                }\n            }\n            .wpwax-vm-video_play{\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                width: 80px;\n                height: 80px;\n                border-radius: 50%;\n                text-decoration: none;\n                box-shadow: 0 3px 20px rgba(0,0,0,.05);\n                background-color: var(--color-white);\n                .dashicons{\n                    position: relative;\n                    top: -3px;\n                    width: 30px;\n                    height: 22px;\n                    font-size: 30px;\n                    color: var(--color-danger);\n                }\n            }\n            .wpwax-vm-reply-video-footer{\n                position: absolute;\n                bottom: -80px;\n                width: 100%;\n            }\n        }\n        .wpwax-vm-reply-ready__content{\n            position: relative;\n            width: 50%;\n            border-radius: 0 30px 30px 0;\n            background-color: #F0F0F0;\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                overflow-y: auto;\n                border-radius: 0;\n                &::-webkit-scrollbar {\n                    width: 11px;\n                }\n\n                &::-webkit-scrollbar-track {\n                    background: var(--color-light);\n                }\n\n                &::-webkit-scrollbar-thumb {\n                    background-color: var(--color-bg-gray);\n                    border-radius: 6px;\n                    border: 3px solid var(--color-light);\n                }\n            }\n            .wpwax-vm-media{\n                padding: 30px 50px 35px;;\n                @media only screen and (max-width: 767px){\n                    padding: 40px 30px 45px;\n                }\n                .wpwax-vm-media__body{\n                    top: -2px;\n                }\n                .wpwax-vm-media__title{\n                    font-size: 22px;\n                    font-weight: 600;\n                    font-family: 'Inter', sans-serif;\n                    text-transform: initial;\n                    width: 250px;\n                    line-height: 1.5;\n                    margin-bottom: 6px;\n                }\n                .wpwax-vm-media__meta{\n                    span{\n                        font-size: 15px;\n                        color: var(--color-text);\n                    }\n                }\n                .wpax-vm-imglist{\n                    img{\n                        max-width: 50px;\n                        border-radius: 50%;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__text-form-input{\n            padding: 0 50px;\n            textarea{\n                font-size: 18px;\n                width: 100%;\n                border: 0 none;\n                min-height: 200px;\n                background-color: transparent;\n                &:focus{\n                    outline: none;\n                    border: 0 none;\n                    box-shadow: 0 0;\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__text-form--action{\n            position: absolute;\n            bottom: 0;\n            ", ": 0;\n            width: 100%;\n            display: flex;\n            border-radius: 0 0 30px 30px;\n            background-color: var(--color-white);\n            .wpwax-vm-reply-ready-btn{\n                display: flex;\n                justify-content: center;\n                align-items: center;\n                flex: 1;\n                font-size: 15px;\n                min-height: 80px;\n                text-align: center;\n                text-decoration: none;\n                color: #4D4D4D;\n                &:hover{\n                    .wpwax-vm-reply-ready-btn__text{\n                        color: var(--color-primary);\n                    }\n                    span,\n                    svg path{\n                        color: var(--color-primary);\n                        fill: var(--color-primary);\n                    }\n                }\n                .wpwax-vm-reply-ready-btn__text{\n                    display: inline-block;\n                    ", ": 10px;\n                }\n                svg{\n                    path{\n                        fill: #4D4D4D;\n                    }\n                }\n                &.wpwax-vm-btn-send{\n                    ", ": 1px solid #EDEDED;\n                    .wpwax-vm-reply-ready-btn__text{\n                        ", ": 10px;\n                        ", ": 0;\n                    }\n                }\n            }\n        }\n    }\n"])), function (_ref) {
+var VideoPopupWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: fixed;\n    top: 50px;\n    bottom: 50px;\n    left: 30px;\n    right: 30px;\n    display: flex;\n    flex-direction: column;\n    justify-content: space-between;\n    width: 100%;\n    width: calc( 100% - 60px );\n    border-radius: 30px;\n    z-index: 1000001;\n    &:after{\n        position: absolute;\n        ", ": 0;\n        top: 0;\n        width: 100%;\n        height: 150px;\n        opacity: .80;\n        z-index: 10;\n        content: \"\";\n        border-radius: 30px 30px 0 0;\n        background: linear-gradient(to top, rgba(0,0,0,0),rgba(0,0,0,1))\n    }\n    &:before{\n        position: absolute;\n        ", ": 0;\n        bottom: 0;\n        width: 100%;\n        height: 150px;\n        opacity: .60;\n        z-index: 10;\n        content: \"\";\n        border-radius: 0 0 30px 30px;\n        background: linear-gradient(to bottom, rgba(0,0,0,0),rgba(0,0,0,1))\n    }\n\n    .wpwax-vm-reply-countdown{\n        border-radius: 28px;\n    }\n\n\t.wpwax-vm-reply-countdown {\n\t\tposition: absolute;\n\t\tcolor: #fff;\n\t\ttop: 0;\n\t\tbottom: 0;\n\t\tleft: 0;\n\t\tright: 0;\n\t\tz-index: 99999;\n\t\tdisplay: flex;\n\t\tjustify-content: center;\n\t\talign-items: center;\n\t\tbackground: #7676769c;\n\n\t\t.wpwax-vm-countdown {\n\t\t\t.wpwax-vm-countdown-heading, .wpwax-vm-countdown-text {\n\t\t\t\tfont-weight: bold;\n\t\t\t\tcolor: #fff;\n\t\t\t}\n\n\t\t\t.wpwax-vm-countdown-heading {\n\t\t\t\tfont-size: 110px;\n\t\t\t}\n\n\t\t\t.wpwax-vm-countdown-text {\n\t\t\t\tfont-size: 30px;\n\t\t\t}\n\t\t}\n\t}\n\n    .wpwax-vm-reply-video-bg{\n        position: absolute;\n        top: 0;\n        ", ": 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 30px;\n        background-size: cover;\n        video{\n            border-radius: 30px;\n        }\n    }\n    .wpwax-vm-reply-top{\n        position: relative;\n        z-index: 100;\n        display: flex;\n        justify-content: space-between;\n        padding: 40px 40px 0;\n        @media only screen and (max-width: 767px){\n            padding: 20px 20px 0;\n        }\n        h4{\n            font-size: 26px;\n            font-weight: 600;\n            margin: 0;\n            color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                font-size: 20px;\n            }\n            .wpwax-vm-timer{\n                display: block;\n                font-size: 16px;\n                margin-top: 14px;\n            }\n        }\n        .wpwax-vm-reply-close{\n            text-decoration: none;\n            .dashicons{\n                font-size: 22px;\n                color: var(--color-white);\n            }\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n    }\n    .wpwax-vm-reply-bottom{\n        display: flex;\n        justify-content: center;\n        position: relative;\n        text-align: center;\n        bottom: 40px;\n        min-width: 310px;\n        margin: 0 auto;\n        z-index: 100;\n        .wpwax-vm-btn-record-right{\n            position: relative;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            width: 40px;\n            height: 40px;\n            position: absolute;\n            ", ": 50px;\n            top: 50%;\n            transform: translateY(-50%);\n            border-radius: 50%;\n            background-color: transparent;\n            text-decoration: none;\n            transition: background-color,border-color .3s ease-in-out;\n            color: var(--color-dark);\n            @media only screen and (max-width: 767px){\n                width: 30px;\n                height: 30px;\n            }\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n            &.wpwax-vm-btn-pause,\n            &.wpwax-vm-btn-play{\n                border: 2px solid var(--color-white);\n                svg{\n                    width: 14px;\n                    height: 14px;\n                    path{\n                        fill: var(--color-white);\n                    }\n                }\n                &:hover{\n                    background-color: rgba(255,255,255,.10);\n                    /* border-color: rgba(255,255,255,.10); */\n                }\n            }\n            &.wpwax-vm-btn-play{\n                transition: background-color .2s ease-in-out;\n                background-color: #FC495D;\n                &:hover{\n                    background-color: #ff2a42;\n                }\n            }\n        }\n        \n        .wpwax-vm-btn-record{\n            position: relative;\n            display: block;\n            width: 70px;\n            height: 70px;\n            margin: 0 auto;\n            border-radius: 50%;\n            border: 5px solid var(--color-white);\n            background-color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                width: 70px;\n                height: 70px;\n            }\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n            &:after{\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                width: calc( 100% );\n                height: calc( 100% );\n                border-radius: 50%;\n                content: \"\";\n                z-index: 101;\n                transition-property: width, height, border-radius;\n                transition-duration: .2s;\n                transition-timing-function: ease-in; \n                background-color: #FC495D;\n            }\n        }\n    }\n    &.wpwax-vm-reply-start,\n    &.wpwax-vm-reply-pause{\n        .wpwax-vm-reply-bottom{\n            .wpwax-vm-btn-record{\n                background-color: transparent;\n                border: 5px solid var(--color-white);\n                &:after{\n                    width: 28px;\n                    height: 28px;\n                    border-radius: 8px;\n                }\n            }\n        }\n    }\n    &.wpwax-vm-reply-ready{\n        position: relative;\n        display: flex;\n        flex-direction: row;\n        border-radius: 30px 30px 0 0;\n        ", ": 0;\n        top: -20px;\n        left: 0;\n        bottom: auto;\n        width: calc( 100% - 160px );\n        height: calc( 100vh - 200px );\n\t\tbackground-color: #000000;\n        @media only screen and (max-width: 767px){\n            width: calc( 100% - 80px );\n            flex-direction: column;\n        }\n        &:after{\n            width: 100% !important;\n            border-radius: 30px 30px 0 0;\n        }\n        .wpwax-vm-reply-close{\n            color: #fff !important;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n        &.wpwax-vm-reply-upload{\n            .wpwax-vm-reply-ready__video{\n                border-radius: 30px 0 0 30px;\n                background-color: var(--color-dark);\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 30px;\n                }\n            }\n            .wpwax-vm-reply-ready__file-input{\n                display: flex;\n                flex-direction: column;\n                justify-content: center;\n                align-items: center;\n                margin: 0 40px 20px;\n                padding: 20px;\n                border-radius: 14px;\n                min-height: 220px;\n                border: 1px dashed #C4C4C4;\n                background-color: #EAEAEA;\n                @media only screen and (max-width: 767px){\n                    margin: 0 30px 40px;\n                }\n                @media only screen and (max-width: 1399px){\n                    min-height: 180px;\n                }\n                input[type=file]{\n                    display: none;\n                }\n                strong{\n                    display: inline-block;\n                    font-size: 14px;\n                    font-weight: 500;\n                    margin: 12px 0;\n                    color: var(--color-dark);\n                }\n                span,\n                p{\n                    font-size: 14px;\n                    font-weight: 500;\n                }\n                p + p{\n                    margin-top: 4px;\n                }\n                .wpwax-vm-dark-alert{\n                    display: inline-block;\n                    margin: 10px 0 14px;\n                    color: var(--color-dark);\n                }\n                p{\n                    margin: 0;\n                    color: var(--color-text);\n                }\n            }\n            .wpawax-vm-reply-btn-upload{\n                font-size: 14px;\n                font-weight: 600;\n                padding: 0 20px;\n                display: inline-flex;\n                align-items: center;\n                min-height: 38px;\n                border-radius: 8px;\n                text-decoration: none;\n                cursor: pointer;\n                color: var(--color-white);\n                background-color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-reply-close{\n            position: absolute;\n            top: 20px;\n            ", ": 30px;\n            text-decoration: none;\n            z-index: 999;\n            color: var(--color-dark);\n            .dashicons{\n                font-size: 28px;\n            }\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n        &:before{\n            display: none;\n        }\n        &:after{\n            width: 50%;\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                border-radius: 30px 30px 0 0;\n            }\n        }\n        .wpwax-vm-reply-ready__video{\n            width: 100%;\n            position: relative;\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                min-height: 240px;\n                height: 100%;\n            }\n            .wpwax-vm-reply-video-bg{\n                border-radius: 0px;\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 0;\n                }\n            }\n            img{\n                width: 100%;\n                height: 100%;\n                border-radius: 30px 0 0 0;\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 0;\n                }\n            }\n            video{\n                border-radius: 30px 30px 0 0;\n            }\n            .wpwax-vm-reply-ready__video--top{\n                display: flex;\n                justify-content: flex-end;\n                position: relative;\n                padding: 40px 40px 0 0;\n                color: var(--color-white);\n                z-index: 100001;\n                .wpwax-vm-video-timer{\n                    font-size: 14px;\n                    ", ": 20px;\n                    display: inline-block;\n                }\n            }\n            .wpwax-vm-video_play{\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                width: 80px;\n                height: 80px;\n                border-radius: 50%;\n                text-decoration: none;\n                box-shadow: 0 3px 20px rgba(0,0,0,.05);\n                background-color: var(--color-white);\n                .dashicons{\n                    position: relative;\n                    top: -3px;\n                    width: 30px;\n                    height: 22px;\n                    font-size: 30px;\n                    color: var(--color-danger);\n                }\n            }\n            .wpwax-vm-reply-video-footer{\n                position: absolute;\n                bottom: -80px;\n                width: 100%;\n            }\n        }\n        .wpwax-vm-reply-ready__content{\n            position: relative;\n            width: 50%;\n            border-radius: 0 30px 30px 0;\n            background-color: #F0F0F0;\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                overflow-y: auto;\n                border-radius: 0;\n                &::-webkit-scrollbar {\n                    width: 11px;\n                }\n\n                &::-webkit-scrollbar-track {\n                    background: var(--color-light);\n                }\n\n                &::-webkit-scrollbar-thumb {\n                    background-color: var(--color-bg-gray);\n                    border-radius: 6px;\n                    border: 3px solid var(--color-light);\n                }\n            }\n            .wpwax-vm-media{\n                padding: 30px 50px 35px;;\n                @media only screen and (max-width: 767px){\n                    padding: 40px 30px 45px;\n                }\n                .wpwax-vm-media__body{\n                    top: -2px;\n                }\n                .wpwax-vm-media__title{\n                    font-size: 22px;\n                    font-weight: 600;\n                    font-family: 'Inter', sans-serif;\n                    text-transform: initial;\n                    width: 250px;\n                    line-height: 1.5;\n                    margin-bottom: 6px;\n                }\n                .wpwax-vm-media__meta{\n                    span{\n                        font-size: 15px;\n                        color: var(--color-text);\n                    }\n                }\n                .wpax-vm-imglist{\n                    img{\n                        max-width: 50px;\n                        border-radius: 50%;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__text-form-input{\n            padding: 0 50px;\n            textarea{\n                font-size: 18px;\n                width: 100%;\n                border: 0 none;\n                min-height: 200px;\n                background-color: transparent;\n                &:focus{\n                    outline: none;\n                    border: 0 none;\n                    box-shadow: 0 0;\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__text-form--action{\n            position: absolute;\n            bottom: 0;\n            ", ": 0;\n            width: 100%;\n            display: flex;\n            border-radius: 0 0 30px 30px;\n            background-color: var(--color-white);\n            .wpwax-vm-reply-ready-btn{\n                display: flex;\n                justify-content: center;\n                align-items: center;\n                flex: 1;\n                font-size: 15px;\n                min-height: 80px;\n                text-align: center;\n                text-decoration: none;\n                color: #4D4D4D;\n                &:hover{\n                    .wpwax-vm-reply-ready-btn__text{\n                        color: var(--color-primary);\n                    }\n                    span,\n                    svg path{\n                        color: var(--color-primary);\n                        fill: var(--color-primary);\n                    }\n                }\n                .wpwax-vm-reply-ready-btn__text{\n                    display: inline-block;\n                    ", ": 10px;\n                }\n                svg{\n                    path{\n                        fill: #4D4D4D;\n                    }\n                }\n                &.wpwax-vm-btn-send{\n                    ", ": 1px solid #EDEDED;\n                    .wpwax-vm-reply-ready-btn__text{\n                        ", ": 10px;\n                        ", ": 0;\n                    }\n                }\n            }\n        }\n    }\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.direction === 'ltr' ? 'left' : 'right';
 }, function (_ref2) {
@@ -12058,27 +12174,30 @@ var VideoPopupWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].d
   return theme.direction === 'ltr' ? 'left' : 'right';
 }, function (_ref4) {
   var theme = _ref4.theme;
-  return theme.direction === 'ltr' ? 'left' : 'right';
+  return theme.direction === 'ltr' ? 'right' : 'left';
 }, function (_ref5) {
   var theme = _ref5.theme;
-  return theme.direction === 'ltr' ? 'right' : 'left';
+  return theme.direction === 'ltr' ? 'left' : 'right';
 }, function (_ref6) {
   var theme = _ref6.theme;
-  return theme.direction === 'ltr' ? 'margin-right' : 'margin-left';
+  return theme.direction === 'ltr' ? 'right' : 'left';
 }, function (_ref7) {
   var theme = _ref7.theme;
-  return theme.direction === 'ltr' ? 'left' : 'right';
+  return theme.direction === 'ltr' ? 'margin-right' : 'margin-left';
 }, function (_ref8) {
   var theme = _ref8.theme;
-  return theme.direction === 'ltr' ? 'margin-left' : 'margin-right';
+  return theme.direction === 'ltr' ? 'left' : 'right';
 }, function (_ref9) {
   var theme = _ref9.theme;
-  return theme.direction === 'ltr' ? 'border-left' : 'border-right';
+  return theme.direction === 'ltr' ? 'margin-left' : 'margin-right';
 }, function (_ref10) {
   var theme = _ref10.theme;
-  return theme.direction === 'ltr' ? 'margin-right' : 'margin-left';
+  return theme.direction === 'ltr' ? 'border-left' : 'border-right';
 }, function (_ref11) {
   var theme = _ref11.theme;
+  return theme.direction === 'ltr' ? 'margin-right' : 'margin-left';
+}, function (_ref12) {
+  var theme = _ref12.theme;
   return theme.direction === 'ltr' ? 'margin-left' : 'margin-right';
 });
 /* harmony default export */ __webpack_exports__["default"] = (VideoPopupWrap);
@@ -12980,28 +13099,32 @@ function useVideoRecorder(config) {
   config = config && _typeof(config) === 'object' ? _objectSpread(_objectSpread({}, defaultConfig), config) : defaultConfig;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
-    isRecording = _useState2[0],
-    setIsRecording = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    isVideoRecording = _useState2[0],
+    setIsVideoRecording = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState4 = _slicedToArray(_useState3, 2),
-    permissionDenied = _useState4[0],
-    setPermissionDenied = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+    isRecordingPaused = _useState4[0],
+    setIsRecordingPaused = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState6 = _slicedToArray(_useState5, 2),
-    recordedTimeInSecond = _useState6[0],
-    setRecordedTimeInSecond = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    permissionDenied = _useState6[0],
+    setPermissionDenied = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
     _useState8 = _slicedToArray(_useState7, 2),
-    recordedBlob = _useState8[0],
-    setRecordedBlob = _useState8[1];
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    recordedTimeInSecond = _useState8[0],
+    setRecordedTimeInSecond = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState10 = _slicedToArray(_useState9, 2),
-    recordedURL = _useState10[0],
-    setRecordedURL = _useState10[1];
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    recordedBlob = _useState10[0],
+    setRecordedBlob = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
     _useState12 = _slicedToArray(_useState11, 2),
-    recordingIsGoingToStopSoon = _useState12[0],
-    setRecordingIsGoingToStopSoon = _useState12[1];
+    recordedURL = _useState12[0],
+    setRecordedURL = _useState12[1];
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState14 = _slicedToArray(_useState13, 2),
+    recordingIsGoingToStopSoon = _useState14[0],
+    setRecordingIsGoingToStopSoon = _useState14[1];
   var recorderRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   var streamRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   var recordingTimerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
@@ -13149,7 +13272,7 @@ function useVideoRecorder(config) {
               console.error({
                 error: _context3.t0
               });
-              setIsRecording(false);
+              setIsVideoRecording(false);
               return _context3.abrupt("return", false);
             case 19:
             case "end":
@@ -13180,7 +13303,7 @@ function useVideoRecorder(config) {
             case 4:
               setRecordingIsGoingToStopSoon(false);
               setRecordedTimeInSecond(0);
-              setIsRecording(true);
+              setIsVideoRecording(true);
               startTimer();
               return _context4.abrupt("return", true);
             case 9:
@@ -13193,6 +13316,7 @@ function useVideoRecorder(config) {
     return _startRecording.apply(this, arguments);
   }
   function stopRecording(args) {
+    setIsRecordingPaused(false);
     var defaultArgs = {
       terminate: false
     };
@@ -13207,7 +13331,7 @@ function useVideoRecorder(config) {
       }
       recorderRef.current = null;
       setRecordedTimeInSecond(0);
-      setIsRecording(false);
+      setIsVideoRecording(false);
       afterStopRecording();
       return;
     }
@@ -13219,7 +13343,7 @@ function useVideoRecorder(config) {
       setRecordingIsGoingToStopSoon(false);
       setRecordedBlob(blob);
       setRecordedURL(url);
-      setIsRecording(false);
+      setIsVideoRecording(false);
       if (!args.terminate) {
         afterStopRecording({
           blob: blob,
@@ -13227,6 +13351,75 @@ function useVideoRecorder(config) {
         });
       }
     });
+  }
+
+  // resumeRecording
+  function resumeRecording() {
+    return _resumeRecording.apply(this, arguments);
+  } // pauseRecording
+  function _resumeRecording() {
+    _resumeRecording = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+      return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              if (recorderRef.current) {
+                _context5.next = 2;
+                break;
+              }
+              return _context5.abrupt("return", false);
+            case 2:
+              _context5.next = 4;
+              return recorderRef.current.resumeRecording();
+            case 4:
+              setIsVideoRecording(true);
+              setIsRecordingPaused(false);
+              startTimer();
+              return _context5.abrupt("return", true);
+            case 8:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    }));
+    return _resumeRecording.apply(this, arguments);
+  }
+  function pauseRecording() {
+    return _pauseRecording.apply(this, arguments);
+  }
+  function _pauseRecording() {
+    _pauseRecording = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+      return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              if (recorderRef.current) {
+                _context6.next = 2;
+                break;
+              }
+              return _context6.abrupt("return", false);
+            case 2:
+              if (!isVideoRecording) {
+                _context6.next = 8;
+                break;
+              }
+              _context6.next = 5;
+              return recorderRef.current.pauseRecording();
+            case 5:
+              setIsVideoRecording(false);
+              setIsRecordingPaused(true);
+              stopTimer();
+            case 8:
+              return _context6.abrupt("return", true);
+            case 9:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6);
+    }));
+    return _pauseRecording.apply(this, arguments);
   }
   function afterStopRecording(recordingData) {
     if (config && config.afterStopRecording && typeof config.afterStopRecording === 'function') {
@@ -13253,7 +13446,7 @@ function useVideoRecorder(config) {
     return (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_1__.formatSecondsAsCountdown)(reversedRecordedTimeInSecond());
   }
   function reset() {
-    if (isRecording) {
+    if (isVideoRecording) {
       stopRecording({
         terminate: true
       });
@@ -13267,14 +13460,15 @@ function useVideoRecorder(config) {
     streamRef.current = null;
     recordingTimerRef.current = null;
     videoStreemRef.current = null;
-    setIsRecording(false);
+    setIsVideoRecording(false);
     setRecordedTimeInSecond(0);
     setRecordedBlob(null);
     setRecordedURL('');
   }
   return {
     recorder: recorderRef.current,
-    isRecording: isRecording,
+    isVideoRecording: isVideoRecording,
+    isRecordingPaused: isRecordingPaused,
     permissionDenied: permissionDenied,
     recordedTimeInSecond: recordedTimeInSecond,
     recordedBlob: recordedBlob,
@@ -13285,6 +13479,8 @@ function useVideoRecorder(config) {
     requestPermission: requestPermission,
     setupStream: setupStream,
     startRecording: startRecording,
+    resumeRecording: resumeRecording,
+    pauseRecording: pauseRecording,
     stopRecording: stopRecording,
     getCountDown: getCountDown,
     reset: reset
@@ -13819,6 +14015,18 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/5787ac4f10ee83e624cebeaae649d450.svg");
+
+/***/ }),
+
+/***/ "./src/assets/svg/icons/cross-small.svg":
+/*!**********************************************!*\
+  !*** ./src/assets/svg/icons/cross-small.svg ***!
+  \**********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/7ee24f89586350cdfb9dffa92d0ff330.svg");
 
 /***/ }),
 

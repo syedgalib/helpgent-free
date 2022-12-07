@@ -117,6 +117,7 @@ const ChatboxForm = Styled.div`
             text-align: center;
             margin-bottom: 18px;
             text-transform: inherit;
+            line-height: 1.5;
             font-family: var(--font-family);
             font-size: var(--font-size-chat);
             color: var(--color-text-chat);

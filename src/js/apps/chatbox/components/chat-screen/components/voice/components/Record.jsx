@@ -12,6 +12,7 @@ import mic from 'Assets/svg/icons/mice.svg';
 import pauseSolid from 'Assets/svg/icons/pause-solid.svg';
 import crossSmall from 'Assets/svg/icons/cross-small.svg';
 import arrowRight from 'Assets/svg/icons/arrow-small-right.svg';
+import arrowLeft from 'Assets/svg/icons/arrow-small-left.svg';
 
 import {
     updateFormData as updateAttachmentFormData,
@@ -72,6 +73,7 @@ function Record() {
     const [audioCurrentTime, setAudioCurrentTime] = useState(0);
     const [audioDuration, setAudioDuration] = useState(0);
     const [isRecording, setIsRecording] = useState(false);
+    const [ isRecordingPaused, setIsRecordingPaused ]   = useState( false );
     const [isPlayingPreview, setIsPlayingPreview] = useState(false);
     const [recordedTimeInSecond, setRecordedTimeInSecond] = useState(0);
 
@@ -167,64 +169,68 @@ function Record() {
     }
 
     // Toggle Recording
-    async function startRecording(e) {
+    async function handleStartRecording(e) {
         e.preventDefault();
 
 		if ( ! isInitializedBeforeCloseChatbox ) {
-			addAction( 'beforeCloseChatbox', stopRecording );
+			addAction( 'beforeCloseChatbox', handleStopRecording );
 			setIsInitializedBeforeCloseChatbox( true );
 		}
 
-        if ( recordedAudioSteam ) {
-            window.wpwaxCSRecorder.resumeRecording();
-            setIsRecording(true);
-            startTimer();
-        } else {
+        // Start Countdown
+        await startCountdown();
+        setIsRecording(true);
 
-			// Start Countdown
-			await startCountdown();
-
-            try {
-                window.wpwaxCSAudioStream =
-                    await navigator.mediaDevices.getUserMedia({
-                        audio: {
-                            echoCancellation: true,
-                            noiseSuppression: true,
-                        },
-                    });
-
-                window.wpwaxCSRecorder = new RecordRTC(window.wpwaxCSAudioStream, {
-                    type: 'audio',
-                    mimeType: 'audio/wav',
-                    recorderType: RecordRTC.StereoAudioRecorder,
-                    disableLogs: true,
-					numberOfAudioChannels: 1,
+        try {
+            window.wpwaxCSAudioStream =
+                await navigator.mediaDevices.getUserMedia({
+                    audio: {
+                        echoCancellation: true,
+                        noiseSuppression: true,
+                    },
                 });
-                window.wpwaxCSRecorder.startRecording();
 
-                setIsRecording(true);
-                startTimer();
-                setRecordedTimeInSecond(recordedTimeInSecond);
-                setRecordedAudioSteam(window.wpwaxCSAudioStream);
-            } catch (error) {
-                console.log({ error });
+            window.wpwaxCSRecorder = new RecordRTC(window.wpwaxCSAudioStream, {
+                type: 'audio',
+                mimeType: 'audio/wav',
+                recorderType: RecordRTC.StereoAudioRecorder,
+                disableLogs: true,
+                numberOfAudioChannels: 1,
+            });
+            window.wpwaxCSRecorder.startRecording();
 
-                setIsRecording(false);
-            }
+            startTimer();
+            setRecordedTimeInSecond(recordedTimeInSecond);
+            setRecordedAudioSteam(window.wpwaxCSAudioStream);
+        } catch (error) {
+            console.log({ error });
+
+            setIsRecording(false);
         }
+        
     }
 
-    const pauseRecording = (e) => {
+    const handleResumeRecording = (e) => {
+        e.preventDefault();
+        window.wpwaxCSRecorder.resumeRecording();
+        setIsRecording(true);
+        setIsRecordingPaused(false);
+        startTimer();
+    };
+
+    const handlePauseRecording = (e) => {
         e.preventDefault();
         if (isRecording) {
             window.wpwaxCSRecorder.pauseRecording();
             setIsRecording(false);
+            setIsRecordingPaused(true);
             stopTimer();
         }
     };
 
 	// stopRecording
-	function stopRecording () {
+	function handleStopRecording () {
+        setIsRecordingPaused(false);
 		window.wpwaxCSRecorder.stopRecording(function (url) {
             let blob = window.wpwaxCSRecorder.getBlob();
             window.wpwaxCSAudioStream
@@ -258,7 +264,7 @@ function Record() {
     // handle Send recording
     function handleSendRecording(e) {
         e.preventDefault();
-        stopRecording()
+        handleStopRecording()
     }
 
     function startTimer() {
@@ -302,13 +308,9 @@ function Record() {
         setAudioDuration(0);
         setAudioCurrentTime(0);
         setIsRecording(false);
+        setIsRecordingPaused(false);
         setCurrentStage(stages.RECORD);
-    }
-
-    function handleCancelRecording(e, type) {
-        e.preventDefault();
-        dispatch(changeChatScreen(type));
-        // setCurrentStage(stages.HOME);
+        stopTimer();
     }
 
     const getPlayedTimeInPercent = () => {
@@ -317,28 +319,17 @@ function Record() {
     };
 
     const getRightBtnContent = () => {
-        if (!isRecording && recordedTimeInSecond === 0) {
+        if (isRecording || isRecordingPaused) {
             return (
                 <a
                     href='#'
-                    className='wpwax-vm-record-btn-right wpwax-vm-btn-close'
-                    onClick={(e) => handleCancelRecording(e, 'home')}
-                >
-                    <ReactSVG src={crossSmall} />
-                </a>
+                    className={isRecordingPaused ? 'wpwax-vm-btn-record-right wpwax-vm-btn-play' : 'wpwax-vm-btn-record-right wpwax-vm-btn-pause'}
+                    onClick={ isRecordingPaused ?  (e) => handleResumeRecording(e) : (e) => handlePauseRecording(e)}
+
+                > {isRecordingPaused ? <ReactSVG src={mic} /> : <ReactSVG src={pauseSolid} />} </a>
             );
         } else if (isRecording && recordedTimeInSecond === 0) {
             return null;
-        } else if (isRecording && recordedTimeInSecond > 0) {
-            return null;
-        } else if (!isRecording && recordedTimeInSecond > 0) {
-            return (
-                <a
-                    href='#'
-                    className='wpwax-vm-record-btn-right wpwax-vm-btn-send'
-                    onClick={(e) => handleSendRecording(e)}
-                ></a>
-            );
         }
     };
 
@@ -382,7 +373,8 @@ function Record() {
 		}
 
         return (
-            <RecorderWrap className='wpwax-vm-record-staging'>
+            <RecorderWrap className={isRecording || isRecordingPaused ? "wpwax-vm-record-staging wpwax-vm-record-start" : "wpwax-vm-record-staging"}>
+                <a href="#" className="wpwax-vm-btn-back" onClick={e=>prepareRecordAgain(e)}><ReactSVG src={arrowRight} /></a>
                 {
                     recordedTimeInSecond === 0 && !isRecording ? <a href="#" className="wpwax-vm-btn-back" onClick={handleBackScreen}><ReactSVG src={arrowRight} /></a> : null
                 }
@@ -406,36 +398,17 @@ function Record() {
                     /> : null
                 } */}
                 <div className='wpwax-vm-record-staging__bottom'>
-                    {!isRecording ? (
-                        <p>
-                            Click below to
-                            <span className='wpwax-vm-highlighted'>
-								{ recordedTimeInSecond > 0 ? ' resume ' : ' start ' }
-							</span>
-							recording!
-						</p>
-					) : (
-						<p></p>
-					)}
 					<div className='wpwax-vm-record-staging__bottom--action'>
-						{isRecording ? (
-							<a
-								href='#'
-								className='wpwax-vm-record-btn'
-								onClick={(e) => pauseRecording(e)}
-							>
-								<ReactSVG src={pauseSolid} />
-							</a>
-						) : (
-							<a
-								href='#'
-								className='wpwax-vm-record-btn'
-								onClick={(e) => startRecording(e)}
-							>
-								<ReactSVG src={mic} />
-							</a>
-						)}
-
+                        <a
+                            href='#'
+                            className='wpwax-vm-record-btn'
+                            onClick={ isRecording || isRecordingPaused ? (e) => handleSendRecording(e) : (e) => handleStartRecording(e)}
+                        >
+                            {
+                                isRecording || isRecordingPaused ? null : <ReactSVG src={mic} />
+                            }
+                            
+                        </a>
 						{getRightBtnContent()}
 					</div>
 				</div>

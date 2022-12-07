@@ -5,6 +5,10 @@ import { VideoRecordWrap } from '../Style';
 /* Images */
 import permissionImg from 'Assets/img/chatbox/permission.png';
 import paperPlan from 'Assets/svg/icons/paper-plane.svg';
+import arrowLeft from 'Assets/svg/icons/arrow-small-left.svg';
+import arrowRight from 'Assets/svg/icons/arrow-small-right.svg';
+import play from 'Assets/svg/icons/play.svg';
+import pause from 'Assets/svg/icons/pause-solid.svg';
 import {
     updateFormData as updateAttachmentFormData,
     submitForm as submitAttachmentForm,
@@ -22,7 +26,7 @@ import useCountdown from 'Hooks/useCountdown';
 import useVideoRecorder from 'Hooks/media-recorder/useVideoRecorder';
 import { MIN_IN_SECONDS } from 'Helper/const';
 
-const Record = () => {
+const Record = props => {
 	const stages = {
         PERMISSION: 'permission',
         RECORD: 'record',
@@ -30,6 +34,8 @@ const Record = () => {
         UPLOADING: 'uploading',
         UPLOAD_FAILED: 'upload_failed',
     };
+
+    const { homeCurrentStage , setHomeCurrentStage} = props;
 
     const [ currentStage, setCurrentStage ] = useState(stages.RECORD);
 
@@ -56,7 +62,8 @@ const Record = () => {
 
 	// useVideoRecorder
 	const {
-		isRecording,
+		isVideoRecording,
+		isRecordingPaused,
 		permissionDenied,
 		recordedBlob,
 		recordedURL: recordedVideoURL,
@@ -65,8 +72,11 @@ const Record = () => {
 		requestPermission,
 		setupStream,
 		startRecording,
+        resumeRecording,
+        pauseRecording,
 		stopRecording,
 		getCountDown,
+        recordedTimeInSecond,
 		reset: resetVideoRecorder,
 	} = useVideoRecorder({
 		maxRecordLength: getMaxRecordLength(),
@@ -124,15 +134,31 @@ const Record = () => {
         [attachmentForm.status]
     );
 
-	async function handleVideoStartStopButton( e ) {
+	async function handlePauseRecording( e ) {
 		e.preventDefault();
 
-		if ( isRecording ) {
-			stopRecording();
-		} else {
-			await startCountdown();
-			startRecording();
+		if ( isVideoRecording ) {
+			pauseRecording();
 		}
+	}
+
+    /* Start Recording */
+	async function handleStartRecording( e ) {
+		e.preventDefault();
+		await startCountdown();
+		startRecording();
+	}
+
+    /* Handle Resume Recording */
+	async function handleResumeRecording( e ) {
+		e.preventDefault();
+        resumeRecording();
+	}
+
+    /* Handle Send Recording */
+	async function handleSendRecording( e ) {
+		e.preventDefault();
+        stopRecording();
 	}
 
 	function getMaxRecordLength() {
@@ -191,9 +217,35 @@ const Record = () => {
         setCurrentStage(stages.BEFORE_SEND);
     }
 
+    function handleBackScreen(event) {
+        event.preventDefault();
+        dispatch( changeChatScreen( screenTypes.HOME ) );
+	}
+    function handleCancelRecording(event) {
+        event.preventDefault();
+        stopRecording();
+        setHomeCurrentStage('home')
+	}
+
+    const getRightBtnContent = () => {
+        if (isVideoRecording || isRecordingPaused) {
+            return (
+                <a
+                    href='#'
+                    className={isRecordingPaused ? 'wpwax-vm-btn-record-right wpwax-vm-btn-play' : 'wpwax-vm-btn-record-right wpwax-vm-btn-pause'}
+                    onClick={ isRecordingPaused ?  (e) => handleResumeRecording(e) : (e) => handlePauseRecording(e)}
+
+                > {isRecordingPaused ? null : <ReactSVG src={pause} />} </a>
+            );
+        } else if (isVideoRecording && recordedTimeInSecond === 0) {
+            return null;
+        }
+    };
+
     if (currentStage === stages.PERMISSION) {
         return (
             <VideoRecordWrap className='wpwax-vm-record-permission'>
+                <a href="#" className="wpwax-vm-btn-back" onClick={handleBackScreen}><ReactSVG src={arrowRight} /></a>
                 <h4 className='wpwax-video-screen-title'>
                     To record video, your browser will need to request access to
                     your camera & microphone.
@@ -216,37 +268,46 @@ const Record = () => {
         );
     } else if (currentStage === stages.RECORD) {
         return (
-            <VideoRecordWrap className='wpwax-vm-record-staging'>
+            <VideoRecordWrap className="wpwax-vm-record-staging">
+                <a href="#" className="wpwax-vm-btn-back" onClick={handleCancelRecording}><ReactSVG src={arrowRight} /></a>
                 <video ref={videoStreemRef} muted></video>
 
 				{ isActiveCountdown && ( <div className="wpwax-vm-record-staging__countdown"><CountdownPage count={ getReverseCount() } /></div> ) }
 
 				<div className='wpwax-vm-record-staging__top'>
                     <h4 className='wpwax-vm-record-staging__title'>
-                        {isRecording ? (
-                            <span className='wpwax-vm-timer'>
-                                <span className='wpwax-vm-sec'>
-                                    {getCountDown()}
-                                </span>
+                        <span className='wpwax-vm-timer'>
+                            <span className='wpwax-vm-sec'>
+                                {getCountDown()}
                             </span>
-                        ) : (
-                            ''
-                        )}
+                        </span>
                     </h4>
                 </div>
 
 				<div
                     className={
-                        isRecording
+                        isVideoRecording || isRecordingPaused
                             ? 'wpwax-vm-record-staging__action wpwax-vm-record-start'
                             : 'wpwax-vm-record-staging__action'
                     }
                 >
-                    <a
-                        href='#'
-                        className='wpwax-vm-btn-record'
-                        onClick={ handleVideoStartStopButton }
-                    ></a>
+                    {
+                        isVideoRecording || isRecordingPaused ? 
+                        <a
+                            href='#'
+                            className='wpwax-vm-btn-record'
+                            onClick={ handleSendRecording }
+                        ></a>
+                        : 
+                        <a
+                            href='#'
+                            className='wpwax-vm-btn-record'
+                            onClick={ handleStartRecording }
+                        ></a>
+                    }
+                    {
+                        getRightBtnContent()
+                    }
                 </div>
             </VideoRecordWrap>
         );

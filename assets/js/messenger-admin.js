@@ -5279,89 +5279,93 @@ function MessageBox(_ref) {
     _useState4 = _slicedToArray(_useState3, 2),
     scrollBtnVisibility = _useState4[0],
     setScrollBtnVisibility = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('bottom'),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState6 = _slicedToArray(_useState5, 2),
-    messageDirection = _useState6[0],
-    setMessageDirection = _useState6[1];
+    videoRecorderStatus = _useState6[0],
+    setVideoRecorderStatus = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('bottom'),
+    _useState8 = _slicedToArray(_useState7, 2),
+    messageDirection = _useState8[0],
+    setMessageDirection = _useState8[1];
   var _useScreenSize = (0,Helper_hooks__WEBPACK_IMPORTED_MODULE_6__.useScreenSize)(),
     _useScreenSize2 = _slicedToArray(_useScreenSize, 2),
     screenSize = _useScreenSize2[0],
     SCREEN_SIZES = _useScreenSize2[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
-    _useState8 = _slicedToArray(_useState7, 2),
-    sessionMessages = _useState8[0],
-    setSessionMessages = _useState8[1];
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState10 = _slicedToArray(_useState9, 2),
-    isLoadingMoreMessages = _useState10[0],
-    setIsLoadingMoreMessages = _useState10[1];
+    sessionMessages = _useState10[0],
+    setSessionMessages = _useState10[1];
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState12 = _slicedToArray(_useState11, 2),
-    isLoadingSession = _useState12[0],
-    setIsLoadingSession = _useState12[1];
+    isLoadingMoreMessages = _useState12[0],
+    setIsLoadingMoreMessages = _useState12[1];
   var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState14 = _slicedToArray(_useState13, 2),
-    isSendingTextMessage = _useState14[0],
-    setIsSendingTextMessage = _useState14[1];
+    isLoadingSession = _useState14[0],
+    setIsLoadingSession = _useState14[1];
   var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState16 = _slicedToArray(_useState15, 2),
-    isSendingAudioMessage = _useState16[0],
-    setIsSendingAudioMessage = _useState16[1];
+    isSendingTextMessage = _useState16[0],
+    setIsSendingTextMessage = _useState16[1];
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState18 = _slicedToArray(_useState17, 2),
+    isSendingAudioMessage = _useState18[0],
+    setIsSendingAudioMessage = _useState18[1];
 
   //
-  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
-    _useState18 = _slicedToArray(_useState17, 2),
-    recordedAudioBlob = _useState18[0],
-    setRecordedAudioBlob = _useState18[1];
   var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState20 = _slicedToArray(_useState19, 2),
-    recordedAudioSteam = _useState20[0],
-    setRecordedAudioSteam = _useState20[1];
-  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    recordedAudioBlob = _useState20[0],
+    setRecordedAudioBlob = _useState20[1];
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState22 = _slicedToArray(_useState21, 2),
-    isRecordingVoice = _useState22[0],
-    setIsRecordingVoice = _useState22[1];
-  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+    recordedAudioSteam = _useState22[0],
+    setRecordedAudioSteam = _useState22[1];
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState24 = _slicedToArray(_useState23, 2),
-    recordedVoiceTimeInSecond = _useState24[0],
-    setRecordedVoiceTimeInSecond = _useState24[1];
+    isRecordingVoice = _useState24[0],
+    setIsRecordingVoice = _useState24[1];
   var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
     _useState26 = _slicedToArray(_useState25, 2),
-    recordedTimeLength = _useState26[0],
-    setRecordedTimeLength = _useState26[1];
+    recordedVoiceTimeInSecond = _useState26[0],
+    setRecordedVoiceTimeInSecond = _useState26[1];
+  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+    _useState28 = _slicedToArray(_useState27, 2),
+    recordedTimeLength = _useState28[0],
+    setRecordedTimeLength = _useState28[1];
   var voiceRecordingLimitInSecond = messengerScriptData && typeof messengerScriptData.voiceRecordTimeLimit !== 'undefined' ? parseFloat(messengerScriptData.voiceRecordTimeLimit) : 2 * Helper_const_js__WEBPACK_IMPORTED_MODULE_27__.MIN_IN_SECONDS;
-  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       recordStage: "request_permission"
     }),
-    _useState28 = _slicedToArray(_useState27, 2),
-    screenRecordState = _useState28[0],
-    setScreenRecordState = _useState28[1];
+    _useState30 = _slicedToArray(_useState29, 2),
+    screenRecordState = _useState30[0],
+    setScreenRecordState = _useState30[1];
 
   // Refs
   var textMessageContentRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
 
   // Message Contents
-  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
-    _useState30 = _slicedToArray(_useState29, 2),
-    textMessageContent = _useState30[0],
-    setTextMessageContent = _useState30[1];
+  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState32 = _slicedToArray(_useState31, 2),
+    textMessageContent = _useState32[0],
+    setTextMessageContent = _useState32[1];
 
   // Pagination
   var paginationPerPage = 20;
 
   // Search Results
-  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
-    _useState32 = _slicedToArray(_useState31, 2),
-    currentSearchResultPage = _useState32[0],
-    setCurrentSearchResultPage = _useState32[1];
-  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
     _useState34 = _slicedToArray(_useState33, 2),
-    isLoadingSearchResults = _useState34[0],
-    setIsLoadingSearchResults = _useState34[1];
+    currentSearchResultPage = _useState34[0],
+    setCurrentSearchResultPage = _useState34[1];
   var _useState35 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState36 = _slicedToArray(_useState35, 2),
-    isLoadingMoreSearchResults = _useState36[0],
-    setIsLoadingMoreSearchResults = _useState36[1];
+    isLoadingSearchResults = _useState36[0],
+    setIsLoadingSearchResults = _useState36[1];
+  var _useState37 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState38 = _slicedToArray(_useState37, 2),
+    isLoadingMoreSearchResults = _useState38[0],
+    setIsLoadingMoreSearchResults = _useState38[1];
 
   /* initialize Form Data */
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
@@ -5385,8 +5389,10 @@ function MessageBox(_ref) {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var checkIfClickedOutside = function checkIfClickedOutside(e) {
       if (messageType === 'video' && videoToggleRef.current && !videoToggleRef.current.contains(e.target)) {
-        dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleMessageTypeChange)(''));
-        dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleReplyModeChange)(false));
+        if (videoRecorderStatus === null) {
+          dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleMessageTypeChange)(''));
+          dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleReplyModeChange)(false));
+        }
       }
     };
     document.addEventListener("mousedown", checkIfClickedOutside);
@@ -5394,7 +5400,7 @@ function MessageBox(_ref) {
       // Cleanup the event listener
       document.removeEventListener("mousedown", checkIfClickedOutside);
     };
-  }, [messageType]);
+  }, [messageType, videoRecorderStatus]);
 
   // @Init State
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -6894,6 +6900,8 @@ function MessageBox(_ref) {
           className: "wpwax-hg-messagebox-video-wrap",
           ref: videoToggleRef,
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_components_video_Index_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            videoRecorderStatus: videoRecorderStatus,
+            setVideoRecorderStatus: setVideoRecorderStatus,
             sessionID: selectedSession.id,
             onSuccess: loadLatestMessages,
             replayingTo: getReplaingToUser()
@@ -8172,7 +8180,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var Video = function Video(_ref) {
-  var sessionID = _ref.sessionID,
+  var videoRecorderStatus = _ref.videoRecorderStatus,
+    setVideoRecorderStatus = _ref.setVideoRecorderStatus,
+    sessionID = _ref.sessionID,
     onSuccess = _ref.onSuccess,
     replayingTo = _ref.replayingTo;
   var stages = {
@@ -8328,6 +8338,8 @@ var Video = function Video(_ref) {
     });
   } else if (currentStage === stages.RECORD) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Record_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      videoRecorderStatus: videoRecorderStatus,
+      setVideoRecorderStatus: setVideoRecorderStatus,
       sessionID: sessionID,
       backToHome: backToHome,
       onSuccess: onSuccess,
@@ -8361,7 +8373,7 @@ __webpack_require__.r(__webpack_exports__);
 var _templateObject;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var VideoReplyWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: fixed;\n    top: 50px;\n    bottom: 50px;\n    left: 30px;\n    right: 30px;\n    display: flex;\n    flex-direction: column;\n    justify-content: space-between;\n    width: 100%;\n    width: calc( 100% - 60px );\n    border-radius: 30px;\n    z-index: 1000001;\n\toverflow: hidden;\n    &:after{\n        position: absolute;\n        ", ": 0;\n        top: 0;\n        width: 100%;\n        height: 150px;\n        opacity: .80;\n        z-index: 10;\n        content: \"\";\n        border-radius: 30px 30px 0 0;\n        background: linear-gradient(to top, rgba(0,0,0,0),rgba(0,0,0,1))\n    }\n    &:before{\n        position: absolute;\n        ", ": 0;\n        bottom: 0;\n        width: 100%;\n        height: 150px;\n        opacity: .60;\n        z-index: 10;\n        content: \"\";\n        border-radius: 0 0 30px 30px;\n        background: linear-gradient(to bottom, rgba(0,0,0,0),rgba(0,0,0,1))\n    }\n\n\t.wpwax-vm-reply-countdown {\n\t\tposition: absolute;\n\t\tcolor: #fff;\n\t\ttop: 0;\n\t\tbottom: 0;\n\t\tleft: 0;\n\t\tright: 0;\n\t\tz-index: 99999;\n\t\tdisplay: flex;\n\t\tjustify-content: center;\n\t\talign-items: center;\n\t\tbackground: #7676769c;\n\n\t\t.wpwax-vm-countdown {\n\t\t\t.wpwax-vm-countdown-heading, .wpwax-vm-countdown-text {\n\t\t\t\tfont-weight: bold;\n\t\t\t\tcolor: #fff;\n\t\t\t}\n\n\t\t\t.wpwax-vm-countdown-heading {\n\t\t\t\tfont-size: 110px;\n\t\t\t}\n\n\t\t\t.wpwax-vm-countdown-text {\n\t\t\t\tfont-size: 30px;\n\t\t\t}\n\t\t}\n\t}\n\n    .wpwax-vm-reply-video-bg{\n        position: absolute;\n        top: 0;\n        ", ": 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 30px;\n        background-size: cover;\n    }\n    .wpwax-vm-reply-top{\n        position: relative;\n        z-index: 100;\n        display: flex;\n        justify-content: space-between;\n        padding: 40px 40px 0;\n        @media only screen and (max-width: 767px){\n            padding: 20px 20px 0;\n        }\n        h4{\n            font-size: 26px;\n            font-weight: 600;\n            margin: 0;\n            color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                font-size: 20px;\n            }\n            .wpwax-vm-timer{\n                display: block;\n                font-size: 16px;\n                margin-top: 14px;\n            }\n        }\n        .wpwax-vm-reply-close{\n            text-decoration: none;\n            .dashicons{\n                font-size: 22px;\n                color: var(--color-white);\n            }\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n    }\n    .wpwax-vm-reply-bottom{\n        display: flex;\n        justify-content: center;\n        position: relative;\n        text-align: center;\n        bottom: 40px;\n        z-index: 100;\n        .wpwax-vm-btn-record{\n            position: relative;\n            display: block;\n            width: 90px;\n            height: 90px;\n            border-radius: 50%;\n            background-color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                width: 70px;\n                height: 70px;\n            }\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n                border: 0 none;\n            }\n            &:after{\n                width: 25px;\n                height: 25px;\n                border-radius: 50%;\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                content: '';\n                background-color: var(--color-danger);\n            }\n        }\n    }\n    &.wpwax-vm-reply-start{\n        .wpwax-vm-reply-bottom{\n            .wpwax-vm-btn-record{\n                background-color: var(--color-danger);\n                &:after{\n                    width: 28px;\n                    height: 28px;\n                    border-radius: 8px;\n                    background-color: var(--color-white);\n                }\n            }\n        }\n    }\n    &.wpwax-vm-reply-ready{\n        display: flex;\n        flex-direction: row;\n        border-radius: 30px;\n        ", ": 80px;\n        top: 80px;\n        bottom: 0;\n        width: calc( 100% - 160px );\n        height: calc( 100vh - 160px );\n\t\tbackground-color: #000000;\n        @media only screen and (max-width: 991px){\n            ", ": 30px;\n            width: calc( 100% - 60px );\n        }\n        @media only screen and (max-width: 767px){\n            flex-direction: column;\n            ", ": 15px;\n            width: calc( 100% - 30px );\n        }\n        &:after{\n            border-radius: 30px 0 0 0;\n            @media only screen and (max-width: 767px){\n                display: none;\n            }\n        }\n        .wpwax-vm-reply-video-bg{\n            position: static;\n        }\n        &.wpwax-vm-reply-upload{\n            .wpwax-vm-reply-ready__video{\n                border-radius: 30px 0 0 30px;\n                background-color: var(--color-dark);\n                @media only screen and (max-width: 767px){\n                    /* display: none; */\n                }\n            }\n            .wpwax-vm-reply-ready__file-input{\n                display: flex;\n                flex-direction: column;\n                justify-content: center;\n                align-items: center;\n                margin: 0 40px 20px;\n                padding: 20px;\n                border-radius: 14px;\n                min-height: 220px;\n                border: 1px dashed #C4C4C4;\n                background-color: #EAEAEA;\n                @media only screen and (max-width: 1399px){\n                    margin: 0 30px 40px;\n                    min-height: 180px;\n                }\n                @media only screen and (max-width: 767px){\n                    min-height: 100px;\n                }\n                input[type=file]{\n                    display: none;\n                }\n                strong{\n                    display: inline-block;\n                    font-size: 14px;\n                    font-weight: 500;\n                    margin: 12px 0;\n                    color: var(--color-dark);\n                }\n                span,\n                p{\n                    font-size: 14px;\n                    font-weight: 500;\n                }\n                p + p{\n                    margin-top: 4px;\n                }\n                .wpwax-vm-dark-alert{\n                    display: inline-block;\n                    margin: 10px 0 14px;\n                    color: var(--color-dark);\n                }\n                p{\n                    margin: 0;\n                    color: var(--color-text);\n                }\n            }\n            .wpawax-vm-reply-btn-upload{\n                font-size: 14px;\n                font-weight: 600;\n                padding: 0 20px;\n                display: inline-flex;\n                align-items: center;\n                min-height: 38px;\n                border-radius: 8px;\n                text-decoration: none;\n                cursor: pointer;\n                color: var(--color-white);\n                background-color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-reply-close{\n            position: absolute;\n            top: 20px;\n            ", ": 30px;\n            text-decoration: none;\n            z-index: 10;\n            color: var(--color-dark);\n            @media only screen and (max-width: 767px){\n                z-index: 1000;\n                color: var(--color-white);\n            }\n            .dashicons{\n                font-size: 28px;\n            }\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n        &:before{\n            display: none;\n        }\n        &:after{\n            width: 50%;\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                border-radius: 30px 30px 0 0;\n            }\n        }\n        .wpwax-vm-reply-ready__video{\n            width: 50%;\n            position: relative;\n            @media only screen and (max-width: 767px){\n                //display: none;\n                width: 100%;\n                height: 200px;\n            }\n            .wpwax-vm-reply-video-bg{\n                border-radius: 0px;\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 0;\n                }\n            }\n            img{\n                width: 100%;\n                height: 100%;\n                border-radius: 30px 0 0 0;\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 0;\n                }\n            }\n            video{\n                border-radius: 30px 0 0 30px;\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 0;\n                }\n            }\n            .wpwax-vm-reply-ready__video--top{\n                display: flex;\n                justify-content: flex-end;\n                position: relative;\n                padding: 40px 40px 0 0;\n                color: var(--color-white);\n                z-index: 100001;\n                .wpwax-vm-video-timer{\n                    font-size: 14px;\n                    ", ": 20px;\n                    display: inline-block;\n                }\n            }\n            .wpwax-vm-video_play{\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                width: 80px;\n                height: 80px;\n                border-radius: 50%;\n                text-decoration: none;\n                box-shadow: 0 3px 20px rgba(0,0,0,.05);\n                background-color: var(--color-white);\n                .dashicons{\n                    position: relative;\n                    top: -3px;\n                    width: 30px;\n                    height: 22px;\n                    font-size: 30px;\n                    color: var(--color-danger);\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__content{\n            position: relative;\n            width: 50%;\n            height: 100%;\n            border-radius: 0 30px 30px 0;\n            background-color: #F0F0F0;\n            display: flex;\n            flex-direction: column;\n            /* overflow-y: auto; */\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                overflow-y: auto;\n                overflow-x: hidden;\n                border-radius: 0;\n                &::-webkit-scrollbar {\n                    width: 11px;\n                }\n\n                &::-webkit-scrollbar-track {\n                    background: var(--color-light);\n                }\n\n                &::-webkit-scrollbar-thumb {\n                    background-color: var(--color-bg-gray);\n                    border-radius: 6px;\n                    border: 3px solid var(--color-light);\n                }\n            }\n            .wpwax-vm-media{\n                padding: 30px 50px 35px;;\n                @media only screen and (max-width: 1399px){\n                    padding: 20px 30px 25px;\n                }\n                .wpwax-vm-media__body{\n                    top: -2px;\n                }\n                .wpwax-vm-media__title{\n                    font-size: 22px;\n                    font-weight: 600;\n                    font-family: 'Inter', sans-serif;\n                    text-transform: initial;\n                    width: 250px;\n                    line-height: 1.5;\n                    margin-bottom: 6px;\n                    @media only screen and (max-width: 1399px){\n                        font-size: 20px;\n                    }\n                }\n                .wpwax-vm-media__meta{\n                    span{\n                        font-size: 15px;\n                        color: var(--color-text);\n                        @media only screen and (max-width: 1399px){\n                            font-size: 14px;\n                        }\n                    }\n                }\n                .wpax-vm-imglist{\n                    img{\n                        max-width: 50px;\n                        border-radius: 50%;\n                    }\n                }\n            }\n            .wpwax-vm-reply-ready__text-form{\n                overflow-y: auto;\n                &::-webkit-scrollbar {\n                    width: 11px;\n                }\n\n                &::-webkit-scrollbar-track {\n                    background: var(--color-light);\n                }\n\n                &::-webkit-scrollbar-thumb {\n                    background-color: var(--color-bg-gray);\n                    border-radius: 6px;\n                    border: 3px solid var(--color-light);\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__text-form-input{\n            padding: 0 50px;\n            @media only screen and (max-width: 1399px){\n                padding: 0 30px;\n            }\n            textarea{\n                font-size: 18px;\n                width: 100%;\n                border: 0 none;\n                min-height: 200px;\n                font-family: var(--font-family);\n                background-color: transparent;\n                &:focus{\n                    outline: none;\n                    border: 0 none;\n                    box-shadow: 0 0;\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__text-form--action{\n            position: absolute;\n            bottom: 0;\n            ", ": 0;\n            width: 100%;\n            display: flex;\n            border-radius: 0 0 30px 0;\n            background-color: var(--color-white);\n            /* @media only screen and (max-width: 767px){\n                position: fixed;\n            } */\n            .wpwax-vm-reply-ready-btn{\n                display: flex;\n                justify-content: center;\n                align-items: center;\n                flex: 1;\n                font-size: 15px;\n                min-height: 80px;\n                text-align: center;\n                text-decoration: none;\n                color: #4D4D4D;\n                @media only screen and (max-width: 1299px){\n                    min-height: 60px;\n                }\n                @media only screen and (max-width: 767px){\n                    min-height: 50px;\n                }\n                &:hover{\n                    .wpwax-vm-reply-ready-btn__text{\n                        color: var(--color-primary);\n                    }\n                    span,\n                    svg path{\n                        color: var(--color-primary);\n                        fill: var(--color-primary);\n                    }\n                }\n                .wpwax-vm-reply-ready-btn__text{\n                    display: inline-block;\n                    ", ": 10px;\n                }\n                svg{\n                    path{\n                        fill: #4D4D4D;\n                    }\n                }\n                &.wpwax-vm-btn-send{\n                    ", ": 1px solid #EDEDED;\n                    .wpwax-vm-reply-ready-btn__text{\n                        ", ": 10px;\n                        ", ": 0;\n                    }\n                }\n            }\n        }\n    }\n"])), function (_ref) {
+var VideoReplyWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: fixed;\n    top: 50px;\n    bottom: 50px;\n    left: 30px;\n    right: 30px;\n    display: flex;\n    flex-direction: column;\n    justify-content: space-between;\n    width: 100%;\n    width: calc( 100% - 60px );\n    border-radius: 30px;\n    z-index: 1000001;\n\toverflow: hidden;\n    &:after{\n        position: absolute;\n        ", ": 0;\n        top: 0;\n        width: 100%;\n        height: 150px;\n        opacity: .80;\n        z-index: 10;\n        content: \"\";\n        border-radius: 30px 30px 0 0;\n        background: linear-gradient(to top, rgba(0,0,0,0),rgba(0,0,0,1))\n    }\n    &:before{\n        position: absolute;\n        ", ": 0;\n        bottom: 0;\n        width: 100%;\n        height: 150px;\n        opacity: .60;\n        z-index: 10;\n        content: \"\";\n        border-radius: 0 0 30px 30px;\n        background: linear-gradient(to bottom, rgba(0,0,0,0),rgba(0,0,0,1))\n    }\n\n\t.wpwax-vm-reply-countdown {\n\t\tposition: absolute;\n\t\tcolor: #fff;\n\t\ttop: 0;\n\t\tbottom: 0;\n\t\tleft: 0;\n\t\tright: 0;\n\t\tz-index: 99999;\n\t\tdisplay: flex;\n\t\tjustify-content: center;\n\t\talign-items: center;\n\t\tbackground: #7676769c;\n\n\t\t.wpwax-vm-countdown {\n\t\t\t.wpwax-vm-countdown-heading, .wpwax-vm-countdown-text {\n\t\t\t\tfont-weight: bold;\n\t\t\t\tcolor: #fff;\n\t\t\t}\n\n\t\t\t.wpwax-vm-countdown-heading {\n\t\t\t\tfont-size: 110px;\n\t\t\t}\n\n\t\t\t.wpwax-vm-countdown-text {\n\t\t\t\tfont-size: 30px;\n\t\t\t}\n\t\t}\n\t}\n\n    .wpwax-vm-reply-video-bg{\n        position: absolute;\n        top: 0;\n        ", ": 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 30px;\n        background-size: cover;\n    }\n    .wpwax-vm-reply-top{\n        position: relative;\n        z-index: 100;\n        display: flex;\n        justify-content: space-between;\n        padding: 40px 40px 0;\n        @media only screen and (max-width: 767px){\n            padding: 20px 20px 0;\n        }\n        h4{\n            font-size: 26px;\n            font-weight: 600;\n            margin: 0;\n            color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                font-size: 20px;\n            }\n            .wpwax-vm-timer{\n                display: block;\n                font-size: 16px;\n                margin-top: 14px;\n            }\n        }\n        .wpwax-vm-reply-close{\n            text-decoration: none;\n            svg{\n                width: 12px;\n                height: 12px;\n            }\n            .dashicons{\n                font-size: 22px;\n                color: var(--color-white);\n            }\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n    }\n    .wpwax-vm-reply-bottom{\n        display: flex;\n        justify-content: center;\n        position: relative;\n        text-align: center;\n        bottom: 40px;\n        min-width: 310px;\n        margin: 0 auto;\n        z-index: 100;\n        .wpwax-vm-btn-record-right{\n            position: relative;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            width: 40px;\n            height: 40px;\n            position: absolute;\n            ", ": 50px;\n            top: 50%;\n            transform: translateY(-50%);\n            border-radius: 50%;\n            background-color: transparent;\n            text-decoration: none;\n            transition: background-color,border-color .3s ease-in-out;\n            color: var(--color-dark);\n            @media only screen and (max-width: 767px){\n                width: 30px;\n                height: 30px;\n            }\n            &.wpwax-vm-btn-pause,\n            &.wpwax-vm-btn-play{\n                border: 2px solid var(--color-white);\n                svg{\n                    width: 14px;\n                    height: 14px;\n                    path{\n                        fill: var(--color-white);\n                    }\n                }\n                &:hover{\n                    background-color: rgba(255,255,255,.10);\n                    /* border-color: rgba(255,255,255,.10); */\n                }\n            }\n            &.wpwax-vm-btn-play{\n                transition: background-color .2s ease-in-out;\n                background-color: #FC495D;\n                &:hover{\n                    background-color: #ff2a42;\n                }\n            }\n        }\n        \n        .wpwax-vm-btn-record{\n            position: relative;\n            display: block;\n            width: 70px;\n            height: 70px;\n            margin: 0 auto;\n            border-radius: 50%;\n            border: 5px solid var(--color-white);\n            background-color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                width: 70px;\n                height: 70px;\n            }\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n            &:after{\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                width: calc( 100% );\n                height: calc( 100% );\n                border-radius: 50%;\n                content: \"\";\n                z-index: 101;\n                transition-property: width, height, border-radius;\n                transition-duration: .2s;\n                transition-timing-function: ease-in; \n                background-color: var(--color-danger);\n            }\n        }\n    }\n    &.wpwax-vm-reply-start{\n        .wpwax-vm-reply-bottom{\n            .wpwax-vm-btn-record{\n                background-color: transparent;\n                border: 5px solid var(--color-white);\n                &:after{\n                    width: 28px;\n                    height: 28px;\n                    border-radius: 8px;\n                }\n            }\n        }\n    }\n    &.wpwax-vm-reply-ready{\n        display: flex;\n        flex-direction: row;\n        border-radius: 30px;\n        ", ": 80px;\n        top: 80px;\n        bottom: 0;\n        width: calc( 100% - 160px );\n        height: calc( 100vh - 160px );\n\t\tbackground-color: #000000;\n        @media only screen and (max-width: 991px){\n            ", ": 30px;\n            width: calc( 100% - 60px );\n        }\n        @media only screen and (max-width: 767px){\n            flex-direction: column;\n            ", ": 15px;\n            width: calc( 100% - 30px );\n        }\n        &:after{\n            border-radius: 30px 0 0 0;\n            @media only screen and (max-width: 767px){\n                display: none;\n            }\n        }\n        .wpwax-vm-reply-video-bg{\n            position: static;\n        }\n        &.wpwax-vm-reply-upload{\n            .wpwax-vm-reply-ready__video{\n                border-radius: 30px 0 0 30px;\n                background-color: var(--color-dark);\n                @media only screen and (max-width: 767px){\n                    /* display: none; */\n                }\n            }\n            .wpwax-vm-reply-ready__file-input{\n                display: flex;\n                flex-direction: column;\n                justify-content: center;\n                align-items: center;\n                margin: 0 40px 20px;\n                padding: 20px;\n                border-radius: 14px;\n                min-height: 220px;\n                border: 1px dashed #C4C4C4;\n                background-color: #EAEAEA;\n                @media only screen and (max-width: 1399px){\n                    margin: 0 30px 40px;\n                    min-height: 180px;\n                }\n                @media only screen and (max-width: 767px){\n                    min-height: 100px;\n                }\n                input[type=file]{\n                    display: none;\n                }\n                strong{\n                    display: inline-block;\n                    font-size: 14px;\n                    font-weight: 500;\n                    margin: 12px 0;\n                    color: var(--color-dark);\n                }\n                span,\n                p{\n                    font-size: 14px;\n                    font-weight: 500;\n                }\n                p + p{\n                    margin-top: 4px;\n                }\n                .wpwax-vm-dark-alert{\n                    display: inline-block;\n                    margin: 10px 0 14px;\n                    color: var(--color-dark);\n                }\n                p{\n                    margin: 0;\n                    color: var(--color-text);\n                }\n            }\n            .wpawax-vm-reply-btn-upload{\n                font-size: 14px;\n                font-weight: 600;\n                padding: 0 20px;\n                display: inline-flex;\n                align-items: center;\n                min-height: 38px;\n                border-radius: 8px;\n                text-decoration: none;\n                cursor: pointer;\n                color: var(--color-white);\n                background-color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-reply-close{\n            position: absolute;\n            top: 20px;\n            ", ": 30px;\n            text-decoration: none;\n            z-index: 10;\n            color: var(--color-dark);\n            @media only screen and (max-width: 767px){\n                z-index: 1000;\n                color: var(--color-white);\n            }\n            .dashicons{\n                font-size: 28px;\n            }\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n        &:before{\n            display: none;\n        }\n        &:after{\n            width: 50%;\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                border-radius: 30px 30px 0 0;\n            }\n        }\n        .wpwax-vm-reply-ready__video{\n            width: 50%;\n            position: relative;\n            @media only screen and (max-width: 767px){\n                //display: none;\n                width: 100%;\n                height: 200px;\n            }\n            .wpwax-vm-reply-video-bg{\n                border-radius: 0px;\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 0;\n                }\n            }\n            img{\n                width: 100%;\n                height: 100%;\n                border-radius: 30px 0 0 0;\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 0;\n                }\n            }\n            video{\n                border-radius: 30px 0 0 30px;\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 0;\n                }\n            }\n            .wpwax-vm-reply-ready__video--top{\n                display: flex;\n                justify-content: flex-end;\n                position: relative;\n                padding: 40px 40px 0 0;\n                color: var(--color-white);\n                z-index: 100001;\n                .wpwax-vm-video-timer{\n                    font-size: 14px;\n                    ", ": 20px;\n                    display: inline-block;\n                }\n            }\n            .wpwax-vm-video_play{\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                width: 80px;\n                height: 80px;\n                border-radius: 50%;\n                text-decoration: none;\n                box-shadow: 0 3px 20px rgba(0,0,0,.05);\n                background-color: var(--color-white);\n                .dashicons{\n                    position: relative;\n                    top: -3px;\n                    width: 30px;\n                    height: 22px;\n                    font-size: 30px;\n                    color: var(--color-danger);\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__content{\n            position: relative;\n            width: 50%;\n            height: 100%;\n            border-radius: 0 30px 30px 0;\n            background-color: #F0F0F0;\n            display: flex;\n            flex-direction: column;\n            /* overflow-y: auto; */\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                overflow-y: auto;\n                overflow-x: hidden;\n                border-radius: 0;\n                &::-webkit-scrollbar {\n                    width: 11px;\n                }\n\n                &::-webkit-scrollbar-track {\n                    background: var(--color-light);\n                }\n\n                &::-webkit-scrollbar-thumb {\n                    background-color: var(--color-bg-gray);\n                    border-radius: 6px;\n                    border: 3px solid var(--color-light);\n                }\n            }\n            .wpwax-vm-media{\n                padding: 30px 50px 35px;;\n                @media only screen and (max-width: 1399px){\n                    padding: 20px 30px 25px;\n                }\n                .wpwax-vm-media__body{\n                    top: -2px;\n                }\n                .wpwax-vm-media__title{\n                    font-size: 22px;\n                    font-weight: 600;\n                    font-family: 'Inter', sans-serif;\n                    text-transform: initial;\n                    width: 250px;\n                    line-height: 1.5;\n                    margin-bottom: 6px;\n                    @media only screen and (max-width: 1399px){\n                        font-size: 20px;\n                    }\n                }\n                .wpwax-vm-media__meta{\n                    span{\n                        font-size: 15px;\n                        color: var(--color-text);\n                        @media only screen and (max-width: 1399px){\n                            font-size: 14px;\n                        }\n                    }\n                }\n                .wpax-vm-imglist{\n                    img{\n                        max-width: 50px;\n                        border-radius: 50%;\n                    }\n                }\n            }\n            .wpwax-vm-reply-ready__text-form{\n                overflow-y: auto;\n                &::-webkit-scrollbar {\n                    width: 11px;\n                }\n\n                &::-webkit-scrollbar-track {\n                    background: var(--color-light);\n                }\n\n                &::-webkit-scrollbar-thumb {\n                    background-color: var(--color-bg-gray);\n                    border-radius: 6px;\n                    border: 3px solid var(--color-light);\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__text-form-input{\n            padding: 0 50px;\n            @media only screen and (max-width: 1399px){\n                padding: 0 30px;\n            }\n            textarea{\n                font-size: 18px;\n                width: 100%;\n                border: 0 none;\n                min-height: 200px;\n                font-family: var(--font-family);\n                background-color: transparent;\n                &:focus{\n                    outline: none;\n                    border: 0 none;\n                    box-shadow: 0 0;\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__text-form--action{\n            position: absolute;\n            bottom: 0;\n            ", ": 0;\n            width: 100%;\n            display: flex;\n            border-radius: 0 0 30px 0;\n            background-color: var(--color-white);\n            /* @media only screen and (max-width: 767px){\n                position: fixed;\n            } */\n            .wpwax-vm-reply-ready-btn{\n                display: flex;\n                justify-content: center;\n                align-items: center;\n                flex: 1;\n                font-size: 15px;\n                min-height: 80px;\n                text-align: center;\n                text-decoration: none;\n                color: #4D4D4D;\n                @media only screen and (max-width: 1299px){\n                    min-height: 60px;\n                }\n                @media only screen and (max-width: 767px){\n                    min-height: 50px;\n                }\n                &:hover{\n                    .wpwax-vm-reply-ready-btn__text{\n                        color: var(--color-primary);\n                    }\n                    span,\n                    svg path{\n                        color: var(--color-primary);\n                        fill: var(--color-primary);\n                    }\n                }\n                .wpwax-vm-reply-ready-btn__text{\n                    display: inline-block;\n                    ", ": 10px;\n                }\n                svg{\n                    path{\n                        fill: #4D4D4D;\n                    }\n                }\n                &.wpwax-vm-btn-send{\n                    ", ": 1px solid #EDEDED;\n                    .wpwax-vm-reply-ready-btn__text{\n                        ", ": 10px;\n                        ", ": 0;\n                    }\n                }\n            }\n        }\n    }\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.direction === 'ltr' ? 'left' : 'right';
 }, function (_ref2) {
@@ -8372,7 +8384,7 @@ var VideoReplyWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].d
   return theme.direction === 'ltr' ? 'left' : 'right';
 }, function (_ref4) {
   var theme = _ref4.theme;
-  return theme.direction === 'ltr' ? 'left' : 'right';
+  return theme.direction === 'ltr' ? 'right' : 'left';
 }, function (_ref5) {
   var theme = _ref5.theme;
   return theme.direction === 'ltr' ? 'left' : 'right';
@@ -8381,24 +8393,27 @@ var VideoReplyWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].d
   return theme.direction === 'ltr' ? 'left' : 'right';
 }, function (_ref7) {
   var theme = _ref7.theme;
-  return theme.direction === 'ltr' ? 'right' : 'left';
+  return theme.direction === 'ltr' ? 'left' : 'right';
 }, function (_ref8) {
   var theme = _ref8.theme;
-  return theme.direction === 'ltr' ? 'margin-right' : 'margin-left';
+  return theme.direction === 'ltr' ? 'right' : 'left';
 }, function (_ref9) {
   var theme = _ref9.theme;
-  return theme.direction === 'ltr' ? 'left' : 'right';
+  return theme.direction === 'ltr' ? 'margin-right' : 'margin-left';
 }, function (_ref10) {
   var theme = _ref10.theme;
-  return theme.direction === 'ltr' ? 'margin-left' : 'margin-right';
+  return theme.direction === 'ltr' ? 'left' : 'right';
 }, function (_ref11) {
   var theme = _ref11.theme;
-  return theme.direction === 'ltr' ? 'border-left' : 'border-right';
+  return theme.direction === 'ltr' ? 'margin-left' : 'margin-right';
 }, function (_ref12) {
   var theme = _ref12.theme;
-  return theme.direction === 'ltr' ? 'margin-right' : 'margin-left';
+  return theme.direction === 'ltr' ? 'border-left' : 'border-right';
 }, function (_ref13) {
   var theme = _ref13.theme;
+  return theme.direction === 'ltr' ? 'margin-right' : 'margin-left';
+}, function (_ref14) {
+  var theme = _ref14.theme;
   return theme.direction === 'ltr' ? 'margin-left' : 'margin-right';
 });
 
@@ -8415,19 +8430,22 @@ var VideoReplyWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].d
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var Components_UserAvaterList_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Components/UserAvaterList.jsx */ "./src/js/components/UserAvaterList.jsx");
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Style */ "./src/js/apps/messanger/components/message-box/components/video/Style.js");
 /* harmony import */ var Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/icons/paper-plane.svg */ "./src/assets/svg/icons/paper-plane.svg");
-/* harmony import */ var _store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../store/messages/actionCreator */ "./src/js/apps/messanger/store/messages/actionCreator.js");
-/* harmony import */ var API_useMessangerAPI__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! API/useMessangerAPI */ "./src/js/helpers/hooks/api/useMessangerAPI.js");
-/* harmony import */ var Hooks_useCoreData_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Hooks/useCoreData.jsx */ "./src/js/helpers/hooks/useCoreData.jsx");
-/* harmony import */ var API_useAttachmentAPI_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! API/useAttachmentAPI.js */ "./src/js/helpers/hooks/api/useAttachmentAPI.js");
-/* harmony import */ var Hooks_useCountdown__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Hooks/useCountdown */ "./src/js/helpers/hooks/useCountdown.js");
-/* harmony import */ var Hooks_media_recorder_useVideoRecorder__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! Hooks/media-recorder/useVideoRecorder */ "./src/js/helpers/hooks/media-recorder/useVideoRecorder.js");
-/* harmony import */ var Helper_const__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! Helper/const */ "./src/js/helpers/const.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var Assets_svg_icons_play_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/play.svg */ "./src/assets/svg/icons/play.svg");
+/* harmony import */ var Assets_svg_icons_pause_solid_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Assets/svg/icons/pause-solid.svg */ "./src/assets/svg/icons/pause-solid.svg");
+/* harmony import */ var Assets_svg_icons_cross_small_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Assets/svg/icons/cross-small.svg */ "./src/assets/svg/icons/cross-small.svg");
+/* harmony import */ var _store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../store/messages/actionCreator */ "./src/js/apps/messanger/store/messages/actionCreator.js");
+/* harmony import */ var API_useMessangerAPI__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! API/useMessangerAPI */ "./src/js/helpers/hooks/api/useMessangerAPI.js");
+/* harmony import */ var Hooks_useCoreData_jsx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! Hooks/useCoreData.jsx */ "./src/js/helpers/hooks/useCoreData.jsx");
+/* harmony import */ var API_useAttachmentAPI_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! API/useAttachmentAPI.js */ "./src/js/helpers/hooks/api/useAttachmentAPI.js");
+/* harmony import */ var Hooks_useCountdown__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! Hooks/useCountdown */ "./src/js/helpers/hooks/useCountdown.js");
+/* harmony import */ var Hooks_media_recorder_useVideoRecorder__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! Hooks/media-recorder/useVideoRecorder */ "./src/js/helpers/hooks/media-recorder/useVideoRecorder.js");
+/* harmony import */ var Helper_const__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! Helper/const */ "./src/js/helpers/const.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -8457,8 +8475,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
+
 var Record = function Record(_ref) {
-  var sessionID = _ref.sessionID,
+  var videoRecorderStatus = _ref.videoRecorderStatus,
+    setVideoRecorderStatus = _ref.setVideoRecorderStatus,
+    sessionID = _ref.sessionID,
     backToHome = _ref.backToHome,
     onSuccess = _ref.onSuccess,
     replayingTo = _ref.replayingTo;
@@ -8471,33 +8494,37 @@ var Record = function Record(_ref) {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
   // useCountdown
-  var _useCountdown = (0,Hooks_useCountdown__WEBPACK_IMPORTED_MODULE_9__["default"])(),
+  var _useCountdown = (0,Hooks_useCountdown__WEBPACK_IMPORTED_MODULE_12__["default"])(),
     isActiveCountdown = _useCountdown.isActiveCountdown,
     startCountdown = _useCountdown.startCountdown,
     CountdownPage = _useCountdown.CountdownPage,
     getReverseCount = _useCountdown.getReverseCount;
 
   // useVideoRecorder
-  var _useVideoRecorder = (0,Hooks_media_recorder_useVideoRecorder__WEBPACK_IMPORTED_MODULE_10__["default"])({
+  var _useVideoRecorder = (0,Hooks_media_recorder_useVideoRecorder__WEBPACK_IMPORTED_MODULE_13__["default"])({
       maxRecordLength: getMaxRecordLength(),
       resolution: getVideoResolution(),
       afterStopRecording: function afterStopRecording() {
         setCurrentStage(stages.BEFORE_SEND);
       }
     }),
-    isRecording = _useVideoRecorder.isRecording,
+    isVideoRecording = _useVideoRecorder.isVideoRecording,
+    isRecordingPaused = _useVideoRecorder.isRecordingPaused,
     recordedVideoBlob = _useVideoRecorder.recordedBlob,
     recordedVideoURL = _useVideoRecorder.recordedURL,
     videoStreemRef = _useVideoRecorder.videoStreemRef,
     setupVideoStreem = _useVideoRecorder.setupStream,
-    startVideoRecording = _useVideoRecorder.startRecording,
+    startRecording = _useVideoRecorder.startRecording,
+    resumeRecording = _useVideoRecorder.resumeRecording,
+    pauseRecording = _useVideoRecorder.pauseRecording,
     stopRecording = _useVideoRecorder.stopRecording,
-    getCountDown = _useVideoRecorder.getCountDown;
+    getCountDown = _useVideoRecorder.getCountDown,
+    recordedTimeInSecond = _useVideoRecorder.recordedTimeInSecond;
 
   // Use API
-  var _useMessangerAPI = (0,API_useMessangerAPI__WEBPACK_IMPORTED_MODULE_6__["default"])(),
+  var _useMessangerAPI = (0,API_useMessangerAPI__WEBPACK_IMPORTED_MODULE_9__["default"])(),
     createMessangerItem = _useMessangerAPI.createItem;
-  var _useAttachmentAPI = (0,API_useAttachmentAPI_js__WEBPACK_IMPORTED_MODULE_8__["default"])(),
+  var _useAttachmentAPI = (0,API_useAttachmentAPI_js__WEBPACK_IMPORTED_MODULE_11__["default"])(),
     createAttachmentItem = _useAttachmentAPI.createItem;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(stages.RECORD),
     _useState2 = _slicedToArray(_useState, 2),
@@ -8520,47 +8547,22 @@ var Record = function Record(_ref) {
   // handleRecordButtonAction
   var handleRecordButtonAction = function handleRecordButtonAction(event) {
     event.preventDefault();
-    if (isRecording) {
+    if (isVideoRecording) {
       stopRecording();
       setCurrentStage(stages.SUBMIT);
       return;
     }
     startRecording();
   };
-
-  // startRecording
-  function startRecording() {
-    return _startRecording.apply(this, arguments);
-  }
-  function _startRecording() {
-    _startRecording = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      return _regeneratorRuntime().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return startCountdown();
-            case 2:
-              // Start Video Recording
-              startVideoRecording();
-            case 3:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-    return _startRecording.apply(this, arguments);
-  }
   function getMaxRecordLength() {
     if (wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit) {
       return parseFloat(wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit);
     }
-    return 2 * Helper_const__WEBPACK_IMPORTED_MODULE_11__.MIN_IN_SECONDS;
+    return 2 * Helper_const__WEBPACK_IMPORTED_MODULE_14__.MIN_IN_SECONDS;
   }
   function getVideoResolution() {
     var resolution = 720;
-    var videoResolution = (0,Hooks_useCoreData_jsx__WEBPACK_IMPORTED_MODULE_7__.useCoreData)('settings.videoResolution');
+    var videoResolution = (0,Hooks_useCoreData_jsx__WEBPACK_IMPORTED_MODULE_10__.useCoreData)('settings.videoResolution');
     if (!isNaN(videoResolution)) {
       resolution = "".concat(videoResolution);
     }
@@ -8570,83 +8572,84 @@ var Record = function Record(_ref) {
     return _sendVideo.apply(this, arguments);
   }
   function _sendVideo() {
-    _sendVideo = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(e) {
+    _sendVideo = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
       var attachmentResponse, message, attachmentID, messageResponse, _message;
-      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context.prev = _context.next) {
             case 0:
               e.preventDefault();
               if (!isSending) {
-                _context2.next = 3;
+                _context.next = 3;
                 break;
               }
-              return _context2.abrupt("return");
+              return _context.abrupt("return");
             case 3:
               if (recordedVideoBlob) {
-                _context2.next = 6;
+                _context.next = 6;
                 break;
               }
               setSelectedFileErrorMessage('Please select a video');
-              return _context2.abrupt("return");
+              return _context.abrupt("return");
             case 6:
               setIsSending(true);
 
               // Upload The Attachment
-              _context2.next = 9;
+              _context.next = 9;
               return createAttachmentItem({
                 file: recordedVideoBlob
               });
             case 9:
-              attachmentResponse = _context2.sent;
+              attachmentResponse = _context.sent;
               if (attachmentResponse.success) {
-                _context2.next = 15;
+                _context.next = 15;
                 break;
               }
               message = attachmentResponse.message ? attachmentResponse.message : 'Something went wrong, please try again.';
               alert(message);
               setIsSending(false);
-              return _context2.abrupt("return");
+              return _context.abrupt("return");
             case 15:
               attachmentID = attachmentResponse.data.id; // Send The Message
-              _context2.next = 18;
+              _context.next = 18;
               return createTextMessage({
                 attachment_id: attachmentID,
                 message: textMessage
               });
             case 18:
-              messageResponse = _context2.sent;
+              messageResponse = _context.sent;
               if (messageResponse.success) {
-                _context2.next = 24;
+                _context.next = 24;
                 break;
               }
               _message = messageResponse.message ? messageResponse.message : 'Something went wrong, please try again.';
               alert(_message);
               setIsSending(false);
-              return _context2.abrupt("return");
+              return _context.abrupt("return");
             case 24:
               setIsSending(false);
               onSuccess();
               close();
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_5__.handleReplyModeChange)(false));
-            case 28:
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_8__.handleReplyModeChange)(false));
+              setVideoRecorderStatus(null);
+            case 29:
             case "end":
-              return _context2.stop();
+              return _context.stop();
           }
         }
-      }, _callee2);
+      }, _callee);
     }));
     return _sendVideo.apply(this, arguments);
   }
   function createTextMessage(_x2) {
     return _createTextMessage.apply(this, arguments);
-  } /* Handle Back */
+  } /* Handle Start Recording */
   function _createTextMessage() {
-    _createTextMessage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(customArgs) {
+    _createTextMessage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(customArgs) {
       var defaultArgs, args, status, response;
-      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
               defaultArgs = {
                 conversation_id: sessionID,
@@ -8657,126 +8660,232 @@ var Record = function Record(_ref) {
                 success: false,
                 data: null
               };
-              _context3.prev = 3;
-              _context3.next = 6;
+              _context2.prev = 3;
+              _context2.next = 6;
               return createMessangerItem(args);
             case 6:
-              response = _context3.sent;
+              response = _context2.sent;
               status.success = true;
               status.data = response;
-              return _context3.abrupt("return", status);
+              return _context2.abrupt("return", status);
             case 12:
-              _context3.prev = 12;
-              _context3.t0 = _context3["catch"](3);
+              _context2.prev = 12;
+              _context2.t0 = _context2["catch"](3);
               status.success = false;
               console.error({
-                error: _context3.t0
+                error: _context2.t0
               });
-              return _context3.abrupt("return", status);
+              return _context2.abrupt("return", status);
             case 17:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[3, 12]]);
+    }));
+    return _createTextMessage.apply(this, arguments);
+  }
+  function handleStartRecording(_x3) {
+    return _handleStartRecording.apply(this, arguments);
+  } /* Handle Resume Recording */
+  function _handleStartRecording() {
+    _handleStartRecording = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(e) {
+      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              e.preventDefault();
+              setVideoRecorderStatus('recording');
+              _context3.next = 4;
+              return startCountdown();
+            case 4:
+              startRecording();
+            case 5:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[3, 12]]);
+      }, _callee3);
     }));
-    return _createTextMessage.apply(this, arguments);
+    return _handleStartRecording.apply(this, arguments);
   }
-  var handleBack = function handleBack(e) {
-    e.preventDefault();
-    backToHome();
-  };
-
-  /* Handle Close */
+  function handleResumeRecording(_x4) {
+    return _handleResumeRecording.apply(this, arguments);
+  } /* Handle Pause Recording */
+  function _handleResumeRecording() {
+    _handleResumeRecording = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(e) {
+      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              e.preventDefault();
+              resumeRecording();
+            case 2:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+    return _handleResumeRecording.apply(this, arguments);
+  }
+  function handlePauseRecording(_x5) {
+    return _handlePauseRecording.apply(this, arguments);
+  } /* Handle Send Recording */
+  function _handlePauseRecording() {
+    _handlePauseRecording = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(e) {
+      return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              e.preventDefault();
+              if (isVideoRecording) {
+                setVideoRecorderStatus('paused');
+                pauseRecording();
+              }
+            case 2:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    }));
+    return _handlePauseRecording.apply(this, arguments);
+  }
+  function handleSendRecording(_x6) {
+    return _handleSendRecording.apply(this, arguments);
+  } /* Handle Close */
+  function _handleSendRecording() {
+    _handleSendRecording = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(e) {
+      return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              e.preventDefault();
+              stopRecording();
+            case 2:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6);
+    }));
+    return _handleSendRecording.apply(this, arguments);
+  }
   var handleClose = function handleClose(e) {
     e.preventDefault();
-    close();
+    if (!isVideoRecording || !isRecordingPaused) {
+      setVideoRecorderStatus(null);
+      close();
+    }
   };
 
   /* Close */
   var close = function close() {
     stopRecording();
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_5__.handleMessageTypeChange)(''));
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_5__.handleReplyModeChange)(false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_8__.handleMessageTypeChange)(''));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_8__.handleReplyModeChange)(false));
+  };
+  var getRightBtnContent = function getRightBtnContent() {
+    if (isRecordingPaused || isVideoRecording) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("a", {
+        href: "#",
+        className: isRecordingPaused ? 'wpwax-vm-btn-record-right wpwax-vm-btn-play' : 'wpwax-vm-btn-record-right wpwax-vm-btn-pause',
+        onClick: isRecordingPaused ? function (e) {
+          return handleResumeRecording(e);
+        } : function (e) {
+          return handlePauseRecording(e);
+        },
+        children: [" ", isRecordingPaused ? null : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_16__["default"], {
+          src: Assets_svg_icons_pause_solid_svg__WEBPACK_IMPORTED_MODULE_6__["default"]
+        }), " "]
+      });
+    } else if (isVideoRecording && recordedTimeInSecond === 0) {
+      return null;
+    }
   };
   if (currentStage === stages.RECORD) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.VideoReplyWrap, {
-      className: !isRecording ? 'wpwax-vm-reply-pause' : 'wpwax-vm-reply-start',
-      children: [isActiveCountdown && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.VideoReplyWrap, {
+      className: isVideoRecording || isRecordingPaused ? 'wpwax-vm-reply-start' : null,
+      children: [isActiveCountdown && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("div", {
         className: "wpwax-vm-reply-countdown",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(CountdownPage, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(CountdownPage, {
           count: getReverseCount()
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("div", {
         className: "wpwax-vm-reply-video-bg",
         style: {
           backgroundColor: '#000000'
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("video", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("video", {
           ref: videoStreemRef,
           width: "100%",
           height: "100%",
           muted: true
         })
-      }), !isActiveCountdown && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+      }), !isActiveCountdown && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("div", {
         className: "wpwax-vm-reply-top",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("h4", {
-          children: isRecording ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("h4", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("span", {
             className: "wpwax-vm-timer",
-            children: [' ', getCountDown()]
-          }) : ''
-        }), isRecording || /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("a", {
+            children: getCountDown()
+          })
+        }), isVideoRecording || /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("a", {
           href: "",
           className: "wpwax-vm-reply-close",
           onClick: handleClose,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
-            className: "dashicons dashicons-no-alt"
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_16__["default"], {
+            src: Assets_svg_icons_cross_small_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
           })
         })]
-      }), !isActiveCountdown && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+      }), !isActiveCountdown && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("div", {
         className: "wpwax-vm-reply-bottom",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("a", {
-          href: "",
+        children: [isVideoRecording || isRecordingPaused ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("a", {
+          href: "#",
           className: "wpwax-vm-btn-record",
-          onClick: handleRecordButtonAction
-        })
+          onClick: handleSendRecording
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("a", {
+          href: "#",
+          className: "wpwax-vm-btn-record",
+          onClick: handleStartRecording
+        }), getRightBtnContent()]
       })]
     });
   } else {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.VideoReplyWrap, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.VideoReplyWrap, {
       className: "wpwax-vm-reply-ready",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("a", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("a", {
         href: "",
         className: "wpwax-vm-reply-close",
         onClick: handleClose,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("span", {
           className: "dashicons dashicons-no-alt"
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("div", {
         className: "wpwax-vm-reply-ready__video",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("div", {
           className: "wpwax-vm-reply-video-bg",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("video", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("video", {
             controls: true,
             src: recordedVideoURL,
             width: "100%",
             height: "100%"
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("div", {
         className: "wpwax-vm-reply-ready__content",
-        children: [replayingTo && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+        children: [replayingTo && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("div", {
           className: "",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(Components_UserAvaterList_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(Components_UserAvaterList_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
             users: [replayingTo]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("div", {
           className: "wpwax-vm-reply-ready__text-form",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("form", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("form", {
             action: "",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("div", {
               className: "wpwax-vm-reply-ready__text-form-input",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("textarea", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("textarea", {
                 value: textMessage,
                 name: "wpwax-vm-reply-ready-text",
                 id: "wpwax-vm-reply-ready-text",
@@ -8785,26 +8894,26 @@ var Record = function Record(_ref) {
                   setTextMessage(event.target.value);
                 }
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("div", {
               className: "wpwax-vm-reply-ready__text-form--action",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("a", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("a", {
                 href: "#",
                 className: "wpwax-vm-reply-ready-btn wpwax-vm-btn-back",
                 onClick: handleClose,
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("span", {
                   className: "dashicons dashicons-arrow-left-alt"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("span", {
                   className: "wpwax-vm-reply-ready-btn__text",
                   children: "Cancel"
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("a", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("a", {
                 onClick: sendVideo,
                 href: "#",
                 className: "wpwax-vm-reply-ready-btn wpwax-vm-btn-send",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("span", {
                   className: "wpwax-vm-reply-ready-btn__text",
                   children: !isSending ? 'Send' : 'Sending...'
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_13__["default"], {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_16__["default"], {
                   src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
                 })]
               })]
@@ -15581,28 +15690,32 @@ function useVideoRecorder(config) {
   config = config && _typeof(config) === 'object' ? _objectSpread(_objectSpread({}, defaultConfig), config) : defaultConfig;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
-    isRecording = _useState2[0],
-    setIsRecording = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    isVideoRecording = _useState2[0],
+    setIsVideoRecording = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState4 = _slicedToArray(_useState3, 2),
-    permissionDenied = _useState4[0],
-    setPermissionDenied = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+    isRecordingPaused = _useState4[0],
+    setIsRecordingPaused = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState6 = _slicedToArray(_useState5, 2),
-    recordedTimeInSecond = _useState6[0],
-    setRecordedTimeInSecond = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    permissionDenied = _useState6[0],
+    setPermissionDenied = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
     _useState8 = _slicedToArray(_useState7, 2),
-    recordedBlob = _useState8[0],
-    setRecordedBlob = _useState8[1];
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    recordedTimeInSecond = _useState8[0],
+    setRecordedTimeInSecond = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState10 = _slicedToArray(_useState9, 2),
-    recordedURL = _useState10[0],
-    setRecordedURL = _useState10[1];
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    recordedBlob = _useState10[0],
+    setRecordedBlob = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
     _useState12 = _slicedToArray(_useState11, 2),
-    recordingIsGoingToStopSoon = _useState12[0],
-    setRecordingIsGoingToStopSoon = _useState12[1];
+    recordedURL = _useState12[0],
+    setRecordedURL = _useState12[1];
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState14 = _slicedToArray(_useState13, 2),
+    recordingIsGoingToStopSoon = _useState14[0],
+    setRecordingIsGoingToStopSoon = _useState14[1];
   var recorderRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   var streamRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   var recordingTimerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
@@ -15750,7 +15863,7 @@ function useVideoRecorder(config) {
               console.error({
                 error: _context3.t0
               });
-              setIsRecording(false);
+              setIsVideoRecording(false);
               return _context3.abrupt("return", false);
             case 19:
             case "end":
@@ -15781,7 +15894,7 @@ function useVideoRecorder(config) {
             case 4:
               setRecordingIsGoingToStopSoon(false);
               setRecordedTimeInSecond(0);
-              setIsRecording(true);
+              setIsVideoRecording(true);
               startTimer();
               return _context4.abrupt("return", true);
             case 9:
@@ -15794,6 +15907,7 @@ function useVideoRecorder(config) {
     return _startRecording.apply(this, arguments);
   }
   function stopRecording(args) {
+    setIsRecordingPaused(false);
     var defaultArgs = {
       terminate: false
     };
@@ -15808,7 +15922,7 @@ function useVideoRecorder(config) {
       }
       recorderRef.current = null;
       setRecordedTimeInSecond(0);
-      setIsRecording(false);
+      setIsVideoRecording(false);
       afterStopRecording();
       return;
     }
@@ -15820,7 +15934,7 @@ function useVideoRecorder(config) {
       setRecordingIsGoingToStopSoon(false);
       setRecordedBlob(blob);
       setRecordedURL(url);
-      setIsRecording(false);
+      setIsVideoRecording(false);
       if (!args.terminate) {
         afterStopRecording({
           blob: blob,
@@ -15828,6 +15942,75 @@ function useVideoRecorder(config) {
         });
       }
     });
+  }
+
+  // resumeRecording
+  function resumeRecording() {
+    return _resumeRecording.apply(this, arguments);
+  } // pauseRecording
+  function _resumeRecording() {
+    _resumeRecording = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+      return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              if (recorderRef.current) {
+                _context5.next = 2;
+                break;
+              }
+              return _context5.abrupt("return", false);
+            case 2:
+              _context5.next = 4;
+              return recorderRef.current.resumeRecording();
+            case 4:
+              setIsVideoRecording(true);
+              setIsRecordingPaused(false);
+              startTimer();
+              return _context5.abrupt("return", true);
+            case 8:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    }));
+    return _resumeRecording.apply(this, arguments);
+  }
+  function pauseRecording() {
+    return _pauseRecording.apply(this, arguments);
+  }
+  function _pauseRecording() {
+    _pauseRecording = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+      return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              if (recorderRef.current) {
+                _context6.next = 2;
+                break;
+              }
+              return _context6.abrupt("return", false);
+            case 2:
+              if (!isVideoRecording) {
+                _context6.next = 8;
+                break;
+              }
+              _context6.next = 5;
+              return recorderRef.current.pauseRecording();
+            case 5:
+              setIsVideoRecording(false);
+              setIsRecordingPaused(true);
+              stopTimer();
+            case 8:
+              return _context6.abrupt("return", true);
+            case 9:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6);
+    }));
+    return _pauseRecording.apply(this, arguments);
   }
   function afterStopRecording(recordingData) {
     if (config && config.afterStopRecording && typeof config.afterStopRecording === 'function') {
@@ -15854,7 +16037,7 @@ function useVideoRecorder(config) {
     return (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_1__.formatSecondsAsCountdown)(reversedRecordedTimeInSecond());
   }
   function reset() {
-    if (isRecording) {
+    if (isVideoRecording) {
       stopRecording({
         terminate: true
       });
@@ -15868,14 +16051,15 @@ function useVideoRecorder(config) {
     streamRef.current = null;
     recordingTimerRef.current = null;
     videoStreemRef.current = null;
-    setIsRecording(false);
+    setIsVideoRecording(false);
     setRecordedTimeInSecond(0);
     setRecordedBlob(null);
     setRecordedURL('');
   }
   return {
     recorder: recorderRef.current,
-    isRecording: isRecording,
+    isVideoRecording: isVideoRecording,
+    isRecordingPaused: isRecordingPaused,
     permissionDenied: permissionDenied,
     recordedTimeInSecond: recordedTimeInSecond,
     recordedBlob: recordedBlob,
@@ -15886,6 +16070,8 @@ function useVideoRecorder(config) {
     requestPermission: requestPermission,
     setupStream: setupStream,
     startRecording: startRecording,
+    resumeRecording: resumeRecording,
+    pauseRecording: pauseRecording,
     stopRecording: stopRecording,
     getCountDown: getCountDown,
     reset: reset
@@ -16637,6 +16823,18 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/20f11a0a3a31a4e804ba3a840119231b.svg");
+
+/***/ }),
+
+/***/ "./src/assets/svg/icons/cross-small.svg":
+/*!**********************************************!*\
+  !*** ./src/assets/svg/icons/cross-small.svg ***!
+  \**********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/7ee24f89586350cdfb9dffa92d0ff330.svg");
 
 /***/ }),
 

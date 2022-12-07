@@ -2,8 +2,8 @@ import Styled from 'styled-components';
 
 const ScreenWrapper = Styled.div`
     position: fixed;
-    bottom: 15px;
-    ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 25px;
+    bottom: 20px;
+    ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 20px;
     height: auto;
     width: 400px;
     z-index: 100;

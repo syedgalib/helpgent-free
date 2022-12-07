@@ -1,9 +1,13 @@
-import { useEffect, useState } from 'react';
-
+import { useEffect, useState, useRef } from 'react';
+import ReactSVG from 'react-inlinesvg'
 import Container from './Style';
 
 import useVideoRecorder from 'Hooks/media-recorder/useVideoRecorder';
 import useCountdown from 'Hooks/useCountdown';
+
+import play from 'Assets/svg/icons/play.svg';
+import pause from 'Assets/svg/icons/pause-solid.svg';
+import crossSmall from 'Assets/svg/icons/cross-small.svg';
 
 function App( { onSelect, onSave, onClose } ) {
 	const stages = {
@@ -20,7 +24,9 @@ function App( { onSelect, onSave, onClose } ) {
 	} = useCountdown();
 
 	const {
-		isRecording,
+		isVideoRecording,
+		isRecordingPaused,
+		recordedTimeInSecond,
 		recordedBlob,
 		recordedURL,
 		hasPermission,
@@ -28,14 +34,19 @@ function App( { onSelect, onSave, onClose } ) {
 		setupStream,
 		videoStreemRef,
 		startRecording,
+		pauseRecording,
+		resumeRecording,
 		stopRecording,
 		getCountDown,
 		reset: resetRecorder,
 	} = useVideoRecorder();
 
+	const videoToggleRef = useRef(null);
+
 	// States
 	const [ currentStage, setCurrentStage ] = useState( stages.RECORD );
 	const [ hasRecordingPermission, setHasRecordingPermission ] = useState( false );
+	const [ videoRecorderStatus, setVideoRecorderStatus ] = useState( null );
 	const [ isSaving, setIsSaving ] = useState( false );
 
 	// On Avtivation
@@ -45,6 +56,30 @@ function App( { onSelect, onSave, onClose } ) {
 		setupRecordingPermission();
 
 	}, [] );
+
+	/* Focus Input field when search inopen */
+    useEffect(() => {
+        
+        const checkIfClickedOutside = e => {
+            
+            if (videoToggleRef.current && !videoToggleRef.current.contains(e.target)) {
+                if(videoRecorderStatus === null){
+					
+                    resetRecorder();
+					console.log(typeof onClose === 'function')
+					if ( typeof onClose === 'function' ) {
+						console.log(videoRecorderStatus)
+						onClose();
+					}
+                }
+            }
+        }
+        document.addEventListener("mousedown", checkIfClickedOutside)
+        return () => {
+            // Cleanup the event listener
+            document.removeEventListener("mousedown", checkIfClickedOutside)
+        }
+    }, [videoRecorderStatus]);
 
 	// setupRecordingPermission
 	async function setupRecordingPermission() {
@@ -62,21 +97,6 @@ function App( { onSelect, onSave, onClose } ) {
 			setupStream();
 		}
 	}
-
-	// handleRecordButtonAction
-    async function handleRecordButtonAction( event ) {
-        event.preventDefault();
-
-        if ( isRecording ) {
-            stopRecording();
-            setCurrentStage( stages.SUBMIT );
-            return;
-        }
-
-		await startCountdown();
-
-		startRecording();
-    };
 
 	// onSubmit
 	async function onSubmit( event ) {
@@ -110,6 +130,36 @@ function App( { onSelect, onSave, onClose } ) {
 		}
 	}
 
+	/* Handle Start Recording */
+	async function handleStartRecording( e ) {
+		e.preventDefault();
+        setVideoRecorderStatus('recording');
+		await startCountdown();
+		startRecording();
+	}
+
+	/* Handle Pause Recording */
+    async function handlePauseRecording( e ) {
+		e.preventDefault();
+		if ( isVideoRecording ) {
+            setVideoRecorderStatus('paused');
+			pauseRecording();
+		}
+	}
+
+	/* Handle Resume Recording */
+    async function handleResumeRecording( e ) {
+		e.preventDefault();
+        resumeRecording();
+	}
+
+	/* Handle Send Recording */
+    async function handleSendRecording( e ) {
+		e.preventDefault();
+        stopRecording();
+        setCurrentStage( stages.SUBMIT );
+	}
+
 	// Handle Close
 	function handleClose( event ) {
 		event.preventDefault();
@@ -118,7 +168,23 @@ function App( { onSelect, onSave, onClose } ) {
 		if ( typeof onClose === 'function' ) {
 			onClose();
 		}
+		setVideoRecorderStatus(null);
 	}
+
+	const getRightBtnContent = () => {
+        if (isRecordingPaused || isVideoRecording) {
+            return (
+                <a
+                    href='#'
+                    className={isRecordingPaused ? 'wpwax-vm-btn-record-right wpwax-vm-btn-play' : 'wpwax-vm-btn-record-right wpwax-vm-btn-pause'}
+                    onClick={ isRecordingPaused ?  (e) => handleResumeRecording(e) : (e) => handlePauseRecording(e)}
+
+                > {isRecordingPaused ? null : <ReactSVG src={pause} />} </a>
+            );
+        } else if (isVideoRecording && recordedTimeInSecond === 0) {
+            return null;
+        }
+    };
 
 	if ( ! hasRecordingPermission ) {
 		return '';
@@ -129,10 +195,11 @@ function App( { onSelect, onSave, onClose } ) {
 			<div className="helpgent-modal-wrap">
 				<Container
 					className={
-						! isRecording
-							? 'wpwax-vm-reply-pause'
-							: 'wpwax-vm-reply-start'
+						isVideoRecording || isRecordingPaused
+							? 'wpwax-vm-reply-start'
+							: null
 					}
+					ref={videoToggleRef}
 				>
 
 					{ isActiveCountdown && ( <div className="wpwax-vm-reply-countdown"><CountdownPage count={ getReverseCount() } /></div> ) }
@@ -152,22 +219,17 @@ function App( { onSelect, onSave, onClose } ) {
 					{ ! isActiveCountdown && (
 						<div className='wpwax-vm-reply-top'>
 							<h4>
-								{isRecording ? (
-									<span className='wpwax-vm-timer'>
-										{' '}
-										{getCountDown()}
-									</span>
-								) : (
-									''
-								)}
+								<span className='wpwax-vm-timer'>
+									{getCountDown()}
+								</span>
 							</h4>
-							{isRecording || (
+							{isVideoRecording || (
 								<a
 									href=''
 									className='wpwax-vm-reply-close'
 									onClick={handleClose}
 								>
-									<span className='dashicons dashicons-no-alt'></span>
+									<ReactSVG src={crossSmall} />
 								</a>
 							)}
 						</div>
@@ -175,11 +237,25 @@ function App( { onSelect, onSave, onClose } ) {
 
 					{ ! isActiveCountdown && (
 						<div className='wpwax-vm-reply-bottom'>
-							<a
-								href=''
-								className='wpwax-vm-btn-record'
-								onClick={handleRecordButtonAction}
-							></a>
+							{
+								isVideoRecording || isRecordingPaused ? 
+								<a
+									href='#'
+									className='wpwax-vm-btn-record'
+									onClick={ handleSendRecording }
+								></a>
+								: 
+								<a
+									href='#'
+									className='wpwax-vm-btn-record'
+									onClick={ handleStartRecording }
+								></a>
+							}
+							
+							{
+								getRightBtnContent()
+							}
+							
 						</div>
 					)}
 
@@ -190,7 +266,7 @@ function App( { onSelect, onSave, onClose } ) {
     } else {
         return (
 			<div className="helpgent-modal-wrap">
-				<Container className='wpwax-vm-reply-ready'>
+				<Container className='wpwax-vm-reply-ready' ref={videoToggleRef}>
 					<a
 						href=''
 						className='wpwax-vm-reply-close'

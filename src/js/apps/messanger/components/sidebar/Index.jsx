@@ -492,40 +492,27 @@ const Sidebar = ({ sessionState, setSessionState, extractTotalUnread }) => {
                                 }
                             >
                                 {sessionList.map((item, index) => {
-                                    const users = item.users.filter(
-                                        (p) =>
-                                            currentUser &&
-                                            p.email !== currentUser.email
-                                    );
-                                    let images = [];
-                                    let titleString = [];
-                                    let initialConv = false;
-                                    if(users.length === 0 && !wpWaxCustomerSupportApp_CoreScriptData.is_user_admin){
-                                        images.push(wpWaxCustomerSupportApp_CoreScriptData.admin_user.avater)
-                                    }else if(users.length === 0 && wpWaxCustomerSupportApp_CoreScriptData.is_user_admin){
-                                        images.push(wpWaxCustomerSupportApp_CoreScriptData.admin_user.avater)
-                                    }else if(users.length === 1 && wpWaxCustomerSupportApp_CoreScriptData.is_user_admin){
-                                        images.push(users[0].avater)
-                                    }else if(users.length === 1 && !wpWaxCustomerSupportApp_CoreScriptData.is_user_admin){
-                                        images.push(users[0].avater)
-                                    }else if(users.length >= 1 && wpWaxCustomerSupportApp_CoreScriptData.is_user_admin){
-                                        const selectClient = users.filter(client => client.roles[0]==='subscriber');
-                                        if(selectClient.length !==0){
-                                            images.push(selectClient[0].avater);
-                                        }else{
-                                            images.push(users[0].avater);
-                                        }
-                                    }else if(users.length >= 1 && !wpWaxCustomerSupportApp_CoreScriptData.is_user_admin){
-                                        images.push(users[0].avater);
-                                    }
-                                    if (item.users.length === 1) {
-                                        titleString.push(item.users[0].name);
-                                        initialConv = true;
-                                    } else {
-                                        for (let i = 0; i < users.length; i++) {
-                                            titleString.push(users[i].name);
-                                        }
-                                    }
+									const currentUserEmail = ( currentUser && currentUser.email ) ? currentUser.email : '';
+									const currentUserRole  = ( currentUser && currentUser.roles.length ) ? currentUser.roles[0] : '';
+
+									let engagedUsers = item.users.filter( item => {
+
+										if ( item.email === currentUserEmail ) {
+											return false;
+										}
+
+										if ( item.roles[0] === currentUserRole ) {
+											return false;
+										}
+
+										return true;
+									});
+
+									engagedUsers = ( engagedUsers.length ) ? engagedUsers : [ currentUser ];
+
+									const initialConv = item.users.length === 1;
+									const userImages  = engagedUsers.map( item => item.avater );
+									const userNames   = engagedUsers.map( item => item.name );
 
                                     if (item.read) {
                                         var moreDropdown = wpWaxCustomerSupportApp_CoreScriptData.is_user_admin ?
@@ -619,13 +606,13 @@ const Sidebar = ({ sessionState, setSessionState, extractTotalUnread }) => {
                                                     lastMessage={
                                                         item.last_message
                                                     }
-                                                    img={images}
+                                                    img={userImages}
                                                     sessionState={sessionState}
                                                     setSessionState={setSessionState}
                                                     sessionTerm={ isCurrentUserAdmin ? item.terms : [] }
                                                     initialConv={initialConv}
                                                     sessionId={item.id}
-                                                    title={titleString}
+                                                    title={userNames}
                                                     metaList={metaList}
                                                 />
                                             </div>

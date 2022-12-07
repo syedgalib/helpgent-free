@@ -17732,40 +17732,25 @@ var Sidebar = function Sidebar(_ref) {
             })
           }),
           children: sessionList.map(function (item, index) {
-            var users = item.users.filter(function (p) {
-              return currentUser && p.email !== currentUser.email;
+            var currentUserEmail = currentUser && currentUser.email ? currentUser.email : '';
+            var currentUserRole = currentUser && currentUser.roles.length ? currentUser.roles[0] : '';
+            var engagedUsers = item.users.filter(function (item) {
+              if (item.email === currentUserEmail) {
+                return false;
+              }
+              if (item.roles[0] === currentUserRole) {
+                return false;
+              }
+              return true;
             });
-            var images = [];
-            var titleString = [];
-            var initialConv = false;
-            if (users.length === 0 && !wpWaxCustomerSupportApp_CoreScriptData.is_user_admin) {
-              images.push(wpWaxCustomerSupportApp_CoreScriptData.admin_user.avater);
-            } else if (users.length === 0 && wpWaxCustomerSupportApp_CoreScriptData.is_user_admin) {
-              images.push(wpWaxCustomerSupportApp_CoreScriptData.admin_user.avater);
-            } else if (users.length === 1 && wpWaxCustomerSupportApp_CoreScriptData.is_user_admin) {
-              images.push(users[0].avater);
-            } else if (users.length === 1 && !wpWaxCustomerSupportApp_CoreScriptData.is_user_admin) {
-              images.push(users[0].avater);
-            } else if (users.length >= 1 && wpWaxCustomerSupportApp_CoreScriptData.is_user_admin) {
-              var selectClient = users.filter(function (client) {
-                return client.roles[0] === 'subscriber';
-              });
-              if (selectClient.length !== 0) {
-                images.push(selectClient[0].avater);
-              } else {
-                images.push(users[0].avater);
-              }
-            } else if (users.length >= 1 && !wpWaxCustomerSupportApp_CoreScriptData.is_user_admin) {
-              images.push(users[0].avater);
-            }
-            if (item.users.length === 1) {
-              titleString.push(item.users[0].name);
-              initialConv = true;
-            } else {
-              for (var i = 0; i < users.length; i++) {
-                titleString.push(users[i].name);
-              }
-            }
+            engagedUsers = engagedUsers.length ? engagedUsers : [currentUser];
+            var initialConv = item.users.length === 1;
+            var userImages = engagedUsers.map(function (item) {
+              return item.avater;
+            });
+            var userNames = engagedUsers.map(function (item) {
+              return item.name;
+            });
             if (item.read) {
               var moreDropdown = wpWaxCustomerSupportApp_CoreScriptData.is_user_admin ? [{
                 icon: Assets_svg_icons_envelope_open_svg__WEBPACK_IMPORTED_MODULE_14__["default"],
@@ -17825,13 +17810,13 @@ var Sidebar = function Sidebar(_ref) {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(Components_MediaBox_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
                   chatingMedia: true,
                   lastMessage: item.last_message,
-                  img: images,
+                  img: userImages,
                   sessionState: sessionState,
                   setSessionState: setSessionState,
                   sessionTerm: isCurrentUserAdmin ? item.terms : [],
                   initialConv: initialConv,
                   sessionId: item.id,
-                  title: titleString,
+                  title: userNames,
                   metaList: metaList
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsxs)("div", {
@@ -21496,7 +21481,7 @@ var MediaBox = function MediaBox(_ref) {
       className: "wpwax-vm-media__body",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h5", {
         className: "wpwax-vm-media__title",
-        children: title.toString()
+        children: title.join(', ')
       }), metaList.map(function (item, i) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
           className: "wpwax-vm-media__meta",

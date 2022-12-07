@@ -134,7 +134,6 @@ const Table = props => {
 
         deleteForm(deleteId)
             .then((response) => {
-				console.log(response);
 
                 if (response.success) {
 					let formName = '';
@@ -197,7 +196,6 @@ const Table = props => {
 
         updateForm(id, { status: newStatus })
             .then((response) => {
-				console.log(response);
                 if (response.success) {
                     const forms = data.map((form) => {
                         if (form.id === id) {

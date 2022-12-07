@@ -79,6 +79,21 @@ export function find( keyChain, data, defaultData ) {
         .reduce((data, key) => data?.[key], data);
 };
 
+export function decodeHTMLEntities(text) {
+	let textArea = document.createElement('textarea');
+	textArea.innerHTML = text;
+
+	return textArea.value;
+}
+
+export function encodeHTMLEntities(text) {
+	let textArea = document.createElement('textarea');
+	textArea.innerText = text;
+	let encodedOutput=textArea.innerHTML;
+	let arr=encodedOutput.split('<br>');
+	encodedOutput=arr.join('\n');
+	return encodedOutput;
+}
 export function parseOptionValue( value, options ) {
 	const selectedOptions = options.filter( item => `${value}` === `${item.value}` );
 	return ( selectedOptions.length ) ? selectedOptions[0] : '';

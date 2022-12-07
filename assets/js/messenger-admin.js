@@ -16501,6 +16501,8 @@ var http = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "debounce": function() { return /* binding */ debounce; },
+/* harmony export */   "decodeHTMLEntities": function() { return /* binding */ decodeHTMLEntities; },
+/* harmony export */   "encodeHTMLEntities": function() { return /* binding */ encodeHTMLEntities; },
 /* harmony export */   "find": function() { return /* binding */ find; },
 /* harmony export */   "generateFileNameFromBlob": function() { return /* binding */ generateFileNameFromBlob; },
 /* harmony export */   "getTimezoneString": function() { return /* binding */ getTimezoneString; },
@@ -16582,6 +16584,19 @@ function find(keyChain, data, defaultData) {
   }, data);
 }
 ;
+function decodeHTMLEntities(text) {
+  var textArea = document.createElement('textarea');
+  textArea.innerHTML = text;
+  return textArea.value;
+}
+function encodeHTMLEntities(text) {
+  var textArea = document.createElement('textarea');
+  textArea.innerText = text;
+  var encodedOutput = textArea.innerHTML;
+  var arr = encodedOutput.split('<br>');
+  encodedOutput = arr.join('\n');
+  return encodedOutput;
+}
 function parseOptionValue(value, options) {
   var selectedOptions = options.filter(function (item) {
     return "".concat(value) === "".concat(item.value);

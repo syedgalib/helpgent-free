@@ -259,11 +259,12 @@ class Forms extends Rest_Base {
     public function update_item( $request ) {
         $args = $request->get_params();
 
-        $default['id']      = null;
-        $default['name']    = null;
-        $default['pages']   = null;
-        $default['options'] = null;
-		$default['status']  = null;
+        $default['id']                 = null;
+        $default['name']               = null;
+        $default['pages']              = null;
+        $default['options']            = null;
+        $default['status']             = null;
+        $default['options_merge_type'] = null;
 
         $args = Helper\filter_params( $default, $args );
         $data = Form_Model::update_item( $args );

@@ -112,6 +112,11 @@ const ChatboxForm = Styled.div`
         }
     }
     .wpwax-vm-chatbox-footer{
+        &.wpwax-vm-chatbox-footer-copyright{
+            .wpwax-vm-chatbox-footer__text{
+                margin: 0 0 8px;
+            }
+        }
         .wpwax-vm-chatbox-footer__title{
             font-weight: 600;
             text-align: center;
@@ -125,7 +130,7 @@ const ChatboxForm = Styled.div`
         .wpwax-vm-chatbox-footer__actions{
             display: flex;
             flex-wrap: wrap;
-            margin: -10px;
+            margin: -5px -10px 10px;
             padding: 0 25px;
             @media only screen and (max-width: 767px){
                 padding: 0 20px;
@@ -178,7 +183,7 @@ const ChatboxForm = Styled.div`
         .wpwax-vm-chatbox-footer__text{
             font-weight: 500;
             opacity: .8;
-            margin: 12px 0 8px;
+            margin: 0 0 14px;
             text-align: center;
             min-height: 20px;
             font-family: var(--font-family);
@@ -193,7 +198,7 @@ const ChatboxForm = Styled.div`
             font-weight: 500;
             padding: 8px;
             text-align: center;
-            border-radius: 0 0 25px 25px;
+            border-radius: 0 0 22px 22px;
             background-color: #4537A5;
             color: rgba(255,255,255,.80);
             a{
@@ -323,17 +328,22 @@ const ChatboxForm = Styled.div`
                 border-radius: 0 0 25px 25px;
                 padding: 0;
                 background-color: var(--color-page-bg);
+                &.wpwax-vm-chatbox-footer-copyright{
+                    .wpwax-vm-chatbox-footer__text{
+                        margin: 0 0 8px;
+                    }
+                }
                 .wpwax-vm-chatbox-footer__title{
                     font-weight: 600;
                     margin: 0 0 20px;
-                    padding-top: 12px;
+                    padding-top: 14px;
                     font-family: var(--font-family);
                     font-size: var(--font-size-chat);
                     color: var(--color-text-chat);
                 }
                 .wpwax-vm-chatbox-footer__text{
                     font-weight: 500;
-                    margin: 12px 0 8px;
+                    margin: 0 0 14px;
                     font-size: var(--footer-text-font-size);
                     color: var(--color-footer-text);
                 }

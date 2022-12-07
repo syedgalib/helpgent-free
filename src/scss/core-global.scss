@@ -362,6 +362,9 @@
         &.wpwax-vm-form__element {
             min-height: 100px;
             resize: vertical;
+            &.wpwax-vm-form__element-copyright{
+                min-height: 65px;
+            }
         }
     }
 

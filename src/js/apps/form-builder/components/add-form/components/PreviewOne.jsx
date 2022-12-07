@@ -13,6 +13,8 @@ import playIcon from 'Assets/svg/icons/play.svg';
 import pauseIcon from 'Assets/svg/icons/pause-solid.svg';
 import expander from "Assets/svg/icons/expand.svg";
 
+import sanitizeHtml from 'sanitize-html';
+import { decodeHTMLEntities } from 'Helper/utils';
 
 const PreviewOne = ({ previewStage }) => {
     /* initialize Form Data */
@@ -22,6 +24,8 @@ const PreviewOne = ({ previewStage }) => {
             loading: state.form.loading,
         };
     });
+
+    // console.log(formOption);
 
     const [state, setState] = useState({
         isPaused: false,
@@ -175,7 +179,12 @@ const PreviewOne = ({ previewStage }) => {
                                             </a>)
                                     }
                                 </div>
-                                <p className="wpwax-vm-preview-footer__text">{formOption.show_footer ? formOption.footer_message : null}</p>
+                                {
+                                    formOption.show_footer ? <p className="wpwax-vm-preview-footer__text">{ formOption.footer_message }</p> : null
+                                }
+                                {
+                                    formOption.creditTextVisibility ? <div className="wpwax-vm-chatbox-footer__bottom" dangerouslySetInnerHTML={{ __html: sanitizeHtml( decodeHTMLEntities( formOption.creditTextDom ) ) }}></div> : null
+                                }
                             </div>
                         </div>
                     </>

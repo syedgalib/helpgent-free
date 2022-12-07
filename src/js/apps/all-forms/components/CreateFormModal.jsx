@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import parse from 'html-react-parser'
 import Modal from 'Components/Modal.jsx';
 import useFormAPI from 'API/useFormAPI.js';
 
@@ -60,6 +61,8 @@ const CreateFormModal = props => {
 				"footer_message_color": "#ffffff",
 				"primary_button_font_color": "#ffffff",
 				"primary_button_background_color": "#6551f2",
+                "creditTextVisibility": true,
+                "creditTextDom": "<span>Powered by <a href=\"#\">WpWax</a></span>",
 			},
 			pages: "",
 		}

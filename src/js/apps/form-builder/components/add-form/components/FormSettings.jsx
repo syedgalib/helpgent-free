@@ -495,37 +495,7 @@ const FormSettings = () => {
                 </div>
                 <textarea className="wpwax-vm-form__element" id="wpwax-vm-footer-msg" value={footerMessage} onChange={(e) => handleChangeInputValue(e)} />
             </div>
-            <div className="wpwax-vm-form-group">
-                <div className="wpwax-vm-form-group__label">
-                    <label htmlFor='wpwax-vm-description'>Credit text</label>
-                    <label>
-                        <Switch
-                            uncheckedIcon={false}
-                            checkedIcon={false}
-                            onColor="#6551f2"
-                            offColor="#E2E2E2"
-                            onHandleColor="#FFFFFF"
-                            className="wpwax-vm-switch"
-                            handleDiameter={14}
-                            height={22}
-                            width={40}
-                            id="wpwax-vm-credit-visibility"
-                            checked={creditTextVisibility}
-                            onChange={handleChangeSwitchValue}
-                        />
-                    </label>
-                </div>
-                {/* <ContentEditable
-                    className="wpwax-vm-form__element wpwax-vm-form__element-copyright"
-                    // innerRef={this.contentEditable}
-                    html={ creditTextDom } // innerHTML of the editable div
-                    disabled={false}       // use true to disable editing
-                    onChange={e=>handleEditableChange(e,"wpwax-vm-creditDom")} // handle innerHTML change
-                    // tagName='article' // Use a custom HTML tag (uses a div by default)
-                /> */}
-                <textarea className="wpwax-vm-form__element wpwax-vm-form__element-copyright" value={ decodeHTMLEntities( creditTextDom ) } id="wpwax-vm-creditDom" onChange={(e) => handleChangeInputValue(e)} />
-
-            </div>
+           
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
                     <span>Customize</span>

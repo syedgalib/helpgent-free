@@ -9571,37 +9571,6 @@ var FormSettings = function FormSettings() {
       className: "wpwax-vm-form-group",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
         className: "wpwax-vm-form-group__label",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("label", {
-          htmlFor: "wpwax-vm-description",
-          children: "Credit text"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("label", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_7__["default"], {
-            uncheckedIcon: false,
-            checkedIcon: false,
-            onColor: "#6551f2",
-            offColor: "#E2E2E2",
-            onHandleColor: "#FFFFFF",
-            className: "wpwax-vm-switch",
-            handleDiameter: 14,
-            height: 22,
-            width: 40,
-            id: "wpwax-vm-credit-visibility",
-            checked: creditTextVisibility,
-            onChange: handleChangeSwitchValue
-          })
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("textarea", {
-        className: "wpwax-vm-form__element wpwax-vm-form__element-copyright",
-        value: (0,Helper_utils__WEBPACK_IMPORTED_MODULE_16__.decodeHTMLEntities)(creditTextDom),
-        id: "wpwax-vm-creditDom",
-        onChange: function onChange(e) {
-          return handleChangeInputValue(e);
-        }
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-      className: "wpwax-vm-form-group",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
-        className: "wpwax-vm-form-group__label",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("span", {
           children: "Customize"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("a", {

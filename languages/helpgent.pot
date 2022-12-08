@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-11-30 12:30+0000\n"
+"POT-Creation-Date: 2022-12-08 04:14+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -18,7 +18,7 @@ msgstr ""
 msgid "The resource ID is required."
 msgstr ""
 
-#: ../app/Model/DB_Model.php:98, ../app/Module/Core/Model/Attachment_Model.php:77, ../app/Module/Core/Model/Auth_Token_Model.php:84, ../app/Module/Core/Model/Guest_User_Model.php:107, ../app/Module/Core/Model/Term_Model.php:115, ../app/Module/Core/Model/Term_Taxonomy_Model.php:85, ../app/Module/Forms/Model/Form_Model.php:96, ../app/Module/Forms/Model/Form_Model.php:192, ../app/Module/Forms/Model/Form_Page_Relationship_Model.php:94, ../app/Module/Forms/Model/Form_Page_Relationship_Model.php:146, ../app/Module/Messenger/Model/Conversation_Model.php:412, ../app/Module/Messenger/Model/Conversation_Model.php:490, ../app/Module/Messenger/Model/Message_Model.php:161, ../app/Module/Messenger/Model/Message_Model.php:244
+#: ../app/Model/DB_Model.php:98, ../app/Module/Core/Model/Attachment_Model.php:77, ../app/Module/Core/Model/Auth_Token_Model.php:84, ../app/Module/Core/Model/Guest_User_Model.php:107, ../app/Module/Core/Model/Term_Model.php:115, ../app/Module/Core/Model/Term_Taxonomy_Model.php:85, ../app/Module/Forms/Model/Form_Model.php:96, ../app/Module/Forms/Model/Form_Model.php:195, ../app/Module/Forms/Model/Form_Page_Relationship_Model.php:94, ../app/Module/Forms/Model/Form_Page_Relationship_Model.php:146, ../app/Module/Messenger/Model/Conversation_Model.php:412, ../app/Module/Messenger/Model/Conversation_Model.php:490, ../app/Module/Messenger/Model/Message_Model.php:161, ../app/Module/Messenger/Model/Message_Model.php:244
 msgid "Could not find the resource."
 msgstr ""
 
@@ -52,10 +52,6 @@ msgstr ""
 
 #: ../app/Module/Contacts/Model/Contacts_Model.php:189, ../app/Module/Core/Model/Auth_Token_Model.php:121, ../app/Module/Core/Model/Auth_Token_Model.php:214, ../app/Module/Core/Model/Guest_User_Model.php:145, ../app/Module/Core/Model/Guest_User_Model.php:278, ../app/Module/Core/Rest_API/Version_1/Users.php:581, ../helper/functions.php:1628
 msgid "A valid email is required."
-msgstr ""
-
-#: ../app/Module/Core/Admin/Admin_Menu.php:20, ../app/Module/Core/Admin/Admin_Menu.php:20
-msgid "HelpGent"
 msgstr ""
 
 #: ../app/Module/Core/Model/Attachment_Model.php:99
@@ -166,7 +162,7 @@ msgstr ""
 msgid "Forms"
 msgstr ""
 
-#: ../app/Module/Forms/Model/Form_Model.php:122, ../app/Module/Forms/Model/Form_Model.php:240
+#: ../app/Module/Forms/Model/Form_Model.php:122, ../app/Module/Forms/Model/Form_Model.php:255
 msgid "Form name can not be empty."
 msgstr ""
 
@@ -174,11 +170,11 @@ msgstr ""
 msgid "Options field is required."
 msgstr ""
 
-#: ../app/Module/Forms/Model/Form_Model.php:134, ../app/Module/Forms/Model/Form_Model.php:206
+#: ../app/Module/Forms/Model/Form_Model.php:134, ../app/Module/Forms/Model/Form_Model.php:209
 msgid "Options is not valid JSON data."
 msgstr ""
 
-#: ../app/Module/Forms/Model/Form_Model.php:148, ../app/Module/Forms/Model/Form_Model.php:201
+#: ../app/Module/Forms/Model/Form_Model.php:148, ../app/Module/Forms/Model/Form_Model.php:204
 msgid "The form name already exists."
 msgstr ""
 
@@ -186,7 +182,7 @@ msgstr ""
 msgid "Resource ID is required."
 msgstr ""
 
-#: ../app/Module/Forms/Model/Form_Model.php:256
+#: ../app/Module/Forms/Model/Form_Model.php:271
 msgid "Could not update the resource as."
 msgstr ""
 
@@ -236,6 +232,10 @@ msgstr ""
 
 #: ../app/Module/Settings_Panel/Admin/Admin_Menu.php:14, ../app/Module/Settings_Panel/Admin/Admin_Menu.php:14
 msgid "Settings"
+msgstr ""
+
+#: ../app/Module/Core/Admin/Admin_Menu/Admin_Menu.php:20, ../app/Module/Core/Admin/Admin_Menu/Admin_Menu.php:20
+msgid "HelpGent"
 msgstr ""
 
 #: ../app/Module/Core/Rest_API/Version_1/Authentication.php:89

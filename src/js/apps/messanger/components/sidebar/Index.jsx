@@ -85,6 +85,7 @@ const Sidebar = ({ sessionState, setSessionState, extractTotalUnread }) => {
     const [activeSession, setAtiveSession] = useState('');
     const [refresher, setRefresher] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
+    const [tagFilterDropdownOpen, setTagFilterDropdownOpen] = useState(false);
     const currentUser = useCoreData( 'current_user' );
 	const isCurrentUserAdmin = useCoreData( 'is_user_admin' );
 
@@ -95,7 +96,6 @@ const Sidebar = ({ sessionState, setSessionState, extractTotalUnread }) => {
         successMessage,
         rejectMessage,
         sessionFilterDropdown,
-        tagFilterDropdownOpen,
         hasMore,
         loader,
     } = sessionState;
@@ -115,7 +115,6 @@ const Sidebar = ({ sessionState, setSessionState, extractTotalUnread }) => {
 			timezone: getTimezoneString(),
         };
         const fetchSearchNameMail = async () => {
-
             const searchByNameMailResponse = await getConversations(searchArg);
             return searchByNameMailResponse;
         };
@@ -138,30 +137,7 @@ const Sidebar = ({ sessionState, setSessionState, extractTotalUnread }) => {
     useEffect(() => {
         const checkIfClickedOutside = e => {
             if (tagFilterDropdownOpen && refSidebar.current && !refSidebar.current.contains(e.target)) {
-                const pageLimit = {
-                    limit: '15',
-                    page: 1,
-                    timezone: getTimezoneString(),
-                };
-                setSessionState({
-					...sessionState,
-                    tagFilterDropdownOpen: false
-                });
-
-                const fetchUpdatedSessions =  async () =>{
-
-                    const updatedSessionResponse = await getConversations(pageLimit);
-                    return updatedSessionResponse;
-                }
-                fetchUpdatedSessions()
-                    .then(updatedSessionResponse =>{
-                        setSessionState({
-                            ...sessionState,
-                            tagFilterDropdownOpen: false,
-                            sessionList: updatedSessionResponse.data,
-							totalUnredConversations: extractTotalUnread( updatedSessionResponse )
-                        });
-                    });
+                setTagFilterDropdownOpen(false);
             }
         }
         document.addEventListener("mousedown", checkIfClickedOutside)
@@ -207,16 +183,6 @@ const Sidebar = ({ sessionState, setSessionState, extractTotalUnread }) => {
 
     }, [refresher]);
 
-    const handleToggleSearchDropdown = (event) => {
-
-        event.preventDefault();
-        setSessionState({
-            ...sessionState,
-            tagFilterDropdownOpen: false,
-            sessionFilterDropdown: !sessionFilterDropdown,
-        });
-    };
-
     const handleTagFilterDropdown = (event) => {
         event.preventDefault();
         if(allTags.length === 0){
@@ -247,10 +213,7 @@ const Sidebar = ({ sessionState, setSessionState, extractTotalUnread }) => {
                 });
         }
 
-        setSessionState({
-            ...sessionState,
-            tagFilterDropdownOpen: !tagFilterDropdownOpen,
-        });
+        setTagFilterDropdownOpen(!tagFilterDropdownOpen);
     };
 
     const handleAllTagActivation = (event) => {
@@ -390,6 +353,7 @@ const Sidebar = ({ sessionState, setSessionState, extractTotalUnread }) => {
                     filteredSessions: sessionResponse.data,
 					totalUnredConversations: extractTotalUnread( sessionResponse ),
                     successMessage: "",
+                    hasMore: true,
                     loader: false,
                 });
                 dispatch(handleReadSessions(sessionResponse.data));
@@ -475,29 +439,10 @@ const Sidebar = ({ sessionState, setSessionState, extractTotalUnread }) => {
                             setOuterState={setSessionState}
                             tagState={tagState}
                             setTagState={setTagState}
+                            setPageNumber={setPageNumber}
+                            tagFilterDropdownOpen={tagFilterDropdownOpen}
+                            setTagFilterDropdownOpen={setTagFilterDropdownOpen}
                         />
-                        <ul className='wpwax-vm-search-dropdown'>
-                            {/* <li ref={ref}>
-                                <a href='' onClick={handleTagFilterDropdown}>
-                                    <span className='wpwax-vm-search-dropdown__text'>
-                                        Search by tags
-                                    </span>
-                                    <span className='dashicons dashicons-arrow-down-alt2'></span>
-                                </a>
-                                <TagFilter
-                                    outerState={sessionState}
-                                    setOuterState={setSessionState}
-                                    tagState={tagState}
-                                    setTagState={setTagState}
-                                />
-                            </li> */}
-                            {/* <li>
-								<a href="">
-									<span className="wpwax-vm-search-dropdown__text">Search by date</span>
-									<span className="dashicons dashicons-arrow-down-alt2"></span>
-								</a>
-							</li> */}
-                        </ul>
                     </div>
                 </SessionFilterWrap>
                 <div className='wpwax-vm-sidebar-filter__quick-actions'>
@@ -547,40 +492,27 @@ const Sidebar = ({ sessionState, setSessionState, extractTotalUnread }) => {
                                 }
                             >
                                 {sessionList.map((item, index) => {
-                                    const users = item.users.filter(
-                                        (p) =>
-                                            currentUser &&
-                                            p.email !== currentUser.email
-                                    );
-                                    let images = [];
-                                    let titleString = [];
-                                    let initialConv = false;
-                                    if(users.length === 0 && !wpWaxCustomerSupportApp_CoreScriptData.is_user_admin){
-                                        images.push(wpWaxCustomerSupportApp_CoreScriptData.admin_user.avater)
-                                    }else if(users.length === 0 && wpWaxCustomerSupportApp_CoreScriptData.is_user_admin){
-                                        images.push(wpWaxCustomerSupportApp_CoreScriptData.admin_user.avater)
-                                    }else if(users.length === 1 && wpWaxCustomerSupportApp_CoreScriptData.is_user_admin){
-                                        images.push(users[0].avater)
-                                    }else if(users.length === 1 && !wpWaxCustomerSupportApp_CoreScriptData.is_user_admin){
-                                        images.push(users[0].avater)
-                                    }else if(users.length >= 1 && wpWaxCustomerSupportApp_CoreScriptData.is_user_admin){
-                                        const selectClient = users.filter(client => client.roles[0]==='subscriber');
-                                        if(selectClient.length !==0){
-                                            images.push(selectClient[0].avater);
-                                        }else{
-                                            images.push(users[0].avater);
-                                        }
-                                    }else if(users.length >= 1 && !wpWaxCustomerSupportApp_CoreScriptData.is_user_admin){
-                                        images.push(users[0].avater);
-                                    }
-                                    if (item.users.length === 1) {
-                                        titleString.push(item.users[0].name);
-                                        initialConv = true;
-                                    } else {
-                                        for (let i = 0; i < users.length; i++) {
-                                            titleString.push(users[i].name);
-                                        }
-                                    }
+									const currentUserEmail = ( currentUser && currentUser.email ) ? currentUser.email : '';
+									const currentUserRole  = ( currentUser && currentUser.roles.length ) ? currentUser.roles[0] : '';
+
+									let engagedUsers = item.users.filter( item => {
+
+										if ( item.email === currentUserEmail ) {
+											return false;
+										}
+
+										if ( item.roles[0] === currentUserRole ) {
+											return false;
+										}
+
+										return true;
+									});
+
+									engagedUsers = ( engagedUsers.length ) ? engagedUsers : [ currentUser ];
+
+									const initialConv = item.users.length === 1;
+									const userImages  = engagedUsers.map( item => item.avater );
+									const userNames   = engagedUsers.map( item => item.name );
 
                                     if (item.read) {
                                         var moreDropdown = wpWaxCustomerSupportApp_CoreScriptData.is_user_admin ?
@@ -674,13 +606,13 @@ const Sidebar = ({ sessionState, setSessionState, extractTotalUnread }) => {
                                                     lastMessage={
                                                         item.last_message
                                                     }
-                                                    img={images}
+                                                    img={userImages}
                                                     sessionState={sessionState}
                                                     setSessionState={setSessionState}
                                                     sessionTerm={ isCurrentUserAdmin ? item.terms : [] }
                                                     initialConv={initialConv}
                                                     sessionId={item.id}
-                                                    title={titleString}
+                                                    title={userNames}
                                                     metaList={metaList}
                                                 />
                                             </div>

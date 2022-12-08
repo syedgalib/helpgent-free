@@ -38,6 +38,10 @@ const VideoPopupWrap = Styled.div`
         background: linear-gradient(to bottom, rgba(0,0,0,0),rgba(0,0,0,1))
     }
 
+    .wpwax-vm-reply-countdown{
+        border-radius: 28px;
+    }
+
 	.wpwax-vm-reply-countdown {
 		position: absolute;
 		color: #fff;
@@ -120,13 +124,65 @@ const VideoPopupWrap = Styled.div`
         position: relative;
         text-align: center;
         bottom: 40px;
+        min-width: 310px;
+        margin: 0 auto;
         z-index: 100;
+        .wpwax-vm-btn-record-right{
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 50px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: 50%;
+            background-color: transparent;
+            text-decoration: none;
+            transition: background-color,border-color .3s ease-in-out;
+            color: var(--color-dark);
+            @media only screen and (max-width: 767px){
+                width: 30px;
+                height: 30px;
+            }
+            &:focus{
+                outline: none;
+                box-shadow: 0 0;
+            }
+            &.wpwax-vm-btn-pause,
+            &.wpwax-vm-btn-play{
+                border: 2px solid var(--color-white);
+                svg{
+                    width: 14px;
+                    height: 14px;
+                    path{
+                        fill: var(--color-white);
+                    }
+                }
+                &:hover{
+                    background-color: rgba(255,255,255,.10);
+                    /* border-color: rgba(255,255,255,.10); */
+                }
+            }
+            &.wpwax-vm-btn-play{
+                transition: background-color .2s ease-in-out;
+                background-color: #FC495D;
+                &:hover{
+                    background-color: #ff2a42;
+                }
+            }
+        }
+        
         .wpwax-vm-btn-record{
             position: relative;
             display: block;
-            width: 90px;
-            height: 90px;
+            width: 70px;
+            height: 70px;
+            margin: 0 auto;
             border-radius: 50%;
+            border: 5px solid var(--color-white);
             background-color: var(--color-white);
             @media only screen and (max-width: 767px){
                 width: 70px;
@@ -135,46 +191,35 @@ const VideoPopupWrap = Styled.div`
             &:focus{
                 outline: none;
                 box-shadow: 0 0;
-                border: 0 none;
             }
             &:after{
-                width: 25px;
-                height: 25px;
-                border-radius: 50%;
                 position: absolute;
                 left: 50%;
                 top: 50%;
                 transform: translate(-50%,-50%);
-                content: '';
-                background-color: var(--color-danger);
+                width: calc( 100% );
+                height: calc( 100% );
+                border-radius: 50%;
+                content: "";
+                z-index: 101;
+                transition-property: width, height, border-radius;
+                transition-duration: .2s;
+                transition-timing-function: ease-in; 
+                background-color: #FC495D;
             }
         }
     }
-    &.wpwax-vm-reply-start{
+    &.wpwax-vm-reply-start,
+    &.wpwax-vm-reply-pause{
         .wpwax-vm-reply-bottom{
             .wpwax-vm-btn-record{
-                background-color: var(--color-danger);
+                background-color: transparent;
+                border: 5px solid var(--color-white);
                 &:after{
                     width: 28px;
                     height: 28px;
                     border-radius: 8px;
-                    background-color: var(--color-white);
                 }
-            }
-        }
-    }
-    &.wpwax-vm-reply-pause{
-        .wpwax-vm-reply-close{
-            position: absolute;
-            right: 25px;
-            top: 25px;
-            z-index: 10;
-            .dashicons{
-                font-size: 28px;
-            }
-            &:focus{
-                outline: none;
-                box-shadow: 0 0;
             }
         }
     }
@@ -274,8 +319,8 @@ const VideoPopupWrap = Styled.div`
         }
         .wpwax-vm-reply-close{
             position: absolute;
-            top: 25px;
-            ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 25px;
+            top: 20px;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 30px;
             text-decoration: none;
             z-index: 999;
             color: var(--color-dark);

@@ -39,7 +39,7 @@ function Form() {
                         required
                         maxLength='1000'
                         row='10'
-                        placeholder='Type your text...'
+                        placeholder='Send your message...'
                         ref={textRef}
                     ></textarea>
                 </div>

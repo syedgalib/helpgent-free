@@ -7,6 +7,8 @@ import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { default as Select } from 'react-select';
 import ReactSVG from 'react-inlinesvg';
+import parse from 'html-react-parser';
+import ContentEditable from "react-contenteditable";
 import Switch from "react-switch";
 import formUpdater from "Helper/FormUpdater";
 import { handleDynamicEdit } from '../../../store/form/actionCreator';
@@ -16,6 +18,7 @@ import videoIcon from 'Assets/svg/icons/video-camera.svg';
 import recordIcon from 'Assets/svg/icons/desktop.svg';
 import { FormSettingsWrap } from './Style';
 import useWPAttachmentAPI from 'API/useWPAttachmentAPI';
+import { encodeHTMLEntities, decodeHTMLEntities } from 'Helper/utils';
 
 export const fontOptions = [
     { value: "Roboto,sans-serif", label: "Roboto" },
@@ -60,6 +63,8 @@ const FormSettings = () => {
         buttonRadius,
         primaryButtonColor,
         primaryButtonBackground,
+        creditTextDom,
+        creditTextVisibility,
         formData,
         templateTheme
     } = useSelector(state => {
@@ -89,6 +94,8 @@ const FormSettings = () => {
             primaryButtonColor: state.form.data[0].options.primary_button_font_color,
             primaryButtonBackground: state.form.data[0].options.primary_button_background_color,
             templateTheme: state.form.data[0].options.theme,
+            creditTextDom: state.form.data[0].options.creditTextDom,
+            creditTextVisibility: state.form.data[0].options.creditTextVisibility,
             formData: state.form.data,
             formInitialData: state.form.data[0],
             formInitialOption: state.form.data[0].options,
@@ -129,8 +136,9 @@ const FormSettings = () => {
     }
 
     const handleChangeInputValue = (e) => {
-        const updatedData = formUpdater(e.target.id, e.target.value, formData);
-        dispatch(handleDynamicEdit(updatedData));
+		const value = encodeHTMLEntities( e.target.value );
+        const upduatedData = formUpdater(e.target.id, value, formData);
+        dispatch(handleDynamicEdit(upduatedData));
     }
 
     const handleChangeSwitchValue = (value, event, id) => {
@@ -170,8 +178,13 @@ const FormSettings = () => {
             const updateFormData = formUpdater(e.name, selectEvent.value, formData);
             dispatch(handleDynamicEdit(updateFormData));
         }
-        
+
     };
+
+    const handleEditableChange = ( event,id ) => {
+        const updatedData = formUpdater(id, parse(event.target.value), formData);
+        dispatch(handleDynamicEdit(updatedData));
+    }
 
     /* To handle section toggle */
     const toogleCollapse = (e) => {
@@ -481,6 +494,37 @@ const FormSettings = () => {
                     />
                 </div>
                 <textarea className="wpwax-vm-form__element" id="wpwax-vm-footer-msg" value={footerMessage} onChange={(e) => handleChangeInputValue(e)} />
+            </div>
+            <div className="wpwax-vm-form-group">
+                <div className="wpwax-vm-form-group__label">
+                    <label htmlFor='wpwax-vm-description'>Credit text</label>
+                    <label>
+                        <Switch
+                            uncheckedIcon={false}
+                            checkedIcon={false}
+                            onColor="#6551f2"
+                            offColor="#E2E2E2"
+                            onHandleColor="#FFFFFF"
+                            className="wpwax-vm-switch"
+                            handleDiameter={14}
+                            height={22}
+                            width={40}
+                            id="wpwax-vm-credit-visibility"
+                            checked={creditTextVisibility}
+                            onChange={handleChangeSwitchValue}
+                        />
+                    </label>
+                </div>
+                {/* <ContentEditable
+                    className="wpwax-vm-form__element wpwax-vm-form__element-copyright"
+                    // innerRef={this.contentEditable}
+                    html={ creditTextDom } // innerHTML of the editable div
+                    disabled={false}       // use true to disable editing
+                    onChange={e=>handleEditableChange(e,"wpwax-vm-creditDom")} // handle innerHTML change
+                    // tagName='article' // Use a custom HTML tag (uses a div by default)
+                /> */}
+                <textarea className="wpwax-vm-form__element wpwax-vm-form__element-copyright" value={ decodeHTMLEntities( creditTextDom ) } id="wpwax-vm-creditDom" onChange={(e) => handleChangeInputValue(e)} />
+
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">

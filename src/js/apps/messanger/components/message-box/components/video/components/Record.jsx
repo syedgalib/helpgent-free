@@ -1,9 +1,12 @@
 import React, { useRef, useState } from 'react';
-import ReactSVG from 'react-inlinesvg'
+import ReactSVG from 'react-inlinesvg';
 import { useDispatch } from 'react-redux';
 import UserAvaterList from 'Components/UserAvaterList.jsx';
 import { VideoReplyWrap } from '../Style';
 import plane from 'Assets/svg/icons/paper-plane.svg';
+import play from 'Assets/svg/icons/play.svg';
+import pause from 'Assets/svg/icons/pause-solid.svg';
+import crossSmall from 'Assets/svg/icons/cross-small.svg';
 
 import { handleReplyModeChange, handleMessageTypeChange } from '../../../../../store/messages/actionCreator';
 import { useEffect } from 'react';
@@ -16,7 +19,7 @@ import useCountdown from 'Hooks/useCountdown';
 import useVideoRecorder from 'Hooks/media-recorder/useVideoRecorder';
 import { MIN_IN_SECONDS } from 'Helper/const';
 
-const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
+const Record = ({ videoRecorderStatus, setVideoRecorderStatus, sessionID, backToHome, onSuccess, replayingTo }) => {
     const stages = {
         SUBMIT: 'submit',
         RECORD: 'record',
@@ -35,14 +38,18 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
 
 	// useVideoRecorder
 	const {
-		isRecording,
+		isVideoRecording,
+		isRecordingPaused,
 		recordedBlob: recordedVideoBlob,
 		recordedURL: recordedVideoURL,
 		videoStreemRef,
 		setupStream: setupVideoStreem,
-		startRecording: startVideoRecording,
+		startRecording,
+        resumeRecording,
+        pauseRecording,
 		stopRecording,
 		getCountDown,
+        recordedTimeInSecond
 	} = useVideoRecorder({
 		maxRecordLength: getMaxRecordLength(),
 		resolution: getVideoResolution(),
@@ -69,7 +76,7 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
     const handleRecordButtonAction = (event) => {
         event.preventDefault();
 
-        if (isRecording) {
+        if (isVideoRecording) {
             stopRecording();
             setCurrentStage(stages.SUBMIT);
             return;
@@ -77,15 +84,6 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
 
         startRecording();
     };
-
-    // startRecording
-    async function startRecording() {
-		// Start Countdown
-		await startCountdown();
-
-		// Start Video Recording
-		startVideoRecording();
-    }
 
 	function getMaxRecordLength() {
 		if ( wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit ) {
@@ -161,6 +159,7 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
 
 		close();
         dispatch(handleReplyModeChange(false));
+        setVideoRecorderStatus(null);
     }
 
     async function createTextMessage(customArgs) {
@@ -188,16 +187,42 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
         }
     }
 
-    /* Handle Back */
-    const handleBack = (e) => {
-        e.preventDefault();
-        backToHome();
-    };
+    /* Handle Start Recording */
+    async function handleStartRecording( e ) {
+		e.preventDefault();
+        setVideoRecorderStatus('recording')
+		await startCountdown();
+		startRecording();
+	}
+
+    /* Handle Resume Recording */
+    async function handleResumeRecording( e ) {
+		e.preventDefault();
+        resumeRecording();
+	}
+
+    /* Handle Pause Recording */
+    async function handlePauseRecording( e ) {
+		e.preventDefault();
+		if ( isVideoRecording ) {
+            setVideoRecorderStatus('paused');
+			pauseRecording();
+		}
+	}
+
+    /* Handle Send Recording */
+    async function handleSendRecording( e ) {
+		e.preventDefault();
+        stopRecording();
+	}
 
     /* Handle Close */
     const handleClose = (e) => {
         e.preventDefault();
-		close();
+        if(!isVideoRecording || !isRecordingPaused){
+            setVideoRecorderStatus(null);
+            close();
+        }
     };
 
     /* Close */
@@ -207,13 +232,28 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
         dispatch(handleReplyModeChange(false));
     };
 
+    const getRightBtnContent = () => {
+        if (isRecordingPaused || isVideoRecording) {
+            return (
+                <a
+                    href='#'
+                    className={isRecordingPaused ? 'wpwax-vm-btn-record-right wpwax-vm-btn-play' : 'wpwax-vm-btn-record-right wpwax-vm-btn-pause'}
+                    onClick={ isRecordingPaused ?  (e) => handleResumeRecording(e) : (e) => handlePauseRecording(e)}
+
+                > {isRecordingPaused ? null : <ReactSVG src={pause} />} </a>
+            );
+        } else if (isVideoRecording && recordedTimeInSecond === 0) {
+            return null;
+        }
+    };
+
     if (currentStage === stages.RECORD) {
         return (
             <VideoReplyWrap
                 className={
-                    !isRecording
-                        ? 'wpwax-vm-reply-pause'
-                        : 'wpwax-vm-reply-start'
+                    isVideoRecording || isRecordingPaused
+                        ? 'wpwax-vm-reply-start'
+                        : null
                 }
             >
 
@@ -234,22 +274,17 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
                 { ! isActiveCountdown && (
 					<div className='wpwax-vm-reply-top'>
 						<h4>
-							{isRecording ? (
-								<span className='wpwax-vm-timer'>
-									{' '}
-									{getCountDown()}
-								</span>
-							) : (
-								''
-							)}
+                            <span className='wpwax-vm-timer'>
+                                {getCountDown()}
+                            </span>
 						</h4>
-						{isRecording || (
+						{isVideoRecording || (
 							<a
 								href=''
 								className='wpwax-vm-reply-close'
 								onClick={handleClose}
 							>
-								<span className='dashicons dashicons-no-alt'></span>
+								<ReactSVG src={crossSmall} />
 							</a>
 						)}
 					</div>
@@ -257,11 +292,25 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
 
 				{ ! isActiveCountdown && (
 					<div className='wpwax-vm-reply-bottom'>
-						<a
-							href=''
-							className='wpwax-vm-btn-record'
-							onClick={handleRecordButtonAction}
-						></a>
+                        {
+                            isVideoRecording || isRecordingPaused ? 
+                            <a
+                                href='#'
+                                className='wpwax-vm-btn-record'
+                                onClick={ handleSendRecording }
+                            ></a>
+                            : 
+                            <a
+                                href='#'
+                                className='wpwax-vm-btn-record'
+                                onClick={ handleStartRecording }
+                            ></a>
+                        }
+                        
+                        {
+                            getRightBtnContent()
+                        }
+						
 					</div>
 				)}
 

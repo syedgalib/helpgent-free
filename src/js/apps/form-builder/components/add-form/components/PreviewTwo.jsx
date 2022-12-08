@@ -14,6 +14,9 @@ import playIcon from 'Assets/svg/icons/play.svg';
 import pauseIcon from 'Assets/svg/icons/pause-solid.svg';
 import expander from "Assets/svg/icons/expand.svg";
 
+import sanitizeHtml from 'sanitize-html';
+import { decodeHTMLEntities } from 'Helper/utils';
+
 const PreviewTwo = ({ previewStage }) => {
     /* initialize Form Data */
     const { formOption, loading } = useSelector(state => {
@@ -158,7 +161,7 @@ const PreviewTwo = ({ previewStage }) => {
                                         : null
                                 }
                                 {
-                                    formOption.greet_video_url !== '' ? 
+                                    formOption.greet_video_url !== '' ?
                                         <a href="#" className="wpwax-vm-btn-play" onClick={e => handleToggleGreetVideo(e)}>
                                             {
                                                 !isPaused ? <ReactSVG src={playIcon} /> : <ReactSVG src={pauseIcon} />
@@ -178,9 +181,12 @@ const PreviewTwo = ({ previewStage }) => {
                                             </a>)
                                     }
                                 </div>
-                                <p className="wpwax-vm-preview-footer__text">{formOption.show_footer ? formOption.footer_message : null}</p>
-
-                                <p className="wpwax-vm-chatbox-footer__bottom">Powered by <a href="#">WpWax</a></p>
+                                {
+                                    formOption.show_footer ? <p className="wpwax-vm-preview-footer__text">{ formOption.footer_message }</p> : null
+                                }
+                                {
+                                    formOption.creditTextVisibility ? <div className="wpwax-vm-chatbox-footer__bottom" dangerouslySetInnerHTML={{ __html: sanitizeHtml( decodeHTMLEntities( formOption.creditTextDom ) ) }}></div> : null
+                                }
                             </div>
                         </div>
                     </>

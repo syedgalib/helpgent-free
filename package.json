@@ -49,9 +49,11 @@
 		"gulp-sass": "^5.1.0",
 		"gulp-wp-pot": "^2.3.5",
 		"gulp-zip": "^4.2.0",
+		"html-react-parser": "^3.0.4",
 		"prop-types": "^15.8.1",
 		"react": "^18.1.0",
 		"react-collapse": "^5.1.1",
+		"react-contenteditable": "^3.3.6",
 		"react-csv": "^2.2.2",
 		"react-dom": "^18.1.0",
 		"react-infinite-scroll-component": "^6.1.0",
@@ -63,6 +65,7 @@
 		"react-switch": "^7.0.0",
 		"react-tabs": "^4.2.1",
 		"recordrtc": "^5.6.2",
+		"sanitize-html": "^2.7.3",
 		"styled-components": "^5.3.5"
 	},
 	"browserslist": [

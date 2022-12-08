@@ -81,6 +81,16 @@ const VideoRecordWrap = Styled.div`
     text-align: center;
     font-family: var(--font-family);
     animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;
+    .wpwax-vm-btn-back{
+        position: absolute;
+        left: 15px;
+        top: 15px;
+        z-index: 100;
+        @media only screen and (max-width: 767px){
+            top: 15px;
+            left: 15px;
+        }
+    }
     .wpwax-video-screen-title{
         font-size: 18px;
         font-weight: 500;
@@ -99,7 +109,7 @@ const VideoRecordWrap = Styled.div`
             box-sizing: border-box;
         }
         .wpwax-video-screen-title{
-            margin-top: 0;
+            margin: 0 0 25px;
         }
         .wpwax-vm-alert{
             width: 100%;
@@ -124,15 +134,35 @@ const VideoRecordWrap = Styled.div`
             background-image: linear-gradient(to top, rgba(0,0,0,0),rgba(0,0,0,1));
         }
         &:after{
-            top: -2px;
-            border-radius: 25px 25px 0 0;
+            top: 0;
+            border-radius: 23px 23px 0 0;
         }
         &:before{
             top: auto;
             bottom: 0;
-            border-radius: 0 0 25px 25px;
+            border-radius: 0 0 23px 23px;
             opacity: .6;
             background-image: linear-gradient(to bottom, rgba(0,0,0,0),rgba(0,0,0,1));
+        }
+        .wpwax-vm-btn-back{
+            background-color: transparent;
+            border: 1px solid var(--color-white);
+            &:hover{
+                background-color: rgba(255,255,255,.10);
+            }
+            svg{
+                width: 12px;
+                path{
+                    fill: var(--color-white);
+                }
+            }
+        }
+        .wpwax-vm-record-staging__top{
+            .wpwax-vm-record-staging__title{
+                .wpwax-vm-timer{
+                    left: 20px;
+                }
+            }
         }
         video{
 			position: absolute;
@@ -193,9 +223,12 @@ const VideoRecordWrap = Styled.div`
                 padding: 30px;
                 color: var(--color-white);
                 .wpwax-vm-timer{
+                    position: absolute;
                     display: block;
+                    font-size: 20px;
+                    top: 20px;
+                    left: 65px;
                     font-family: var(--font-family);
-                    margin: 6px 0 0;
                 }
             }
             .wpwax-vm-record-staging__btn-expand{
@@ -205,38 +238,89 @@ const VideoRecordWrap = Styled.div`
             }
         }
         .wpwax-vm-record-staging__action{
-            position: absolute;
-            left: 50%;
-            bottom: 30px;
-            transform: translateX(-50%);
+            position: relative;
+            width: 100%;
+            margin-top: auto;
+            margin-bottom: 25px;
             z-index: 101;
             &.wpwax-vm-record-start{
                 .wpwax-vm-btn-record{
-                    background-color: var(--color-danger);
+                    background-color: transparent;
+                    border: 5px solid var(--color-white);
                     &:after{
+                        width: 25px;
+                        height: 25px;
                         border-radius: 8px;
-                        background-color: var(--color-white);
+                    }
+                }
+            }
+            .wpwax-vm-btn-record-right{
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 40px;
+                height: 40px;
+                position: absolute;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 75px;
+                top: 50%;
+                transform: translateY(-50%);
+                border-radius: 50%;
+                background-color: transparent;
+                text-decoration: none;
+                transition: background-color,border-color .3s ease-in-out;
+                color: var(--color-dark);
+                @media only screen and (max-width: 767px){
+                    width: 30px;
+                    height: 30px;
+                }
+                &.wpwax-vm-btn-pause,
+                &.wpwax-vm-btn-play{
+                    border: 3px solid var(--color-white);
+                    svg{
+                        width: 14px;
+                        height: 14px;
+                        path{
+                            fill: var(--color-white);
+                        }
+                    }
+                    &:hover{
+                        background-color: rgba(255,255,255,.10);
+                        /* border-color: rgba(255,255,255,.10); */
+                    }
+                }
+                &.wpwax-vm-btn-play{
+                    transition: background-color .2s ease-in-out;
+                    background-color: #FC495D;
+                    &:hover{
+                        background-color: #ff2a42;
                     }
                 }
             }
         }
         .wpwax-vm-btn-record{
+            position: relative;
             display: block;
-            width: 90px;
-            height: 90px;
+            width: 70px;
+            height: 70px;
+            margin: 0 auto;
             border-radius: 50%;
+            border: 5px solid var(--color-white);
             background-color: var(--color-white);
             &:after{
                 position: absolute;
                 left: 50%;
                 top: 50%;
                 transform: translate(-50%,-50%);
-                width: 25px;
-                height: 25px;
+                width: calc( 100% );
+                height: calc( 100% );
                 border-radius: 50%;
                 content: "";
                 z-index: 101;
-                background-color: var(--color-danger);
+                transition-property: width, height, border-radius;
+                transition-duration: .2s;
+                transition-timing-function: ease-in; 
+                background-color: #FC495D;
             }
         }
     }

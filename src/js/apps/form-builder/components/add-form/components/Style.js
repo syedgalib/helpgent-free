@@ -216,7 +216,7 @@ const PreviewWrap = Styled.div`
         .wpwax-vm-preview-footer__actions{
             display: flex;
             padding: 0 25px;
-            margin: -10px;
+            margin: -5px -10px 10px;
             a{
                 display: flex;
                 align-items: center;
@@ -264,7 +264,7 @@ const PreviewWrap = Styled.div`
             font-size: var(--footer-text-font-size);
             font-weight: 500;
             padding: 0 25px;
-            margin: 18px 0 10px;
+            margin: 0 0 10px;
             min-height: 20px;
             opacity: .8;
             text-align: center;
@@ -275,7 +275,7 @@ const PreviewWrap = Styled.div`
             margin: 0;
             font-size: 12px;
             font-weight: 500;
-            padding: 8px;
+            padding: 6px 8px;
             text-align: center;
             border-radius: 0 0 25px 25px;
             background-color: #4537A5;
@@ -438,7 +438,7 @@ const PreviewWrap = Styled.div`
                 &:before{
                     position: absolute;
                     left: 0;
-                    bottom: -200px;
+                    bottom: -185px;
                     width: 100%;
                     height: 320px;
                     opacity: .9;
@@ -507,7 +507,7 @@ const PreviewWrap = Styled.div`
                 .wpwax-vm-preview-footer__title{
                     font-size: var(--font-size-chat);
                     font-weight: 600;
-                    margin: 14px 0 20px;
+                    margin: 18px 0 20px;
                     padding: 0 25px;
                     word-break: break-word;
                     color: var(--color-text-chat);

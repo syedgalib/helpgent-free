@@ -133,6 +133,15 @@ Please follow the official installation guide from here to install this plugin: 
 
 == Changelog ==
 
+1.0.2 - Dec 8, 2022
+
+* Add - Copyright text Customization option to builder
+* Improve - Attachments download URL
+* Improve - Video & Voice recorder (Pausing System, Some UI changes, Back Button)
+* Improve - Messenger sidebar user avatar list
+* Improve -Tag assigning & un-assigning process
+* Fix - Initial settings data not saving
+
 1.0.1 - Nov 30, 2022
 
 * Improve - Theme compatibility

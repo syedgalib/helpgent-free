@@ -5800,7 +5800,7 @@ var Checkbox = function Checkbox(_ref) {
 Checkbox.defaultProps = {
   id: "",
   name: "",
-  label: "Helpgent Checkbox",
+  label: "",
   value: "",
   checked: false,
   disabled: false,
@@ -6576,7 +6576,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/a6a504c9898df32717da7111df5f31ab.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/1434f453bc0608bc3900ff9c0764f85c.svg");
 
 /***/ }),
 
@@ -6588,7 +6588,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/ec3bc9f40988ee6b1c7df1c5f734ead7.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/213fcc8f845dca6d8da710194fab8949.svg");
 
 /***/ }),
 

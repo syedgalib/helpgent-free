@@ -13,6 +13,10 @@ const AvatarWrap = Styled.div`
     box-shadow: 0 5px 10px rgba(0,0,0,.16);
     background-color: var(--color-white);
     z-index: 1000;
+    @media only screen and (max-width: 767px) {
+        bottom: 15px;
+        ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 15px;
+    }
     img {
         width: 100%;
         height: 100%;

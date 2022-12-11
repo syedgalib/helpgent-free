@@ -208,7 +208,6 @@ const AddForm = () => {
             options: JSON.stringify(formInitialData.options),
             pages: formInitialData.pages,
         }
-        console.log(formData);
         setState({
             ...state,
             loading: true
@@ -219,7 +218,6 @@ const AddForm = () => {
         }
         editForm()
             .then( editFormResponse => {
-                console.log(editFormResponse);
                 setState({
                     ...state,
                     loading: false,

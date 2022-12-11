@@ -8,6 +8,14 @@ if ( ! defined( 'HELPGENT_PREFIX' ) ) {
     define( 'HELPGENT_PREFIX', 'helpgent' );
 }
 
+if ( ! defined( 'HELPGENT_AUTHOR_URL' ) ) {
+    define( 'HELPGENT_AUTHOR_URL', 'https://wpwax.com/' );
+}
+
+if ( ! defined( 'HELPGENT_DOWNLOAD_ID' ) ) {
+    define( 'HELPGENT_DOWNLOAD_ID', '34827' );
+}
+
 if ( ! defined( 'HELPGENT_AUTH_TOKEN_EXPIRES_AFTER_DAYS' ) ) {
     define( 'HELPGENT_AUTH_TOKEN_EXPIRES_AFTER_DAYS', apply_filters( 'helpgent_auth_token_expires_after_days', 30 ) );
 }

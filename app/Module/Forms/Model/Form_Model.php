@@ -188,6 +188,9 @@ class Form_Model extends DB_Model {
 		$table    = self::get_table_name( self::$table );
 		$old_data = self::get_item( $args['id'] );
 
+		$supported_options_merge_type = [ 'merge', 'replace' ];
+		$options_merge_type = ( ! empty( $args['options_merge_type'] ) && in_array( $args['options_merge_type'], $supported_options_merge_type ) ) ? $args['options_merge_type'] : 'merge';
+
         if ( empty( $old_data ) ) {
             $message = __( 'Could not find the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
@@ -206,6 +209,18 @@ class Form_Model extends DB_Model {
             $message = __( 'Options is not valid JSON data.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
+
+
+		if ( ! empty( $args['options'] ) && 'merge' === $options_merge_type ) {
+			$old_options = json_decode( $old_data['options'], true );
+			$old_options = ! is_array( $old_options ) ? [] : $old_options;
+
+			$new_options = json_decode( $args['options'], true );
+			$new_options = ! is_array( $new_options ) ? [] : $new_options;
+
+			$new_options = array_merge( $old_options, $new_options );
+			$args['options'] = json_encode( $new_options );
+		}
 
         $pages = [];
 

@@ -11,7 +11,7 @@ import { handleReplyModeChange } from '../../../../store/messages/actionCreator'
 
 import useVideoRecorder from 'Hooks/media-recorder/useVideoRecorder';
 
-const Video = ({ sessionID, onSuccess, replayingTo }) => {
+const Video = ({ videoRecorderStatus, setVideoRecorderStatus, sessionID, onSuccess, replayingTo }) => {
     const stages = {
         HOME: 'home',
         RECORD: 'record',
@@ -123,6 +123,8 @@ const Video = ({ sessionID, onSuccess, replayingTo }) => {
     } else if (currentStage === stages.RECORD) {
         return (
             <Record
+                videoRecorderStatus={videoRecorderStatus}
+                setVideoRecorderStatus={setVideoRecorderStatus}
                 sessionID={sessionID}
                 backToHome={backToHome}
                 onSuccess={onSuccess}

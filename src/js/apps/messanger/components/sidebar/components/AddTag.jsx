@@ -27,6 +27,8 @@ const AddTag = (props) => {
         };
     });
 
+    const [currentCheckbox, setCurrentCheckbox] = useState("");
+
     const [state, setState] = useState({
         tagsPageNumber: 2,
         totalTags: 0,
@@ -290,6 +292,7 @@ const AddTag = (props) => {
     };
 
     const handleAssignList = (e,name)=>{
+        setCurrentCheckbox(e.target.id);
         let newAssignedTag = newAssigned;
         let newUnAssignedTag = newUnAssinged;
         let assignedTags = asignedTerms;
@@ -615,66 +618,52 @@ const AddTag = (props) => {
                     </form>
                     {taglistWithSession ? (
                         <div className='wpwax-vm-taglist-box'>
-                            {tagLoader ? (
-                                <span className='wpwax-vm-loading-spin'>
-                                    <span className='wpwax-vm-spin-dot'></span>
-                                    <span className='wpwax-vm-spin-dot'></span>
-                                    <span className='wpwax-vm-spin-dot'></span>
-                                    <span className='wpwax-vm-spin-dot'></span>
-                                </span>
-                            ) : (
-                                <React.Fragment>
-                                    <div className='wpwax-vm-taglist'>
-                                        {allTags.length !== 0 ? (
-                                            allTags.map((item, index) => {
-                                                return (
-                                                    <div
-                                                        className='wpwax-vm-tag__check'
-                                                        key={index}
-                                                    >
-                                                        <Checkbox
-                                                            id={`wpwax-vm-term-${item.term_id}`}
-                                                            label={item.name}
-                                                            value={
-                                                                asignedTerms.indexOf(
-                                                                    item.term_id
-                                                                ) === -1
-                                                                    ? false
-                                                                    : true
-                                                            }
-                                                            checked={
-                                                                asignedTerms.indexOf(
-                                                                    item.term_id
-                                                                ) === -1
-                                                                    ? false
-                                                                    : true
-                                                            }
-                                                            onChange={(e) =>
-                                                                handleAssignList(
-                                                                    e,
-                                                                    item.name
-                                                                )
-                                                            }
-                                                        />
-                                                    </div>
-                                                );
-                                            })
-                                        ) : (
-                                            <div className='wpwax-vm-empty'>
-                                                {
-                                                    <p>
-                                                        Please add tags before
-                                                        assign
-                                                    </p>
-                                                }
-                                            </div>
-                                        )}
-                                    </div>
-                                    {
-                                        totalTags > allTags.length ? <a href="#" className="wpwax-vm-loadmore" onClick={e=>handleLoadMore(e)}> Load more {pageLoader ? <ReactSVG src={loadingSpin} /> : null } </a> : null
-                                    }
-                                </React.Fragment>
-                            )}
+                            <React.Fragment>
+                                <div className='wpwax-vm-taglist'>
+                                    {allTags.length !== 0 ? (
+                                        allTags.map((item, index) => {
+                                            return (
+                                                <div
+                                                    className='wpwax-vm-tag__check'
+                                                    key={index}
+                                                >
+                                                    <Checkbox
+                                                        id={`wpwax-vm-term-${item.term_id}`}
+                                                        label={item.name}
+                                                        checked={
+                                                            asignedTerms.indexOf(
+                                                                item.term_id
+                                                            ) === -1
+                                                                ? false
+                                                                : true
+                                                        }
+                                                        onChange={(e) =>
+                                                            handleAssignList(
+                                                                e,
+                                                                item.name
+                                                            )
+                                                        }
+                                                        currentCheckboxId={currentCheckbox}
+                                                        loader={tagLoader}
+                                                    />
+                                                </div>
+                                            );
+                                        })
+                                    ) : (
+                                        <div className='wpwax-vm-empty'>
+                                            {
+                                                <p>
+                                                    Please add tags before
+                                                    assign
+                                                </p>
+                                            }
+                                        </div>
+                                    )}
+                                </div>
+                                {
+                                    totalTags > allTags.length ? <a href="#" className="wpwax-vm-loadmore" onClick={e=>handleLoadMore(e)}> Load more {pageLoader ? <ReactSVG src={loadingSpin} /> : null } </a> : null
+                                }
+                            </React.Fragment>
                         </div>
                     ) : (
                         <ul className='wpwax-vm-tags-readable-list'>

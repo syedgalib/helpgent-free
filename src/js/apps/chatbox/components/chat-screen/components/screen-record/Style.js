@@ -154,17 +154,20 @@ const ScreenRecordWrap = Styled.div`
     .wpwax-hg-btn-minimize{
         position: absolute;
         top: 10px;
-        right: 30px;
         ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 40px;
         line-height: 1;
         @media only screen and (max-width: 767px){
-            top: 0;
-            right: 25px;
+            top: 5px;
+            right: 30px;
         }
         svg{
             width: 25px;
             height: 25px;
             fill: var(--color-text);
+            @media only screen and (max-width: 767px){
+                width: 18px;
+                height: 18px;
+            }
         }
     }
     .wpwax-hg-record-timer{
@@ -203,6 +206,7 @@ const ScreenRecordWrap = Styled.div`
         }
         img{
             max-width: 380px;
+            width: 100%;
         }
         .wpwax-vm-alert{
             width: 100%;

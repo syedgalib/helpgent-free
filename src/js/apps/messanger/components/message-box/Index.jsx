@@ -1636,18 +1636,6 @@ function MessageBox({ sessionState, setSessionState }) {
 							</a>
 						) }
 
-
-                        <a
-                            href='#'
-                            className={screenRecordState.recordStage === "startScreen" ? 'wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray wpwax-vm-btn-recording' : 'wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray'}
-                            onClick={screenRecordState.recordStage !== "startScreen" ? handleSelectScreen : handleStopScreen}
-                        >
-                            {
-                                screenRecordState.recordStage !== "startScreen" ? <div className='wpwax-vm-btn-icon'><ReactSVG src={recordIcon} /></div> : null
-                            }
-                            <span className={ ( recordingIsGoingToStopSoon ) ? 'wpwax-vm-btn-text wpwax-vm-blinking-text' : 'wpwax-vm-btn-text' }>{screenRecordState.recordStage === "startScreen" ?  `${getCountDown()}` : "Screen"}</span>
-                        </a>
-
 						{ ! isRecording && (
 							<a
 								href='#'

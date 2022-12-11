@@ -120,15 +120,15 @@ const PreviewTwo = ({ previewStage }) => {
                 </div>
                 :
                 previewStage === 'form' ?
-                    <>
-                        <div className="wpwax-vm-preview-from wpwax-vm-preview-form-theme-2">
-                            <div className="wpwax-vm-preview-header wpwax-vm-custom-scrollbar">
+                    <> 
+                        <div className={formOption.creditTextVisibility ? "wpwax-vm-preview-from wpwax-vm-preview-form-theme-2 wpwax-copyright-active" : "wpwax-vm-preview-from wpwax-vm-preview-form-theme-2"}>
+                            <div className={formOption.greet_video_url !== '' ? "wpwax-vm-preview-header wpwax-vm-custom-scrollbar wpwax-welcome-video": "wpwax-vm-preview-header wpwax-vm-custom-scrollbar wpwax-vm-welcome-image"}>
                                 <h4 className="wpwax-vm-preview-title">{formOption.greet_message}</h4>
                                 {formOption.show_description ?
                                     <span className="wpwax-vm-preview-description">{formOption.description}</span> : ''
                                 }
                             </div>
-                            <div className="wpwax-vm-preview-inner">
+                            <div className={ formOption.greet_video_url !== '' ? "wpwax-vm-preview-inner wpwax-welcome-video" : "wpwax-vm-preview-inner wpwax-vm-welcome-image" }>
                                 {
                                     formOption.greet_video_url &&
                                     <div className="wpwax-vm-chatbox-inner-action">
@@ -142,7 +142,7 @@ const PreviewTwo = ({ previewStage }) => {
                                     </div>
                                 }
                                 {
-                                    formOption.greet_image_url !== '' ? <div className="wpwax-vm-preview-img" style={{ backgroundImage: `url("${formOption.greet_image_url}")` }}></div> : null
+                                    formOption.greet_image_url !== '' ? <div className="wpwax-vm-preview-img"><img src={formOption.greet_image_url} alt="Wpwax Support Video Plugin" /></div> : null
                                 }
                                 {
                                     formOption.greet_video_url !== '' ?

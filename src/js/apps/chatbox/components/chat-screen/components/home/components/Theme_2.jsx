@@ -121,8 +121,8 @@ function Theme_2() {
 
     return (
         <ChatboxForm>
-            <div className="wpwax-vm-chatbox-wrap wpwax-vm-chatbox-theme-2 wpwax-vm-d-flex wpwax-vm-flex-direction-column">
-                <div className="wpwax-vm-chatbox-header wpwax-vm-custom-scrollbar">
+            <div className={templateOptions.creditTextVisibility ? "wpwax-vm-chatbox-wrap wpwax-vm-chatbox-theme-2 wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-copyright-active" : "wpwax-vm-chatbox-wrap wpwax-vm-chatbox-theme-2 wpwax-vm-d-flex wpwax-vm-flex-direction-column"}>
+                <div className={templateOptions.greet_video_url !== '' ? "wpwax-vm-chatbox-header wpwax-vm-custom-scrollbar wpwax-welcome-video": "wpwax-vm-chatbox-header wpwax-vm-custom-scrollbar wpwax-vm-welcome-image"}>
                     {
                         templateOptions.greet_message &&
                         <h4 className="wpwax-vm-chatbox-title">
@@ -153,7 +153,7 @@ function Theme_2() {
                     }
                     {
                         displayChatbox ? 
-                            <div className="wpwax-vm-chatbox-img">
+                            <div className={templateOptions.greet_image_url !== '' ? "wpwax-vm-chatbox-img" : "wpwax-vm-chatbox-video"}>
                                 {  templateOptions.greet_video_url &&
                                     <video
                                         ref={greetVideo}

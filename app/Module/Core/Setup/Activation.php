@@ -32,14 +32,14 @@ class Activation {
 		// Prepare Attachment Folder
 		$this->prepare_attachment_folder();
 
-		// Make sure to save installation time at the end.
-		// Otherwise create_form won't work.
-		$this->save_installation_time();
-
 		do_action( 'helpgent_after_activate' );
 
 		// Flush Rewrite Rules
 		$this->flush_rewrite_rule();
+
+		// Make sure to save installation time at the end.
+		// Otherwise create_form won't work.
+		$this->save_installation_time();
 	}
 
 	/**

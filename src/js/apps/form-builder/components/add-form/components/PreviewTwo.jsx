@@ -128,7 +128,7 @@ const PreviewTwo = ({ previewStage }) => {
                                     <span className="wpwax-vm-preview-description">{formOption.description}</span> : ''
                                 }
                             </div>
-                            <div className={ formOption.greet_video_url !== '' ? "wpwax-vm-preview-inner wpwax-welcome-video" : "wpwax-vm-preview-inner wpwax-vm-custom-scrollbar wpwax-vm-welcome-image" }>
+                            <div className={ formOption.greet_video_url !== '' ? "wpwax-vm-preview-inner wpwax-welcome-video" : "wpwax-vm-preview-inner wpwax-vm-welcome-image" }>
                                 {
                                     formOption.greet_video_url &&
                                     <div className="wpwax-vm-chatbox-inner-action">

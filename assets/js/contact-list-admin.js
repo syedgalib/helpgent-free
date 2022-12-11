@@ -5252,10 +5252,10 @@ var ContactList = function ContactList() {
     });
   }, [itemOffset, itemsPerPage]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    var allchecked = checkBoxesValue.filter(function (item) {
+    var allUnChecked = checkBoxesValue.filter(function (item) {
       return item === false;
     });
-    if (allchecked.length === 0) {
+    if (allUnChecked.length === 0 && checkBoxesValue.length !== 0) {
       setState(_objectSpread(_objectSpread({}, state), {}, {
         headCheckBox: true
       }));
@@ -5318,7 +5318,7 @@ var ContactList = function ContactList() {
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_5__["default"], {
     className: "wpwax-vm-contact-list",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+    children: [userList.length !== 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
       className: "wpwax-vm-contact-list__top",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
         className: "wpwax-vm-contact-list__action",
@@ -5329,7 +5329,7 @@ var ContactList = function ContactList() {
           children: "Export Contacts"
         })
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+    }) : null, userList.length !== 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
       className: loader ? "wpwax-vm-contact-list__table wpwax-vm-loder-active" : "wpwax-vm-contact-list__table",
       children: loader ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("span", {
         className: "wpwax-vm-loading-spin",
@@ -5399,7 +5399,7 @@ var ContactList = function ContactList() {
               }) : null
             })]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)((react_paginate__WEBPACK_IMPORTED_MODULE_2___default()), {
+        }), userList.length > 20 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)((react_paginate__WEBPACK_IMPORTED_MODULE_2___default()), {
           breakLabel: "...",
           onPageChange: handlePageClick,
           nextLabel: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_9__["default"], {
@@ -5419,7 +5419,23 @@ var ContactList = function ContactList() {
           pageLinkClassName: "wpwax-vm-pagination__link",
           activeLinkClassName: "wpwax-vm-pagination__active",
           renderOnZeroPageCount: null
+        }) : null]
+      })
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+      className: "wpwax-vm-empty",
+      children: loader ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("span", {
+        className: "wpwax-vm-loading-spin",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+          className: "wpwax-vm-spin-dot"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+          className: "wpwax-vm-spin-dot"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+          className: "wpwax-vm-spin-dot"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+          className: "wpwax-vm-spin-dot"
         })]
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
+        children: "No Contacts Found"
       })
     })]
   });
@@ -5440,7 +5456,7 @@ __webpack_require__.r(__webpack_exports__);
 var _templateObject;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var ContactStyleWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    background-color: var(--color-white);\n    margin-top: 40px;\n    &.wpwax-vm-contact-list{\n        ", ": 20px;\n        padding: 40px;\n        border-radius: 10px;\n        box-shadow: 0 0 10px rgba(105,105,105,.10);\n        .wpwax-vm-contact-list__top{\n            margin-bottom: 20px;\n        }\n        .wpwax-vm-contact-list__table{\n            position: relative;\n            min-height: 200px;\n            .wpwax-vm-loading-spin{\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                z-index: 101;\n            }\n        }\n        table{\n            tr{\n                th{\n                    font-size: 14px;\n                    letter-spacing: 0px;\n                    text-transform: capitalize;\n                    color: var(--color-dark);\n                }\n                td{\n                    color: #4D4D4D;\n                    a{\n                        color: #4D4D4D;\n                        &.wpwax-vm-phone{\n                            text-decoration: none;\n                        }\n                        &:hover{\n                            color: var(--color-primary)\n                        }\n                    }\n                }\n                th,\n                td{\n                    &:first-child{\n                        width: 40px;\n                    }\n                }\n            }\n        }\n    }\n\n    .wpwax-vm-pagination{\n        justify-content: center;\n        margin-top: 35px;\n    }\n"])), function (_ref) {
+var ContactStyleWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    background-color: var(--color-white);\n    margin-top: 40px;\n    &.wpwax-vm-contact-list{\n        ", ": 20px;\n        padding: 40px;\n        border-radius: 10px;\n        box-shadow: 0 0 10px rgba(105,105,105,.10);\n        .wpwax-vm-contact-list__top{\n            margin-bottom: 20px;\n        }\n        .wpwax-vm-contact-list__table{\n            position: relative;\n            min-height: 200px;\n            .wpwax-vm-loading-spin{\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                z-index: 101;\n            }\n        }\n        table{\n            tr{\n                th{\n                    font-size: 14px;\n                    letter-spacing: 0px;\n                    text-transform: capitalize;\n                    color: var(--color-dark);\n                }\n                td{\n                    color: #4D4D4D;\n                    a{\n                        color: #4D4D4D;\n                        &.wpwax-vm-phone{\n                            text-decoration: none;\n                        }\n                        &:hover{\n                            color: var(--color-primary)\n                        }\n                    }\n                }\n                th,\n                td{\n                    &:first-child{\n                        width: 40px;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-empty{\n            p{\n                font-size: 16px;\n            }\n        }\n    }\n\n    .wpwax-vm-pagination{\n        justify-content: center;\n        margin-top: 35px;\n    }\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.direction === 'ltr' ? 'margin-right' : 'margin-left';
 });

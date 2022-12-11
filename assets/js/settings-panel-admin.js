@@ -8196,7 +8196,7 @@ var EmailTemplate = function EmailTemplate(props) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
         htmlFor: "enableEmailHeader",
-        children: "Enable Header"
+        children: "Email Header Background Color"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
         className: "wpwax-vm-settings__single--element",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_1__["default"], {

@@ -1561,6 +1561,7 @@
     font-size: 16px;
     font-weight: 600;
     min-height: 100px;
+    font-family: 'Inter',sans-serif;;
     color: var(--color-dark);
     p {
         font-size: 15px;
@@ -1665,8 +1666,6 @@
 	background-color: #00000087;
 	z-index: 99999;
 }
-
-
 
 /* Create Form Modal */
 .wpwax-vm-create-form-modal{

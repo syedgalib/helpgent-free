@@ -10748,7 +10748,7 @@ var PreviewTwo = function PreviewTwo(_ref) {
             children: formOption.description
           }) : '']
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
-          className: formOption.greet_video_url !== '' ? "wpwax-vm-preview-inner wpwax-welcome-video" : "wpwax-vm-preview-inner wpwax-vm-custom-scrollbar wpwax-vm-welcome-image",
+          className: formOption.greet_video_url !== '' ? "wpwax-vm-preview-inner wpwax-welcome-video" : "wpwax-vm-preview-inner wpwax-vm-welcome-image",
           children: [formOption.greet_video_url && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
             className: "wpwax-vm-chatbox-inner-action",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("span", {

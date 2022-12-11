@@ -49,6 +49,11 @@ const ContactStyleWrap = Styled.div`
                 }
             }
         }
+        .wpwax-vm-empty{
+            p{
+                font-size: 16px;
+            }
+        }
     }
 
     .wpwax-vm-pagination{

@@ -27,6 +27,9 @@ const ScreenWrapper = Styled.div`
     }
     &.wpwax-vm-chatbox-screen-home{
         width: 430px;
+        @media only screen and (max-width: 1399px){
+            width: 400px;
+        }
         @media only screen and (max-width: 767px){
             width: 350px;
         }

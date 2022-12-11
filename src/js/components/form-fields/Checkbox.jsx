@@ -28,7 +28,7 @@ const Checkbox = ({ id, name, label, value, checked, onChange, disabled, current
 Checkbox.defaultProps = {
     id                 :"",
     name               :"",
-    label              :"Helpgent Checkbox",
+    label              :"",
     value              :"",
     checked            :false,
     disabled           :false,

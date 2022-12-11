@@ -5800,7 +5800,7 @@ var Checkbox = function Checkbox(_ref) {
 Checkbox.defaultProps = {
   id: "",
   name: "",
-  label: "Helpgent Checkbox",
+  label: "",
   value: "",
   checked: false,
   disabled: false,

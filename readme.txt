@@ -4,7 +4,7 @@ Tags: video messaging, voice messaging, screen recording, text messaging, audio 
 Requires at least: 5.0
 Tested up to: 6.1.1
 Requires PHP: 7.0
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -133,12 +133,12 @@ Please follow the official installation guide from here to install this plugin: 
 
 == Changelog ==
 
-1.0.2 - Dec 8, 2022
+1.0.2 - Dec 12, 2022
 
 * Improve - Attachments download URL
 * Improve - Video & Voice recorder (Pausing System, Some UI changes, Back Button)
 * Improve - Messenger sidebar user avatar list
-* Improve -Tag assigning & un-assigning process
+* Improve - Tag assigning & un-assigning process
 * Fix - Initial settings data not saving
 
 1.0.1 - Nov 30, 2022

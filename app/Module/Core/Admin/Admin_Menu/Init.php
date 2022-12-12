@@ -34,7 +34,7 @@ class Init
 			Admin_Menu::class,
 			Messenger_Admin_Menu::class,
 			Forms_Admin_Menu::class,
-			Contacts_Admin_Menu::class,
+			//Contacts_Admin_Menu::class,
 			Settings_Panel_Admin_Menu::class,
 		];
 	}

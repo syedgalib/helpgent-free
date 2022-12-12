@@ -8746,9 +8746,9 @@ var General = function General(props) {
             className: "wpwax-vm-settings__single--label",
             htmlFor: "video-resolution",
             children: "Video Resolution"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
             className: "wpwax-vm-settings__single--element",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_5__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_5__["default"], {
               inputId: "video-resolution",
               classNamePrefix: "wpwax-vm-select",
               options: Helper_video_resolution__WEBPACK_IMPORTED_MODULE_3__.options,
@@ -8760,10 +8760,10 @@ var General = function General(props) {
               placeholder: "Select video resulation...",
               value: (0,Helper_video_resolution__WEBPACK_IMPORTED_MODULE_3__.parseOption)(contentState.options.videoResolution),
               defaultValue: (0,Helper_video_resolution__WEBPACK_IMPORTED_MODULE_3__.parseOption)(720)
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-            className: "wpwax-vm-input-desc-pro",
-            children: "You can use maximum of 720p in free version."
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+              className: "wpwax-vm-input-desc-pro",
+              children: "You can use maximum of 720p in free version."
+            })]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           className: "wpwax-vm-settings__single",

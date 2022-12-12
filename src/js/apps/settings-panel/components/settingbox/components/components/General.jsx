@@ -251,10 +251,10 @@ const General = (props) => {
                                 }
                                 defaultValue={ parseResolutionOption( 720 ) }
                             />
+                            <p className='wpwax-vm-input-desc-pro'>
+                                You can use maximum of 720p in free version.
+                            </p>
                         </div>
-                        <p className='wpwax-vm-input-desc-pro'>
-                            You can use maximum of 720p in free version.
-                        </p>
                     </div>
                     <div className='wpwax-vm-settings__single'>
                         <label

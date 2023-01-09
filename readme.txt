@@ -4,7 +4,7 @@ Tags: video messaging, voice messaging, screen recording, text messaging, audio 
 Requires at least: 5.0
 Tested up to: 6.1.1
 Requires PHP: 7.0
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -132,6 +132,10 @@ Yes, HelpGent should work wonders with all the major themes.
 Please follow the official installation guide from here to install this plugin: https://wordpress.org/support/article/managing-plugins/#installing-plugins-1
 
 == Changelog ==
+
+1.0.3 - Jan 9, 2023
+
+* Update - Banner and Logo
 
 1.0.2 - Dec 12, 2022
 

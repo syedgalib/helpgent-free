@@ -1,11 +1,19 @@
 <?php
 
 if ( ! defined( 'HELPGENT_VERSION' ) ) {
-    define( 'HELPGENT_VERSION', '1.0.1' );
+    define( 'HELPGENT_VERSION', '1.0.3' );
 }
 
 if ( ! defined( 'HELPGENT_PREFIX' ) ) {
     define( 'HELPGENT_PREFIX', 'helpgent' );
+}
+
+if ( ! defined( 'HELPGENT_AUTHOR_URL' ) ) {
+    define( 'HELPGENT_AUTHOR_URL', 'https://wpwax.com/' );
+}
+
+if ( ! defined( 'HELPGENT_DOWNLOAD_ID' ) ) {
+    define( 'HELPGENT_DOWNLOAD_ID', '34827' );
 }
 
 if ( ! defined( 'HELPGENT_AUTH_TOKEN_EXPIRES_AFTER_DAYS' ) ) {

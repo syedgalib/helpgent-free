@@ -50,6 +50,8 @@ const formData = [
         "footer_message_color": "#ffffff",
         "primary_button_font_color": "#ffffff",
         "primary_button_background_color": "#6551f2",
+        "creditTextDom": "<span>Powered by <a href=\"#\">WpWax</a></span>",
+        "creditTextVisibility": true
     },
     pages: "",
   }

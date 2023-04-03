@@ -409,6 +409,14 @@ const MessageBox = Styled.div`
             display: flex;
             align-items: center;
             position: relative;
+            &:hover{
+                .wpwax-vm-btn-play,
+                .wpwax-vm-btn-pause{
+                    opacity: 1;
+                    visibility: visible;
+                    z-index: 10;
+                }
+            }
             &:after{
                 position: absolute;
                 ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
@@ -440,7 +448,10 @@ const MessageBox = Styled.div`
             }
             .wpwax-vm-btn-play,
             .wpwax-vm-btn-pause{
-                z-index: 10;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity ,.3s ease-in-out;
+                z-index: -1;
                 svg{
                     width: 20px;
                     height: 20px;
@@ -450,6 +461,7 @@ const MessageBox = Styled.div`
                 }
             }
             .wpwax-vm-btn-play{
+                
                 svg{
                     position: relative;
                     ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 2px;

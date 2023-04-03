@@ -130,6 +130,22 @@ const FormUpdater = (label, value,formInitialData) => {
                         footer_message: value
                     }
                 }
+            case "wpwax-vm-creditDom":
+                return {
+                    ...item,
+                    options: {
+                        ...item.options,
+                        creditTextDom: value
+                    }
+                }
+            case "wpwax-vm-credit-visibility":
+                return {
+                    ...item,
+                    options: {
+                        ...item.options,
+                        creditTextVisibility: value
+                    }
+                }
             case "wpwax-vm-play-btn-bg":
                 return {
                     ...item,

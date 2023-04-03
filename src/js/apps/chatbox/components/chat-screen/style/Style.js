@@ -1,7 +1,7 @@
 import Styled from 'styled-components';
 
 const ChatboxForm = Styled.div`
-    font-size: 18px;
+    font-size: 16px;
     height: 100%;
     box-sizing: border-box;
     font-family: var(--font-family);
@@ -23,6 +23,7 @@ const ChatboxForm = Styled.div`
         z-index: -1;
         img{
             height: 100%;
+            width: 100%;
             object-fit: cover;
         }
         video{
@@ -62,7 +63,7 @@ const ChatboxForm = Styled.div`
         .wpwax-vm-chatbox-title{
             word-break: break-word;
             font-weight: 600;
-            line-height: 1.2;
+            line-height: 1.25;
             text-transform: capitalize;
             margin: 15px 0 5px;
             color: var(--color-text-greet);
@@ -112,11 +113,17 @@ const ChatboxForm = Styled.div`
         }
     }
     .wpwax-vm-chatbox-footer{
+        &.wpwax-vm-chatbox-footer-copyright{
+            .wpwax-vm-chatbox-footer__text{
+                margin: 0 0 8px;
+            }
+        }
         .wpwax-vm-chatbox-footer__title{
             font-weight: 600;
             text-align: center;
             margin-bottom: 18px;
             text-transform: inherit;
+            line-height: 1.5;
             font-family: var(--font-family);
             font-size: var(--font-size-chat);
             color: var(--color-text-chat);
@@ -124,7 +131,7 @@ const ChatboxForm = Styled.div`
         .wpwax-vm-chatbox-footer__actions{
             display: flex;
             flex-wrap: wrap;
-            margin: -10px;
+            margin: -5px -10px 10px;
             padding: 0 25px;
             @media only screen and (max-width: 767px){
                 padding: 0 20px;
@@ -148,10 +155,11 @@ const ChatboxForm = Styled.div`
                     transform: scale(1.06);
                     background-color: var(--primary-button-bg);
                     color: var(--primary-button-color);
-                    /* fill: var(--primary-button-bg);
-                    path{
-                        fill: var(--primary-button-bg);
-                    } */
+                }
+                @media only screen and (max-width: 1399px){
+                    height: min(80vh,80px);
+                    width: 80px;
+                    flex-basis: 80px;
                 }
                 @media only screen and (max-width: 767px){
                     height: min(80vh,70px);
@@ -177,7 +185,7 @@ const ChatboxForm = Styled.div`
         .wpwax-vm-chatbox-footer__text{
             font-weight: 500;
             opacity: .8;
-            margin: 12px 0 8px;
+            margin: 0 0 14px;
             text-align: center;
             min-height: 20px;
             font-family: var(--font-family);
@@ -185,12 +193,14 @@ const ChatboxForm = Styled.div`
             color: var(--color-footer-text);
         }
         .wpwax-vm-chatbox-footer__bottom{
+            position: relative;
+            bottom: -1px;
             margin: 0;
             font-size: 12px;
             font-weight: 500;
             padding: 8px;
             text-align: center;
-            border-radius: 0 0 25px 25px;
+            border-radius: 0 0 22px 22px;
             background-color: #4537A5;
             color: rgba(255,255,255,.80);
             a{
@@ -209,13 +219,27 @@ const ChatboxForm = Styled.div`
             &:after{
                 display: none;
             }
+            &.wpwax-copyright-active{
+                .wpwax-vm-chatbox-header{
+                    &.wpwax-welcome-video{
+                        .wpwax-vm-chatbox-description{
+                            min-height: auto;
+                        }
+                    }
+                }
+            }
             .wpwax-vm-chatbox-header{
-                padding: 20px;
+                padding: 20px 20px 18px;
                 border-radius: 25px 25px 0 0;
-                min-height: 55px;
+                flex: 0 0 auto;
                 background-color: var(--color-page-header-bg);
                 @media only screen and (max-width: 767px){
                     padding: 15px;
+                }
+                &.wpwax-welcome-video{
+                    .wpwax-vm-chatbox-description{
+                        min-height: auto;
+                    }
                 }
                 .wpwax-vm-chatbox-title{
                     text-transform: capitalize;
@@ -282,15 +306,21 @@ const ChatboxForm = Styled.div`
                 }
                 video{
                     object-fit: cover;
+                    height: 100%;
                 }
-                .wpwax-vm-chatbox-img{
+                .wpwax-vm-chatbox-img,
+                .wpwax-vm-chatbox-video{
                     position: relative;
-                    height: 300px;
+                    display: flex;
                     width: 100%;
                     z-index: 10;
-                    @media only screen and (max-width: 1399px){
-                        height: 250px;
-                    }
+                }
+
+                .wpwax-vm-chatbox-video{
+                    height: 100%;
+                }
+                .wpwax-vm-chatbox-img{
+                    height: 100%;
                 }
                 .wpwax-vm-btn-play{
                     position: absolute;
@@ -306,6 +336,11 @@ const ChatboxForm = Styled.div`
                     }
                 }
                 .wpwax-vm-chatbox-img{
+                    /* height: 400px; */
+                    height: 100%;
+                    @media only screen and (max-width: 1399px) {
+                        /* height: 240px; */
+                    }
                     img{
                         height: 100%;
                         width: 100%;
@@ -319,17 +354,22 @@ const ChatboxForm = Styled.div`
                 border-radius: 0 0 25px 25px;
                 padding: 0;
                 background-color: var(--color-page-bg);
+                &.wpwax-vm-chatbox-footer-copyright{
+                    .wpwax-vm-chatbox-footer__text{
+                        margin: 0 0 8px;
+                    }
+                }
                 .wpwax-vm-chatbox-footer__title{
                     font-weight: 600;
                     margin: 0 0 20px;
-                    padding-top: 12px;
+                    padding-top: 14px;
                     font-family: var(--font-family);
                     font-size: var(--font-size-chat);
                     color: var(--color-text-chat);
                 }
                 .wpwax-vm-chatbox-footer__text{
                     font-weight: 500;
-                    margin: 12px 0 8px;
+                    margin: 0 0 14px;
                     font-size: var(--footer-text-font-size);
                     color: var(--color-footer-text);
                 }

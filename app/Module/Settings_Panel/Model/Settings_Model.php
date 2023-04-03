@@ -1,7 +1,6 @@
 <?php
 
 namespace HelpGent\Module\Settings_Panel\Model;
-use HelpGent\Base\Helper;
 
 class Settings_Model {
 
@@ -14,12 +13,12 @@ class Settings_Model {
 		$options = [
 			'guestSubmission'              => true,
 			'chatHeadPosition'             => 'bottom-right',
-			'userDashboardPage'            => Helper\get_option( 'userDashboardPage', get_option('page_on_front') ),
-			'maxVideoLength'               => '2',
-			'maxVoiceLength'               => '2',
-			'videoQuality'                 => '720',
-			'attatchmentDeletionAfter'     => '',
-			'maxUploadSize'                => '50',
+			'userDashboardPage'            => '',
+			'maxVideoLength'               => 2,
+			'maxVoiceLength'               => 2,
+			'videoQuality'                 => 720,
+			'attatchmentDeletionAfter'     => 20,
+			'maxUploadSize'                => 300,
 			'enableEmailNotification'      => true,
 			'adminEmailNotificationType'   => 'single',
 			'userEmailNotificationType'    => 'single',

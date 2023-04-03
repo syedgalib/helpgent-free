@@ -12,8 +12,9 @@ export default function useVideoRecorder( config ) {
 
 	config = ( config && typeof config === 'object' ) ? { ...defaultConfig, ...config } : defaultConfig;
 
-	const [ isRecording, setIsRecording ]           = useState( false );
-	const [ permissionDenied, setPermissionDenied ] = useState( null );
+	const [ isVideoRecording, setIsVideoRecording ]           	= useState( false );
+	const [ isRecordingPaused, setIsRecordingPaused ]   = useState( false );
+	const [ permissionDenied, setPermissionDenied ] 	= useState( null );
 
 	const [ recordedTimeInSecond, setRecordedTimeInSecond ] = useState( 0 );
 	const [ recordedBlob, setRecordedBlob ]                 = useState( null );
@@ -65,7 +66,7 @@ export default function useVideoRecorder( config ) {
 			await navigator.mediaDevices.getUserMedia({
 				audio: true,
 				video: true,
-			})
+			});
 
 			return true;
         } catch (error) {
@@ -125,7 +126,6 @@ export default function useVideoRecorder( config ) {
                         videoStreemRef.current.srcObject.removeTrack(track);
                     });
             }
-
             videoStreemRef.current.srcObject = streamRef.current;
             videoStreemRef.current.play();
 
@@ -133,7 +133,7 @@ export default function useVideoRecorder( config ) {
 
         } catch (error) {
             console.error({ error });
-            setIsRecording( false );
+            setIsVideoRecording( false );
 
 			return false;
         }
@@ -149,7 +149,7 @@ export default function useVideoRecorder( config ) {
 
 		setRecordingIsGoingToStopSoon( false );
         setRecordedTimeInSecond(0);
-        setIsRecording(true);
+        setIsVideoRecording(true);
         startTimer();
 
 		return true;
@@ -158,6 +158,7 @@ export default function useVideoRecorder( config ) {
 	// stopRecording
     function stopRecording( args ) {
 
+		setIsRecordingPaused(false);
 		const defaultArgs = { terminate: false };
 		args = ( args && typeof args === 'object' ) ? { ...defaultArgs, ...args } : defaultArgs;
 
@@ -173,7 +174,7 @@ export default function useVideoRecorder( config ) {
 			recorderRef.current = null;
 
 			setRecordedTimeInSecond(0);
-			setIsRecording(false);
+			setIsVideoRecording(false);
 
 			afterStopRecording();
 			return;
@@ -187,13 +188,45 @@ export default function useVideoRecorder( config ) {
 			setRecordingIsGoingToStopSoon( false );
             setRecordedBlob(blob);
             setRecordedURL(url);
-            setIsRecording(false);
+            setIsVideoRecording(false);
 
 			if ( ! args.terminate ) {
 				afterStopRecording( { blob, url } );
 			}
 
         });
+    }
+
+	// resumeRecording
+    async function resumeRecording() {
+
+		if ( ! recorderRef.current ) {
+			return false;
+		}
+
+		await recorderRef.current.resumeRecording();
+		setIsVideoRecording(true);
+		setIsRecordingPaused(false);
+		startTimer();
+		
+		return true;
+    }
+
+	// pauseRecording
+    async function pauseRecording() {
+
+		if ( ! recorderRef.current ) {
+			return false;
+		}
+
+		if ( isVideoRecording ) {
+            await recorderRef.current.pauseRecording();
+            setIsVideoRecording(false);
+            setIsRecordingPaused(true);
+            stopTimer();
+        }
+		
+		return true;
     }
 
 	function afterStopRecording( recordingData ) {
@@ -228,7 +261,7 @@ export default function useVideoRecorder( config ) {
 	}
 
 	function reset() {
-		if ( isRecording ) {
+		if ( isVideoRecording ) {
 			stopRecording( { terminate: true } );
 		}
 
@@ -241,7 +274,7 @@ export default function useVideoRecorder( config ) {
 		recordingTimerRef.current = null;
 		videoStreemRef.current    = null;
 
-		setIsRecording( false );
+		setIsVideoRecording( false );
 		setRecordedTimeInSecond( 0 );
 		setRecordedBlob( null );
 		setRecordedURL( '' );
@@ -249,7 +282,8 @@ export default function useVideoRecorder( config ) {
 
 	return {
 		recorder: recorderRef.current,
-		isRecording,
+		isVideoRecording,
+		isRecordingPaused,
 		permissionDenied,
 		recordedTimeInSecond,
 		recordedBlob,
@@ -260,6 +294,8 @@ export default function useVideoRecorder( config ) {
 		requestPermission,
 		setupStream,
 		startRecording,
+		resumeRecording,
+		pauseRecording,
 		stopRecording,
 		getCountDown,
 		reset,

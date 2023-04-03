@@ -2,8 +2,8 @@ import Styled from 'styled-components';
 
 const ScreenWrapper = Styled.div`
     position: fixed;
-    bottom: 15px;
-    ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 25px;
+    bottom: 20px;
+    ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 20px;
     height: auto;
     width: 400px;
     z-index: 100;
@@ -27,6 +27,9 @@ const ScreenWrapper = Styled.div`
     }
     &.wpwax-vm-chatbox-screen-home{
         width: 430px;
+        @media only screen and (max-width: 1399px){
+            width: 400px;
+        }
         @media only screen and (max-width: 767px){
             width: 350px;
         }
@@ -142,7 +145,7 @@ const ScreenWrapper = Styled.div`
                 content: '';
                 opacity: .9;
                 z-index: 10;
-                border-radius: 25px;
+                border-radius: 20px;
                 background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));
             }
             &:after{

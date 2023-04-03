@@ -60,7 +60,7 @@ const EmailTemplate = (props) => {
                     className='wpwax-vm-settings__single--label'
                     htmlFor='enableEmailHeader'
                 >
-                    Enable Header
+                    Email Header Background Color
                 </label>
                 <div className='wpwax-vm-settings__single--element'>
                     <Switch

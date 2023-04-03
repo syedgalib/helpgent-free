@@ -19,6 +19,9 @@ import playIcon from 'Assets/svg/icons/play.svg';
 import pauseIcon from 'Assets/svg/icons/pause-solid.svg';
 import videoIcon from 'Assets/svg/icons/video-camera.svg';
 
+import sanitizeHtml from 'sanitize-html';
+import { decodeHTMLEntities } from 'Helper/utils';
+
 function Theme_2() {
     const dispatch = useDispatch();
 
@@ -118,8 +121,8 @@ function Theme_2() {
 
     return (
         <ChatboxForm>
-            <div className="wpwax-vm-chatbox-wrap wpwax-vm-chatbox-theme-2 wpwax-vm-d-flex wpwax-vm-flex-direction-column">
-                <div className="wpwax-vm-chatbox-header wpwax-vm-custom-scrollbar">
+            <div className={templateOptions.creditTextVisibility ? "wpwax-vm-chatbox-wrap wpwax-vm-chatbox-theme-2 wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-copyright-active" : "wpwax-vm-chatbox-wrap wpwax-vm-chatbox-theme-2 wpwax-vm-d-flex wpwax-vm-flex-direction-column"}>
+                <div className={templateOptions.greet_video_url !== '' ? "wpwax-vm-chatbox-header wpwax-vm-custom-scrollbar wpwax-welcome-video": "wpwax-vm-chatbox-header wpwax-vm-custom-scrollbar wpwax-vm-welcome-image"}>
                     {
                         templateOptions.greet_message &&
                         <h4 className="wpwax-vm-chatbox-title">
@@ -150,7 +153,7 @@ function Theme_2() {
                     }
                     {
                         displayChatbox ? 
-                            <div className="wpwax-vm-chatbox-img">
+                            <div className={templateOptions.greet_image_url !== '' ? "wpwax-vm-chatbox-img" : "wpwax-vm-chatbox-video"}>
                                 {  templateOptions.greet_video_url &&
                                     <video
                                         ref={greetVideo}
@@ -202,13 +205,12 @@ function Theme_2() {
                         }
                         </div>
                     }
-                    <p className="wpwax-vm-chatbox-footer__text">
-                        {
-                            templateOptions.show_footer && templateOptions.footer_message && templateOptions.footer_message
-                        }
-                    </p>
-
-                    <p className="wpwax-vm-chatbox-footer__bottom">Powered by <a href="#">WpWax</a></p>
+                    {
+                        templateOptions.show_footer && templateOptions.footer_message ? <p className="wpwax-vm-chatbox-footer__text">{templateOptions.footer_message}</p> : null 
+                    }
+                    {
+                        templateOptions.creditTextVisibility ? <div className="wpwax-vm-chatbox-footer__bottom" dangerouslySetInnerHTML={{ __html: sanitizeHtml( decodeHTMLEntities( templateOptions.creditTextDom ) ) }}></div> : null
+                    }
                 </div>
             </div>
         </ChatboxForm>

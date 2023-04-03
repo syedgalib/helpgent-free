@@ -199,84 +199,40 @@ const AddForm = () => {
         }
     }
 
-    const handleAddTemplate = (e) => {
+    const handleUpdateTemplate = (e) => {
         e.preventDefault()
-        if (formInitialData.name === '') {
-            setTimeout(() => {
-                setState({
-                    ...state,
-                    validation: true
-                });
-            }, "4000")
-        } else {
-            const formData = {
-                id: formInitialData.id,
-                name: formInitialData.name,
-                options: JSON.stringify(formInitialData.options),
-                pages: formInitialData.pages,
-            }
-            if (id) {
-                setState({
-                    ...state,
-                    loading: true
-                });
-                const editSession = async ()=>{
-                    const editSessionResponse = await updateForm( id,formData )
-                    return editSessionResponse;
-                }
-                editSession()
-                    .then( editSessionResponse => {
-                        setState({
-                            ...state,
-                            loading: false,
-                        });
-                        setResponse(editSessionResponse);
-                        dispatch(handleReadForm([editSessionResponse.data]));
-                    })
-                    .catch((error) => {
-                        setState({
-                            ...state,
-                            currentStage: 'general',
-                            loading: false,
-                        });
-                        setResponse(response);
-                    })
-            } else {
-                setState({
-                    ...state,
-                    loading: true
-                });
-                const addSession = async () => {
-                    const addSessionResponse = await createForm(formData)
-                    return addSessionResponse;
-                }
-                addSession()
-                    .then( addSessionResponse => {
-                        const formResetData = {
-                            id: formInitialData.id,
-                            name: "",
-                            options: formInitialData.options,
-                            pages: formInitialData.pages,
-                        }
-                        setState({
-                            ...state,
-                            currentStage: 'general',
-                            loading: false,
-                        });
-                        setResponse(addSessionResponse)
-                        dispatch(handleReadForm([formResetData]));
-                    })
-                    .catch((error) => {
-                        setState({
-                            ...state,
-                            currentStage: 'general',
-                            loading: false,
-                        });
-                        console.log(error)
-                        setResponse(error);
-                    });
-            }
+        
+        const formData = {
+            id: formInitialData.id,
+            name: formInitialData.name,
+            options: JSON.stringify(formInitialData.options),
+            pages: formInitialData.pages,
         }
+        setState({
+            ...state,
+            loading: true
+        });
+        const editForm = async ()=>{
+            const editFormResponse = await updateForm( id,formData )
+            return editFormResponse;
+        }
+        editForm()
+            .then( editFormResponse => {
+                setState({
+                    ...state,
+                    loading: false,
+                });
+                setResponse(editFormResponse);
+                dispatch(handleReadForm([editFormResponse.data]));
+            })
+            .catch((error) => {
+                setState({
+                    ...state,
+                    currentStage: 'general',
+                    loading: false,
+                });
+                setResponse(response);
+            });
     }
 
     const handleNoticeClose = (e) =>{
@@ -319,33 +275,31 @@ const AddForm = () => {
     }
 
     useEffect(() => {
-        if (id) {
-            setState({
-                ...state,
-                loading: true
-            });
-            const fetchSessionById = async ()=>{
-                const sessionByIdResponse = await getForm(id)
-                return sessionByIdResponse;
-            }
-
-            fetchSessionById()
-                .then( sessionByIdResponse => {
-                    setState({
-                        ...state,
-                        loading: false,
-
-                    });
-
-                    dispatch(handleReadForm([sessionByIdResponse.data]));
-
-					const displayOnCustomPages = ( sessionByIdResponse.data && sessionByIdResponse.data.pages !== null ) ? true : false;
-                    dispatch( updateFormSettings( 'displayOnCustomPages', displayOnCustomPages ) );
-                })
-                .catch((error) => {
-                    console.log(error);
-                })
+        setState({
+            ...state,
+            loading: true
+        });
+        const fetchFormById = async ()=>{
+            const formByIdResponse = await getForm(id)
+            return formByIdResponse;
         }
+
+        fetchFormById()
+            .then( formByIdResponse => {
+                setState({
+                    ...state,
+                    loading: false,
+
+                });
+
+                dispatch(handleReadForm([formByIdResponse.data]));
+
+                const displayOnCustomPages = ( formByIdResponse.data && formByIdResponse.data.pages !== null ) ? true : false;
+                dispatch( updateFormSettings( 'displayOnCustomPages', displayOnCustomPages ) );
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     }, []);
 
     return (
@@ -372,7 +326,7 @@ const AddForm = () => {
                         </span>
                         :
 
-                        <form action="" onSubmit={handleAddTemplate}>
+                        <form action="" onSubmit={handleUpdateTemplate}>
                         {
                             state.fetchStatus ?
                                 <>

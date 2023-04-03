@@ -123,13 +123,6 @@ const PreviewWrap = Styled.div`
         position: relative;
         max-height: 160px;
         padding: 25px 25px 0;
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
-
-        /* Hide scrollbar for Chrome, Safari and Opera */
-        &::-webkit-scrollbar {
-            display: none;
-        }
         .wpwax-vm-chatbox-header__top{
             display: flex;
             align-items: center;
@@ -216,7 +209,7 @@ const PreviewWrap = Styled.div`
         .wpwax-vm-preview-footer__actions{
             display: flex;
             padding: 0 25px;
-            margin: -10px;
+            margin: -5px -10px 10px;
             a{
                 display: flex;
                 align-items: center;
@@ -232,6 +225,11 @@ const PreviewWrap = Styled.div`
                 margin: 5px;
                 pointer-events: none;
                 white-space: nowrap;
+                @media only screen and (max-width: 1399px) {
+                    width: 80px;
+                    flex-basis: 80px;
+                    height: min(80vh,80px);
+                }
                 @media only screen and (max-width: 1199px) {
                     padding: 0 15px;
                     width: 95px;
@@ -264,7 +262,7 @@ const PreviewWrap = Styled.div`
             font-size: var(--footer-text-font-size);
             font-weight: 500;
             padding: 0 25px;
-            margin: 18px 0 10px;
+            margin: 0 0 14px;
             min-height: 20px;
             opacity: .8;
             text-align: center;
@@ -275,7 +273,7 @@ const PreviewWrap = Styled.div`
             margin: 0;
             font-size: 12px;
             font-weight: 500;
-            padding: 8px;
+            padding: 6px 8px;
             text-align: center;
             border-radius: 0 0 25px 25px;
             background-color: #4537A5;
@@ -332,6 +330,9 @@ const PreviewWrap = Styled.div`
         border-radius: 25px;
         font-size: 18px;
         background-color: var(--color-page-bg);
+        @media only screen and (max-width: 1399px) {
+            width: 400px;
+        }
         &:hover{
             .wpwax-vm-btn-play{
                 opacity: 1;
@@ -343,8 +344,11 @@ const PreviewWrap = Styled.div`
             padding: 0;
             width: 430px;
             background-color: var(--color-page-bg);
+            @media only screen and (max-width: 1399px) {
+                width: 400px;
+            }
             @media only screen and (max-width: 1199px) {
-                width: 370px
+                width: 370px;
             }
             @media only screen and (max-width: 991px) {
                 width: 350px;
@@ -364,7 +368,7 @@ const PreviewWrap = Styled.div`
         }
         @media only screen and (max-width: 1399px) {
             font-size: 16px;
-            min-height: 480px;
+            min-height: 520px;
         }
         @media only screen and (max-width: 1199px) {
             width: 370px
@@ -393,13 +397,34 @@ const PreviewWrap = Styled.div`
     }
     .wpwax-vm-preview-from{
         &.wpwax-vm-preview-form-theme-2{
-            /* min-height: 620px; */
+            min-height: auto;
+            height: min(80vh,580px);
+            /* .wpwax-vm-custom-scrollbar{
+                overflow-y: hidden;
+            } */
+            &.wpwax-copyright-active{
+                height: min(80vh,620px);
+                .wpwax-vm-preview-header {
+                    flex: 0 0 auto;
+                }
+                .wpwax-vm-preview-footer .wpwax-vm-preview-footer__text{
+                    min-height: auto;
+                }
+            }
             .wpwax-vm-preview-header{
                 position: relative;
-                padding: 20px;
+                padding: 20px 20px 18px;
                 border-radius: 25px 25px 0 0;
                 z-index: 100;
+                flex: 0 0 auto;
                 background-color: var(--color-page-header-bg);
+                -ms-overflow-style: none;  /* IE and Edge */
+                scrollbar-width: none;  /* Firefox */
+
+                /* Hide scrollbar for Chrome, Safari and Opera */
+                &::-webkit-scrollbar {
+                    display: none;
+                }
                 .wpwax-vm-preview-title{
                     font-size: var(--font-size-greet);
                     font-weight: 600;
@@ -416,14 +441,11 @@ const PreviewWrap = Styled.div`
            .wpwax-vm-preview-inner{
                 position: relative;
                 padding: 0;
-                min-height: 290px;
-                @media only screen and (max-width: 1199px) {
-                    min-height: 250px;
-                }
+                
                 &:after{
                     position: absolute;
                     left: 0;
-                    top: -60px;
+                    top: -40px;
                     width: 100%;
                     height: 280px;
                     opacity: .9;
@@ -438,7 +460,7 @@ const PreviewWrap = Styled.div`
                 &:before{
                     position: absolute;
                     left: 0;
-                    bottom: -200px;
+                    bottom: -155px;
                     width: 100%;
                     height: 320px;
                     opacity: .9;
@@ -446,6 +468,9 @@ const PreviewWrap = Styled.div`
                     background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));
                     content: '';
                     z-index: 10;
+                }
+                &.wpwax-vm-welcome-image{
+                    flex-grow: 1;
                 }
                 .wpwax-vm-chatbox-inner-action{
                     display: flex;
@@ -469,8 +494,12 @@ const PreviewWrap = Styled.div`
                 }
                 .wpwax-vm-chatbox-video{
                     position: relative;
-                    height: 300px;
+                    height: 330px;
+                    width: 100%;
                     overflow: hidden;
+                    @media only screen and (max-width: 1399px) {
+                        height: 270px;
+                    }
                 }
                .wpwax-vm-btn-play{
                     position: absolute;
@@ -485,16 +514,19 @@ const PreviewWrap = Styled.div`
                .wpwax-vm-preview-img{  
                     position: relative;
                     z-index: 10;
-                    min-height: 290px;
+                    height: 100%;
                     background-size: cover;
                     &:before,
                     &:after{
                         display: none
                     }
+                    img{
+                        border-radius: 0px;
+                    }
                }
                video{
                     width: 100%;
-                    height: 300px;
+                    height: 100%;
                }
                
            }
@@ -502,12 +534,11 @@ const PreviewWrap = Styled.div`
                 position: relative;
                 z-index: 10;
                 border-radius: 0 0 25px 25px;
-                min-height: 185px;
                 background-color: var(--color-page-bg);
                 .wpwax-vm-preview-footer__title{
                     font-size: var(--font-size-chat);
                     font-weight: 600;
-                    margin: 14px 0 20px;
+                    margin: 18px 0 20px;
                     padding: 0 25px;
                     word-break: break-word;
                     color: var(--color-text-chat);

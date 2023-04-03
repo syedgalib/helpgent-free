@@ -22,7 +22,7 @@
     --color-text: #898989;
     --color-white: #ffffff;
     --color-black: #000000;
-    --font-family: 'Roboto';
+    --font-family: 'Inter',sans-serif;
     --font-size: 'medium';
     --font-color: '#898989';
     --btn-radius: 8px;
@@ -354,6 +354,7 @@
         }
         &:focus {
             outline: none;
+            color: var(--color-dark);
             border-color: var(--color-dark);
         }
         &:not(:last-child) {
@@ -366,6 +367,9 @@
         &.wpwax-vm-form__element {
             min-height: 100px;
             resize: vertical;
+            &.wpwax-vm-form__element-copyright{
+                min-height: 65px;
+            }
         }
     }
 
@@ -1294,6 +1298,7 @@
             }
         }
     }
+    
 }
 
 
@@ -1561,6 +1566,7 @@
     font-size: 16px;
     font-weight: 600;
     min-height: 100px;
+    font-family: 'Inter',sans-serif;;
     color: var(--color-dark);
     p {
         font-size: 15px;
@@ -1665,8 +1671,6 @@
 	background-color: #00000087;
 	z-index: 99999;
 }
-
-
 
 /* Create Form Modal */
 .wpwax-vm-create-form-modal{
@@ -1788,6 +1792,18 @@
     }
 }
 
+/* Circle Loader */
+.wpwax-vm-circle-loader{
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--color-primary);
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: circleRotation 1s linear infinite;
+}
+
 /* Animation Keyframe */
 
 @keyframes dotPulseBefore {
@@ -1840,6 +1856,17 @@
         transform: rotate(410deg);
     }
 }
+
+/* Wpwax circle animation */
+
+@keyframes circleRotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+} 
 
 @keyframes wpwaxVideoOpen {
     0% {

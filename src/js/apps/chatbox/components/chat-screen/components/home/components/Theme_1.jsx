@@ -18,6 +18,8 @@ import playIcon from 'Assets/svg/icons/play.svg';
 import pauseIcon from 'Assets/svg/icons/pause-solid.svg';
 import videoIcon from 'Assets/svg/icons/video-camera.svg';
 
+import sanitizeHtml from 'sanitize-html';
+import { decodeHTMLEntities } from 'Helper/utils';
 
 function Theme_1() {
     const dispatch = useDispatch();
@@ -179,7 +181,7 @@ function Theme_1() {
 
                 </div>
 
-                <div className="wpwax-vm-chatbox-footer">
+                <div className={templateOptions.creditTextVisibility ? "wpwax-vm-chatbox-footer wpwax-vm-chatbox-footer-copyright" : "wpwax-vm-chatbox-footer"}>
                     { templateOptions.chat_options_title && <h5 className="wpwax-vm-chatbox-footer__title">{ templateOptions.chat_options_title }</h5> }
 
                     {
@@ -206,13 +208,13 @@ function Theme_1() {
                         </div>
                     }
 
-                    <p className="wpwax-vm-chatbox-footer__text">
-                        {
-                            templateOptions.show_footer && templateOptions.footer_message && templateOptions.footer_message
-                        }
-                    </p>
+                    {
+                        templateOptions.show_footer && templateOptions.footer_message ? <p className="wpwax-vm-chatbox-footer__text">{templateOptions.footer_message}</p> : null 
+                    }
 
-                    <p className="wpwax-vm-chatbox-footer__bottom">Powered by <a href="#">WpWax</a></p>
+                    {
+                        templateOptions.creditTextVisibility ? <div className="wpwax-vm-chatbox-footer__bottom" dangerouslySetInnerHTML={{ __html: sanitizeHtml( decodeHTMLEntities( templateOptions.creditTextDom ) ) }}></div> : null
+                    }
                 </div>
             </div>
         </ChatboxForm>

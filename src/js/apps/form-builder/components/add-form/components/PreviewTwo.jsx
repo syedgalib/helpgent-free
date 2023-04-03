@@ -14,6 +14,9 @@ import playIcon from 'Assets/svg/icons/play.svg';
 import pauseIcon from 'Assets/svg/icons/pause-solid.svg';
 import expander from "Assets/svg/icons/expand.svg";
 
+import sanitizeHtml from 'sanitize-html';
+import { decodeHTMLEntities } from 'Helper/utils';
+
 const PreviewTwo = ({ previewStage }) => {
     /* initialize Form Data */
     const { formOption, loading } = useSelector(state => {
@@ -117,15 +120,15 @@ const PreviewTwo = ({ previewStage }) => {
                 </div>
                 :
                 previewStage === 'form' ?
-                    <>
-                        <div className="wpwax-vm-preview-from wpwax-vm-preview-form-theme-2">
-                            <div className="wpwax-vm-preview-header wpwax-vm-custom-scrollbar">
+                    <> 
+                        <div className={formOption.creditTextVisibility ? "wpwax-vm-preview-from wpwax-vm-preview-form-theme-2 wpwax-copyright-active" : "wpwax-vm-preview-from wpwax-vm-preview-form-theme-2"}>
+                            <div className={formOption.greet_video_url !== '' ? "wpwax-vm-preview-header wpwax-vm-custom-scrollbar wpwax-welcome-video": "wpwax-vm-preview-header wpwax-vm-custom-scrollbar wpwax-vm-welcome-image"}>
                                 <h4 className="wpwax-vm-preview-title">{formOption.greet_message}</h4>
                                 {formOption.show_description ?
                                     <span className="wpwax-vm-preview-description">{formOption.description}</span> : ''
                                 }
                             </div>
-                            <div className="wpwax-vm-preview-inner">
+                            <div className={ formOption.greet_video_url !== '' ? "wpwax-vm-preview-inner wpwax-welcome-video" : "wpwax-vm-preview-inner wpwax-vm-welcome-image" }>
                                 {
                                     formOption.greet_video_url &&
                                     <div className="wpwax-vm-chatbox-inner-action">
@@ -139,7 +142,7 @@ const PreviewTwo = ({ previewStage }) => {
                                     </div>
                                 }
                                 {
-                                    formOption.greet_image_url !== '' ? <div className="wpwax-vm-preview-img" style={{ backgroundImage: `url("${formOption.greet_image_url}")` }}></div> : null
+                                    formOption.greet_image_url !== '' ? <div className="wpwax-vm-preview-img"><img src={formOption.greet_image_url} alt="Wpwax Support Video Plugin" /></div> : null
                                 }
                                 {
                                     formOption.greet_video_url !== '' ?
@@ -158,7 +161,7 @@ const PreviewTwo = ({ previewStage }) => {
                                         : null
                                 }
                                 {
-                                    formOption.greet_video_url !== '' ? 
+                                    formOption.greet_video_url !== '' ?
                                         <a href="#" className="wpwax-vm-btn-play" onClick={e => handleToggleGreetVideo(e)}>
                                             {
                                                 !isPaused ? <ReactSVG src={playIcon} /> : <ReactSVG src={pauseIcon} />
@@ -178,9 +181,12 @@ const PreviewTwo = ({ previewStage }) => {
                                             </a>)
                                     }
                                 </div>
-                                <p className="wpwax-vm-preview-footer__text">{formOption.show_footer ? formOption.footer_message : null}</p>
-
-                                <p className="wpwax-vm-chatbox-footer__bottom">Powered by <a href="#">WpWax</a></p>
+                                {
+                                    formOption.show_footer ? <p className="wpwax-vm-preview-footer__text">{ formOption.footer_message }</p> : null
+                                }
+                                {
+                                    formOption.creditTextVisibility ? <div className="wpwax-vm-chatbox-footer__bottom" dangerouslySetInnerHTML={{ __html: sanitizeHtml( decodeHTMLEntities( formOption.creditTextDom ) ) }}></div> : null
+                                }
                             </div>
                         </div>
                     </>

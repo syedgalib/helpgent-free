@@ -108,23 +108,27 @@ const Video = () => {
 		dispatch( changeChatScreen( screenTypes.HOME ) );
 	}
 
+    function handleRecordVideo (e){
+        e.preventDefault();
+        setCurrentStage(stages.RECORD);
+    }
+    
+    
+
     if (currentStage === stages.HOME) {
         return (
             <VideoHomeWrap>
                 <a href="#" className="wpwax-vm-btn-back" onClick={handleBackScreen}><ReactSVG src={arrowRight} /></a>
                 <div className='wpwax-vm-video-home'>
-                    <h3 className='wpwax-vm-video-home__title'>
-                        How would you like to create this step?
-                    </h3>
                     <div className='wpwax-vm-video-home__btns'>
                         <a
                             href='#'
                             className='wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary'
-                            onClick={() => setCurrentStage(stages.RECORD)}
+                            onClick={ e => handleRecordVideo(e) }
                         >
                             Record Video
                         </a>
-                        <span>Or</span>
+                        <span>OR</span>
 
                         <div className=''>
                             <input
@@ -158,7 +162,7 @@ const Video = () => {
             </VideoHomeWrap>
         );
     } else if (currentStage === stages.RECORD) {
-        return <Record />;
+        return <Record homeCurrentStage={currentStage} setHomeCurrentStage={setCurrentStage} />;
     } else if (currentStage === stages.UPLOAD) {
         return <Upload file={selectedFile} back={back} />;
     }
